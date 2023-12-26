@@ -42,6 +42,16 @@ body{
         background-color: #dedede;
       }
     }
+    .input-2{
+      position: relative;
+      i {
+        cursor: pointer;
+        position: absolute;
+        top: 17px;
+        right: 10px;
+      }
+
+    }
    
     button{
       padding: 10px;
