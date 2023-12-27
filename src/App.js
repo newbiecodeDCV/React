@@ -6,7 +6,11 @@ import Home  from './componted/Home';
 import { Routes, Route } from "react-router-dom";
 import Login from './componted/login';
 import Intro from './componted/Intro';
+import Footer  from './componted/Footer';
 import { ToastContainer} from "react-toastify";
+
+
+
 function App() {
   return (
     <>
@@ -20,7 +24,7 @@ function App() {
         <Route path="/intro" element={<Intro />} />
       </Routes>
    </Container>
-   
+    <Footer />
    </div>
    <ToastContainer
 position="top-right"
