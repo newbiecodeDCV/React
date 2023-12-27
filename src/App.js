@@ -5,6 +5,7 @@ import TableUser from './componted/TableUser';
 import Home  from './componted/Home';
 import { Routes, Route } from "react-router-dom";
 import Login from './componted/login';
+import Intro from './componted/Intro';
 import { ToastContainer} from "react-toastify";
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/users" element={<TableUser />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/intro" element={<Intro />} />
       </Routes>
    </Container>
    
