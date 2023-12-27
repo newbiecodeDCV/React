@@ -6,7 +6,7 @@ import Home  from './componted/Home';
 import { Routes, Route } from "react-router-dom";
 import Login from './componted/login';
 import Intro from './componted/Intro';
-import Footer  from './componted/Footer';
+import Footer  from './componted/Footer/Footer';
 import { ToastContainer} from "react-toastify";
 
 
