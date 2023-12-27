@@ -9,7 +9,7 @@ const Header = (props) => {
     const navigate = useNavigate();
     const location  = useLocation();
     const handleLogout = ()=>{
-      localStorage.removeItem("res")
+      localStorage.removeItem("accessToken")
       navigate("/login");
       toast.success("Đăng xuất thành công");
     }
@@ -29,13 +29,13 @@ const Header = (props) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname} >
-            <NavLink to ='/'className="nav-link">Home</NavLink>
+            <NavLink to ='/' className="nav-link">Trang chủ</NavLink>
         
-            <NavLink to ='/users'className="nav-link">Quản lí nhân khẩu</NavLink>
+            <NavLink to ='/users' className="nav-link">Quản lí nhân khẩu</NavLink>
             </Nav>
             <Nav>
             <NavDropdown title="Setting" >
-              <NavLink to ='/login'className="dropdown-item">Login</NavLink>
+              <NavLink to ='/login' className="dropdown-item">Login</NavLink>
               <NavDropdown.Item onClick={() => handleLogout()}>Logout</NavDropdown.Item>
             </NavDropdown>
             </Nav>

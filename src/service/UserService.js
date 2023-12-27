@@ -1,6 +1,6 @@
 import axios from "./axios"
-const fetchAllUser = () => {
-    return axios.get("/?page=1&recordPerPage=3");
+const fetchAllUser = (page) => {
+    return axios.get(`/people/?page=${page}&recordPerPage=4`);
 }
 
 
