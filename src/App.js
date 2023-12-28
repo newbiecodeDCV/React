@@ -5,7 +5,7 @@ import TableUser from './componted/TableUser';
 import Home  from './componted/Home';
 import { Routes, Route } from "react-router-dom";
 import Login from './componted/login';
-import Intro from './componted/Intro';
+import Intro from './componted/Intro/Intro';
 import Footer  from './componted/Footer/Footer';
 import { ToastContainer} from "react-toastify";
 
