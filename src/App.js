@@ -13,6 +13,7 @@ function App() {
    <Header />
    <Container>
     <Routes>
+      <Route path='/test'
         <Route path="/" element={<Home />} />
         <Route path="/users" element={<TableUser />} />
         <Route path="/login" element={<Login />} />
