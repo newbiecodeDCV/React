@@ -1,14 +1,14 @@
 import './App.scss';
-import Header from './componted/Header';
+import Header from './components/Header';
 import Container from 'react-bootstrap/Container';
-import TableUser from './componted/TableUser';
-import Home from './componted/Home';
+import TableUser from './components/TableUser';
+import Home from './components/Home';
 import { Routes, Route } from 'react-router-dom';
-import Login from './componted/login';
+import Login from './components/login';
 import { ToastContainer } from 'react-toastify';
-import RegisterResidenceForm from './componted/RegisterResidenceForm';
-import TableApartments from './componted/TableApartments';
-import TableManager from './componted/TableManager';
+import RegisterResidenceForm from './components/RegisterResidenceForm';
+import TableApartments from './components/TableApartments';
+import TableManager from './components/TableManager';
 function App() {
     return (
         <>
