@@ -1,22 +1,22 @@
 import { useState} from 'react'
 import { Modal, Button} from 'react-bootstrap';
-import { postApartMents } from '../service/UserService';
+import { postManager } from '../service/UserService';
 import { toast } from 'react-toastify';
-const ModalAddNew = (props)  => {
+const ModalAddManager = (props)  => {
     const { show ,handleClose } = props;
-    const [area,setArea] = useState("");
-    const [apartmentId,setApartmentId] = useState("");
-    const [type,setType] = useState("");
-    const handleSaveUser = async (area,apartmentId,type) => {
+    const [mail,setMail] = useState("");
+    const [peopleID,setPeopleId] = useState("");
+    const [role,setRole] = useState("");
+    const handleSaveManager = async (mail,peopleID,role) => {
         try{
-        let res = await  postApartMents(area,apartmentId,type)
-        console.log(">>> check res",res,area,apartmentId,type)
-        console.log(res.data.status)
-        if(res && res.data.status == 'Fail'){
-            toast.error("Lỗi nhập liệu")
+        let res = await  postManager(mail,peopleID,role)
+        console.log(">>> check res",res)
+        console.log(mail,peopleID,role)
+        if(res && res.people ){
+            toast.success("Thêm thành công")
                     
         }else{
-            toast.success("Thêm thành công")
+            toast.error("Lỗi nhập liệu")
         }
         }catch(e){
             toast.error(e)
@@ -26,18 +26,18 @@ const ModalAddNew = (props)  => {
     <>
         <Modal show = {show} onHide={handleClose}>
         <Modal.Header closeButton>
-            <Modal.Title>Thêm căn hộ</Modal.Title>
+            <Modal.Title>Thêm Manager</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
         <div className='body-add-new'>
             <div className="mb-3">
-                <label className="form-label">Diện tích</label>
+                <label className="form-label">Mail</label>
                 <input 
                 type="text" 
                 className="form-control" 
-                value={area}
-                onChange={(event) =>setArea(event.target.value)}
+                value={mail}
+                onChange={(event) =>setMail(event.target.value)}
                 />
             </div>
             <div className="mb-3">
@@ -45,17 +45,17 @@ const ModalAddNew = (props)  => {
                 <input 
                 type="text" 
                 className="form-control"
-                value={apartmentId}
-                onChange={(event) =>setApartmentId(event.target.value)}   
+                value={peopleID}
+                onChange={(event) =>setPeopleId(event.target.value)}   
                 />
             </div>
             <div className="mb-3">
-                <label className="form-label">Loại</label>
+                <label className="form-label">Role</label>
                 <input 
                 type="text" 
                 className="form-control" 
-                value={type}
-                onChange={(event) =>setType(event.target.value)}
+                value={role}
+                onChange={(event) =>setRole(event.target.value)}
                 />
             </div>
         </div>
@@ -65,7 +65,8 @@ const ModalAddNew = (props)  => {
         <Button variant="secondary" onClick={handleClose}>
             Đóng
         </Button>
-        <Button variant="primary" onClick={() => handleSaveUser(area,apartmentId,type)}>
+        <Button variant="primary" onClick={() => handleSaveManager(mail,peopleID,role)
+        }>
         Lưu thay đổi
         </Button>
         </Modal.Footer>
@@ -76,4 +77,4 @@ const ModalAddNew = (props)  => {
 
     )
     }
-    export default ModalAddNew;
+    export default ModalAddManager;

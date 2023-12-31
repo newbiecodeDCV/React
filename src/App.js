@@ -6,6 +6,8 @@ import Home  from './componted/Home';
 import { Routes, Route } from "react-router-dom";
 import Login from './componted/login';
 import { ToastContainer} from "react-toastify";
+import TableApartments from './componted/TableApartments';
+import TableManager from'./componted/TableManager';
 function App() {
   return (
     <>
@@ -13,9 +15,11 @@ function App() {
    <Header />
    <Container>
     <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/users" element={<TableUser />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/apartments" element={<TableApartments />} />
+        <Route path="/manager" element={<TableManager />} />
       </Routes>
    </Container>
    
@@ -33,7 +37,6 @@ pauseOnHover
 theme="light"
 />
 {/* Same as */}
-<ToastContainer />
 
 
    </>
