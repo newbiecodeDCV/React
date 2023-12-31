@@ -1,7 +1,13 @@
 import axios from "axios";
+
 const instance = axios.create({
-    baseURL: 'http://localhost:3000/api/v1',
-  });
+  baseURL :'http://localhost:3000/api/v1',
+  headers: {
+    Authorization: `Bearer ${
+      localStorage.getItem("accessToken")
+    }`,
+  }
+});
   instance.interceptors.response.use(
   
     function (response) {

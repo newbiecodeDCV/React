@@ -8,9 +8,8 @@ import Login from './componted/login';
 import Intro from './componted/Intro/Intro';
 import Footer  from './componted/Footer/Footer';
 import { ToastContainer} from "react-toastify";
-
-
-
+import TableApartments from './componted/TableApartments';
+import TableManager from'./componted/TableManager';
 function App() {
   return (
     <>
@@ -18,10 +17,12 @@ function App() {
    <Header />
    <Container>
     <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/users" element={<TableUser />} />
         <Route path="/login" element={<Login />} />
         <Route path="/intro" element={<Intro />} />
+        <Route path="/apartments" element={<TableApartments />} />
+        <Route path="/manager" element={<TableManager />} />
       </Routes>
    </Container>
     <Footer />
@@ -39,7 +40,6 @@ pauseOnHover
 theme="light"
 />
 {/* Same as */}
-<ToastContainer />
 
 
    </>
