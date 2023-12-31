@@ -6,8 +6,9 @@ import Home from './componted/Home';
 import { Routes, Route } from 'react-router-dom';
 import Login from './componted/login';
 import { ToastContainer } from 'react-toastify';
-import ListGroup from './componted/ListGroup';
 import RegisterResidenceForm from './componted/RegisterResidenceForm';
+import TableApartments from './componted/TableApartments';
+import TableManager from './componted/TableManager';
 function App() {
     return (
         <>
@@ -21,13 +22,14 @@ function App() {
                                 <RegisterResidenceForm></RegisterResidenceForm>
                             }
                         />
-                        <Route
-                            path="/test"
-                            element={<ListGroup>HAAAA</ListGroup>}
-                        />
-                        <Route path="/" element={<Home />} />
+                        <Route path="/home" element={<Home />} />
                         <Route path="/users" element={<TableUser />} />
                         <Route path="/login" element={<Login />} />
+                        <Route
+                            path="/apartments"
+                            element={<TableApartments />}
+                        />
+                        <Route path="/manager" element={<TableManager />} />
                     </Routes>
                 </Container>
             </div>
@@ -44,7 +46,6 @@ function App() {
                 theme="light"
             />
             {/* Same as */}
-            <ToastContainer />
         </>
     );
 }

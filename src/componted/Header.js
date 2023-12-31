@@ -29,9 +29,11 @@ const Header = (props) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname} >
-            <NavLink to ='/' className="nav-link">Trang chủ</NavLink>
+            <NavLink to ='/home' className="nav-link">Trang chủ</NavLink>
         
             <NavLink to ='/users' className="nav-link">Quản lí nhân khẩu</NavLink>
+            <NavLink to ='/apartments' className="nav-link">Quản lí căn hộ</NavLink>
+            <NavLink to ='/manager' className="nav-link">Danh sách quản lí</NavLink>
             </Nav>
             <Nav>
             <NavDropdown title="Setting" >

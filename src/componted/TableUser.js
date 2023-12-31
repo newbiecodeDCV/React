@@ -4,6 +4,8 @@ import Table from 'react-bootstrap/Table';
 import { fetchAllUser } from '../service/UserService';
 import ReactPaginate from 'react-paginate';
 import ModalAddNew from './ModalAddNew';
+import Button from 'react-bootstrap/Button';
+import ModalDetail from './ModalDetail'
 const TableUser = (props) =>{
     
 
@@ -11,8 +13,14 @@ const TableUser = (props) =>{
     const [totalUsers,setToatalUsers] = useState(0);
     const [totalPage,setTotalPage] = useState(0);
     const [isShowModaAddNew,setIsShowModaAddNew] = useState(false);
+    const [isShowModalDetail,setIsShowModalDetail] =useState(false)
+    const [data,setData] = useState([])
     const handleClose = () => {
       setIsShowModaAddNew(false);
+    }
+
+    const handle2Close = () =>{
+      setIsShowModalDetail(false);
     }
 
     useEffect(() =>{
@@ -28,6 +36,7 @@ const TableUser = (props) =>{
           setListUsers(res.data.peopleList)
           setToatalUsers(res.data.totalRecord)
           setTotalPage(res.data.totalPage)
+          console.log(listUsers)
   
         }
        
@@ -35,6 +44,12 @@ const TableUser = (props) =>{
     const handlePageClick= (event) => {
       console.log(event)
       getUser(event.selected +1)
+
+    }
+    const handleCT = (data) => {
+     setIsShowModalDetail(true)
+     console.log(data)
+     setData(data)
 
     }
     
@@ -55,6 +70,7 @@ const TableUser = (props) =>{
               <th>Số Phòng</th>
               <th>Vai Trò</th>
               <th>Trạng Thái</th>
+              <th>Tùy Chọn</th>
             </tr>
           </thead>
           <tbody>
@@ -65,6 +81,11 @@ const TableUser = (props) =>{
                   <td>{item.apartmentId}</td>
                   <td>{item.relationWithHouseholder}</td>
                   <td>{item.status}</td>
+                  
+                  <td 
+                  ><Button variant="info" 
+                  onClick={() => handleCT(item)}
+                  >Chi tiết</Button></td>
                 </tr>
               ))}
           </tbody>
@@ -91,8 +112,13 @@ const TableUser = (props) =>{
            show={isShowModaAddNew}
            handleClose = {handleClose}
            />
-      </>
-      
+      <ModalDetail
+         show={isShowModalDetail}
+         handle2Close = {handle2Close}
+         data = {data}
+      />
+     </>
+         
     );
     
 }
