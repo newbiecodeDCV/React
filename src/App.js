@@ -35,6 +35,7 @@ function App() {
                         <Route path="/manager" element={<TableManager />} />
                     </Routes>
                 </Container>
+                <Footer />
             </div>
             <ToastContainer
                 position="top-right"
