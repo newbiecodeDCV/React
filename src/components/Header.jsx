@@ -34,6 +34,7 @@ const Header = (props) => {
             <NavLink to ='/users' className="nav-link">Quản lí nhân khẩu</NavLink>
             <NavLink to ='/apartments' className="nav-link">Quản lí căn hộ</NavLink>
             <NavLink to ='/manager' className="nav-link">Danh sách quản lí</NavLink>
+            <NavLink to ='/peePage' className="nav-link">Các khoản phí</NavLink>
             </Nav>
             <Nav>
             <NavDropdown title="Setting" >

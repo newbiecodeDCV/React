@@ -9,9 +9,18 @@ import { ToastContainer } from 'react-toastify';
 import RegisterResidenceForm from './components/RegisterResidenceForm';
 import TableApartments from './components/TableApartments';
 import TableManager from './components/TableManager';
+import Page from './components/PeePage';
+import Page1 from './components/PageCharity';
+import TableCharity from './components/TableCharity';
+import TableCharityPee from './components/TableCharityPee';
+import { DataProvider1,DataProvider2 } from './Context/UseContext';
+import TableDonate from './components/TableDonate';
 function App() {
     return (
+
         <>
+         <DataProvider1>
+         <DataProvider2>
             <div className="app-container">
                 <Header />
                 <Container>
@@ -25,11 +34,13 @@ function App() {
                         <Route path="/home" element={<Home />} />
                         <Route path="/users" element={<TableUser />} />
                         <Route path="/login" element={<Login />} />
-                        <Route
-                            path="/apartments"
-                            element={<TableApartments />}
-                        />
+                        <Route path="/peePage" element={<Page/>} />
+                        <Route path="/apartments"element={<TableApartments />}  />
                         <Route path="/manager" element={<TableManager />} />
+                        <Route path="/peePage/page1" element={<Page1 />} />
+                        <Route path="/peePage/page1/func1" element={<TableCharity/>} />
+                        <Route path="/peePage/page1/func4" element={<TableCharityPee/>} />
+                        <Route path="/peePage/page1/func2" element={<TableDonate/>} />
                     </Routes>
                 </Container>
             </div>
@@ -46,6 +57,9 @@ function App() {
                 theme="light"
             />
             {/* Same as */}
+            </DataProvider2>
+            </DataProvider1>
+          
         </>
     );
 }

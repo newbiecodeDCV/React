@@ -83,4 +83,40 @@ body{
   align-items: center;
   justify-content: space-between;
 }
+// Page1.scss
+// Page1.scss
+.func-card {
+  width: 200px;
+  height: 70px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  transition: background-color 0.3s, border 0.3s, color 0.3s;
+
+  &.func1 {
+    background-color: #888; // Màu xám cho .func1 khi không hover
+    &:hover {
+      background-color: #aaa; // Màu xám cho .func1 khi hover
+      border: 2px solid #666; // Màu viền cho .func1 khi hover
+    }
+  }
+
+  &.func2 {
+    background-color: #888; // Màu xám cho .func2 khi không hover
+    &:hover {
+      background-color: #aaa; // Màu xám cho .func2 khi hover
+      border: 2px solid #666; // Màu viền cho .func2 khi hover
+    }
+  }
 }
+
+}
+
+
+
+

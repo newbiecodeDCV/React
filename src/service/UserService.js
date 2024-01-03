@@ -44,4 +44,29 @@ const postManager = (email,peopleId,role) =>{
         'role':role
     })
 }
-export {fetchAllUser,loginAPI,fetchAllApartMents,postApartMents,pathApartMents,fetchAllManager,postManager}
+
+const fetchAllCharity = () => {
+    return axios.get('/charity/fee')
+}
+const postCharity = (name,startDate,endDate)  =>{
+     return axios.post('/charity/fee',{
+        'name':name,
+        'startDate':startDate,
+        'endDate':endDate
+     })
+    }
+
+const getCharityPee = (page,feeID) =>{
+    return axios.get(`/charity/fee/${feeID}/fund?page=${page}&recordPerPage=20`)
+}
+const fetchAllUser_2 = (page,name,apartmentId) => {
+    return axios.get(`/people/?page=${page}&recordPerPage=4&name=${name}&apartmentId=${apartmentId}`);
+}
+
+const postCharityPee = (feeID,peopleId,amount) =>{
+    return axios.post(`charity/fee/${feeID}/fund`,{
+        'peopleId':peopleId,
+        'amount':amount
+    })
+}
+export {fetchAllUser,loginAPI,fetchAllApartMents,postApartMents,pathApartMents,fetchAllManager,postManager,fetchAllCharity,postCharity,getCharityPee,fetchAllUser_2,postCharityPee}

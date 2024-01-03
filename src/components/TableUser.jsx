@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { fetchAllUser } from '../service/UserService';
