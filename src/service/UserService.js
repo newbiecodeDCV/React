@@ -69,4 +69,39 @@ const postCharityPee = (feeID,peopleId,amount) =>{
         'amount':amount
     })
 }
-export {fetchAllUser,loginAPI,fetchAllApartMents,postApartMents,pathApartMents,fetchAllManager,postManager,fetchAllCharity,postCharity,getCharityPee,fetchAllUser_2,postCharityPee}
+
+const postPeeDV = (name,unitPrice) =>{
+    return axios.post('/fee',{
+        'name':name,
+        'unitPrice':unitPrice
+    })
+}
+const getPee = () =>{
+    return axios.get('/fee')
+}
+const deletePee = (id) =>{
+    return axios.delete(`/fee/${id}`)
+}
+const patchPee = (id,unitPrice) =>{
+    return axios.patch(`/fee/${id}`,{
+        'unitPrice':unitPrice
+    })
+}
+const getPeeDept = (page) =>{
+    return axios.get(`/fee/bills/dept?page=${page}&recordPerPage=20`)
+}
+const getPeeBill = (apartmentId,month,year) =>{
+    return axios.get(`/fee/bills/${apartmentId}?month=${month}&year=${year}`)
+}
+const patchBill = (apartmentId,month,year,payMoney,payername) =>{
+    return axios.patch(`/fee/bills/${apartmentId}`,{
+        'month':month,
+        'year':year,
+        'payMoney':payMoney,
+        'payerName':payername
+    })
+}
+const getBill = (page,month,year) =>{
+    return axios.get(`/fee/bills?month=${month}&year=${year}&page=${page}&recordPerPage=20`)
+}
+export {fetchAllUser,loginAPI,fetchAllApartMents,postApartMents,pathApartMents,fetchAllManager,postManager,fetchAllCharity,postCharity,getCharityPee,fetchAllUser_2,postCharityPee,postPeeDV,getPee,deletePee,patchPee,getPeeDept,getPeeBill,patchBill,getBill}

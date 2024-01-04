@@ -18,6 +18,10 @@ const ModalPatchApt = (props) => {
         setPhoneNumber('');
         setPermanentAddress('');
     };
+    const handleCloseModal = () => {
+        handle2Close();
+        return resetState();
+    }
     const handlePatchApart = async (
         apartmentId,
         name,
@@ -131,7 +135,7 @@ const ModalPatchApt = (props) => {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handle2Close}>
+                    <Button variant="secondary" onClick={handleCloseModal}>
                         Đóng
                     </Button>
                     <Button

@@ -27,6 +27,6 @@ const instance = axios.create({
       }
       return res;
     });
-  
+ 
   
   export default instance;
