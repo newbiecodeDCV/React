@@ -19,7 +19,7 @@ const [totalPage,setTotalPage] = useState(0);
         if( res && res.status === 'Success'){
           console.log(res)
           setListPeeDept(res.data.deptList)
-          setTotalPage(res.totalPage)
+          setTotalPage(res.data.totalPage)
          }   
     }
     const handlePageClick= (event) => {
@@ -36,14 +36,14 @@ const [totalPage,setTotalPage] = useState(0);
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Số Phòng</th>
+              <th>Số hiệu căn hộ</th>
               <th>Tháng</th>
               <th>Năm</th>
               <th>Tổng nợ</th>
             </tr>
           </thead>
           <tbody>
-          {listPeeDept && listPeeDept >0 &&
+          {listPeeDept && listPeeDept.length >0 &&
             listPeeDept.map((item, index) => (
                 <tr key={`user-${index}`}>
                   <td>{item.bill_apartmentId}</td>

@@ -30,7 +30,7 @@ const ModalAddCharity = (props)  => {
                 />
             </div>
             <div className="mb-3">
-                <label className='form-label'>Id</label>
+                <label className='form-label'>Số hiệu căn hộ</label>
                 <input 
                 type="text" 
                 className="form-control"
