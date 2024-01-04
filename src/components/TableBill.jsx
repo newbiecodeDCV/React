@@ -3,9 +3,11 @@ import Table from 'react-bootstrap/Table';
 import { useData4 } from '../Context/UseContext';
 import { getBill } from '../service/UserService';
 import ReactPaginate from 'react-paginate';
-import { toast } from 'react-toastify';
+import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 const TableBill = () =>{
-    const {month,year,status} = useData4()
+    const navigate = useNavigate()
+    const {month,year} = useData4()
     const [totalPage,setTotalPage] = useState('')
     const [paymentList,setPaymentList] = useState([])
       useEffect(() =>{
@@ -18,12 +20,6 @@ const TableBill = () =>{
       setTotalPage(res.data.totalPage)
       setPaymentList(res.data.paymentList)
       console.log(res)
-      if(res && res.status ==="Success"){
-      toast.success("Thành công")
-      }else{
-     toast.error("Thất bại")
-      }
-
     }catch(e){
     console.log(e)
     }
@@ -85,7 +81,13 @@ const TableBill = () =>{
         containerClassName="pagination"
         activeClassName="active"
       />
+      <div className ="my-3 add-new">
+           <span> <Button  variant="success"
+           onClick={()=>navigate('/peePage/page2')}
+           >Quay lại</Button></span>
+        </div>     
        </>
+       
          
     );
     

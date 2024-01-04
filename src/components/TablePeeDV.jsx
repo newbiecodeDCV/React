@@ -98,6 +98,7 @@ const TablePeeDV = (props) =>{
         show={isModalPatchPeeDV}
         handleClose={handleClose}
         id= {id}
+        getPeeDV ={getPeeDV}
         />
         <ModalAddPeeDV
         show ={isShowModalAddPeeDV}

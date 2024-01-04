@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { useData3 } from '../Context/UseContext';
 import { getPeeBill } from '../service/UserService';
-
+import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 const TablePeeBillAprt = () => {
     const { apartmentId, month, year } = useData3();
     const [listRecord, setListRecord] = useState([]);
     const [total, setTotal] = useState(0);
+    const navigate = useNavigate()
     useEffect(() => {
         //call API
         getpeebill();
@@ -56,6 +58,11 @@ const TablePeeBillAprt = () => {
                 </tbody>
             </Table>
             <div>{total > 0 && <p>Tổng phải đóng: {total} đồng</p>}</div>
+            <div className ="my-3 add-new">
+           <span> <Button  variant="success"
+           onClick={()=>navigate('/peePage/page2')}
+           >Quay lại</Button></span>
+        </div>     
         </>
     );
 };

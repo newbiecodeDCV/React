@@ -33,7 +33,7 @@ const Header = (props) => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-        {(user && user.auth || window.location.pathname ==='/home')&&
+        {(user && user.auth || window.location.pathname ==='/')&&
         <>
           <Nav className="me-auto" activeKey={location.pathname} >
             <NavLink to ='/home' className="nav-link">Trang chủ</NavLink>
@@ -42,6 +42,7 @@ const Header = (props) => {
             <NavLink to ='/apartments' className="nav-link">Quản lí căn hộ</NavLink>
             <NavLink to ='/admin' className="nav-link">Danh sách quản lí</NavLink>
             <NavLink to ='/peePage' className="nav-link">Quản lý phí thu</NavLink>
+            <NavLink to ='/Form' className="nav-link">Tra cứu</NavLink>
             </Nav>
             <Nav>
             <NavDropdown title="Setting" >

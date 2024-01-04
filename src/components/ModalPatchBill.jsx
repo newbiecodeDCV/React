@@ -3,7 +3,7 @@ import { Modal, Button} from 'react-bootstrap';
 import { patchBill} from '../service/UserService';
 import { toast } from 'react-toastify';
 const ModalPatchBill = (props)  => {
-    const { show ,handleClose} = props;
+    const { show ,handleClose,getpeedept} = props;
     const [apartmentId,setApartmentId] = useState("");
     const [month,setMonth] =useState("")
     const [year,setYear] =useState("")
@@ -18,6 +18,12 @@ const ModalPatchBill = (props)  => {
           if(res && res.status ==='Success'){
             toast.success("Thanh toán thành công")
            handleClose()
+           setApartmentId('')
+           setMonth('')
+           setYear('')
+           setPayMoney('')
+           setPayername('')
+           getpeedept(1)
          }
          }catch(e){
             console.log(e)
@@ -88,7 +94,7 @@ const ModalPatchBill = (props)  => {
             Đóng
         </Button>
         <Button variant="primary" onClick={
-            () => patchBilldv()
+            ()=> patchBilldv()
             }>
         Lưu thay đổi
         </Button>

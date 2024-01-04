@@ -104,4 +104,9 @@ const patchBill = (apartmentId,month,year,payMoney,payername) =>{
 const getBill = (page,month,year) =>{
     return axios.get(`/fee/bills?month=${month}&year=${year}&page=${page}&recordPerPage=20`)
 }
-export {fetchAllUser,loginAPI,fetchAllApartMents,postApartMents,pathApartMents,fetchAllManager,postManager,fetchAllCharity,postCharity,getCharityPee,fetchAllUser_2,postCharityPee,postPeeDV,getPee,deletePee,patchPee,getPeeDept,getPeeBill,patchBill,getBill}
+
+const getGust = (apartmentId,citizenId) =>{
+    return axios.get(`http://localhost:3000/api/v1/guest/bill?apartmentId=${apartmentId}&citizenId=${citizenId}`)
+
+}
+export {fetchAllUser,loginAPI,fetchAllApartMents,postApartMents,pathApartMents,fetchAllManager,postManager,fetchAllCharity,postCharity,getCharityPee,fetchAllUser_2,postCharityPee,postPeeDV,getPee,deletePee,patchPee,getPeeDept,getPeeBill,patchBill,getBill,getGust}

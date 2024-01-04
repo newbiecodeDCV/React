@@ -10,6 +10,8 @@ const ModalAddCharity = (props)  => {
     const handleShow =  () => {
         setAndRedirect(name,apartmentId)
         console.log("Truyền thành công")
+        setName("")
+        setApartmentId("")
     }
     return(
     <>

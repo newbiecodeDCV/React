@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { getPeeDept  } from '../service/UserService';
 import ReactPaginate from 'react-paginate';
+import { Button } from 'react-bootstrap';
+import ModalPatchBill from './ModalPatchBill';
+import { useNavigate } from 'react-router-dom';
 const TablePeeDept = (props) =>{
-    
+const navigate = useNavigate()
 const [listPeeDept,setListPeeDept] = useState([]);
 const [totalPage,setTotalPage] = useState(0);
-
+const [isShowModalPatchBill,setIsShowModalPatchBill] = useState(false)
 
     useEffect(() =>{
          //call API
@@ -27,6 +30,12 @@ const [totalPage,setTotalPage] = useState(0);
       getpeedept(event.selected +1)
 
     }  
+    const handleClose3 = () =>{
+      setIsShowModalPatchBill(false)
+    }
+    const handleOpen3 = () =>{
+      setIsShowModalPatchBill(true)
+    }
     return (
         <>
         <div className ="my-3 add-new">
@@ -40,6 +49,7 @@ const [totalPage,setTotalPage] = useState(0);
               <th>Tháng</th>
               <th>Năm</th>
               <th>Tổng nợ</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -50,6 +60,13 @@ const [totalPage,setTotalPage] = useState(0);
                   <td>{item.bill_month}</td>
                   <td>{item.bill_year}</td>
                   <td>{item.total}</td>
+                  <td>
+                    <Button  variant="success"
+                    onClick={handleOpen3}
+                    >
+                      Đóng phí
+                    </Button>
+                  </td>
                   </tr>
             ))}
           </tbody>
@@ -72,6 +89,17 @@ const [totalPage,setTotalPage] = useState(0);
         containerClassName="pagination"
         activeClassName="active"
       />
+       <div className ="my-3 add-new">
+           <span> <Button  variant="success"
+           onClick={()=>navigate('/peePage/page2')}
+           >Quay lại</Button></span>
+        </div> 
+      <ModalPatchBill
+    show = {isShowModalPatchBill}
+    handleClose = {handleClose3}
+    getpeedept ={getpeedept}
+    />
+     
      </>
          
     );

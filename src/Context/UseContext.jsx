@@ -5,6 +5,7 @@ const DataContext1 = createContext();
 const DataContext2 = createContext();
 const DataContext3 = createContext();
 const DataContext4 = createContext();
+const DataContext5 = createContext();
 export const DataProvider1 = ({ children }) => {
   const [data, setData] = useState(null);
   const navigate = useNavigate();
@@ -76,6 +77,23 @@ export const DataProvider2 = ({ children }) => {
       </DataContext4.Provider>
     );
   };
+  export const DataProvider5 = ({ children }) => {
+    const [apartmentId, setApartmentId] = useState('');
+    const [citizenId,setCitizenId] = useState('')
+    const navigate = useNavigate();
+  
+    const setAndRedirect = (apartmentId,citizenId) => {
+      setApartmentId(apartmentId);
+      setCitizenId(citizenId)
+      navigate('');
+    }
+  return (
+      <DataContext5.Provider value={{apartmentId, citizenId,setAndRedirect}}>
+        {children}
+      </DataContext5.Provider>
+    );
+  };
+  
   
   
 export const useData1 = () => {
@@ -102,6 +120,13 @@ export const useData3 = () => {
 };
 export const useData4 = () => {
   const context = useContext(DataContext4);
+  if (!context) {
+    throw new Error('useData must be used within a DataProvider');
+  }
+  return context;
+};
+export const useData5 = () => {
+  const context = useContext(DataContext5);
   if (!context) {
     throw new Error('useData must be used within a DataProvider');
   }

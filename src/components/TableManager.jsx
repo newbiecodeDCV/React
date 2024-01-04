@@ -62,6 +62,7 @@ const TableManager=  () => {
       <ModalAddManager
            show={isShowModalManager}
            handleClose = {handleClose}
+           getManager ={getManager}
            />
            </>
     )

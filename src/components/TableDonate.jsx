@@ -5,12 +5,17 @@ import { useData2 } from '../Context/UseContext';
 import { fetchAllUser_2 } from '../service/UserService';
 import { Button } from 'react-bootstrap';
 import ModalDonate from './ModalDonate';
+import { useNavigate } from 'react-router-dom';
 const TableDonate = () =>{
     const {name,apartmentId} = useData2()
     const [listUsers,setListUsers] = useState([])
     const [totalPage,setTotalPage] = useState(0)
     const [isShowModalDonate,setIsShowModalDonate] = useState(false)
     const [peopleID,setPeopleId] = useState('')
+    const navigate = useNavigate()
+    const handleBack = ()=>{
+      navigate('/peePage/page1/func1')
+    }
     const handlePageClick= (event) => {
       console.log(event)
       }
@@ -32,7 +37,7 @@ const TableDonate = () =>{
     const handleClose = () =>{
       setIsShowModalDonate(false)
     }
-    
+   
     return (
 
         <>
@@ -85,6 +90,11 @@ const TableDonate = () =>{
         containerClassName="pagination"
         activeClassName="active"
       />
+      <div className ="my-3 add-new">
+           <span> <Button
+           onClick={handleBack}
+           >Quay lại</Button></span>
+        </div>  
       <ModalDonate
       show = {isShowModalDonate}
       handleClose ={handleClose}

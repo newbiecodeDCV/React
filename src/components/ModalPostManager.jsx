@@ -2,8 +2,9 @@ import { useState} from 'react'
 import { Modal, Button} from 'react-bootstrap';
 import { postManager } from '../service/UserService';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 const ModalAddManager = (props)  => {
-    const { show ,handleClose } = props;
+    const { show ,handleClose,getManager } = props;
     const [mail,setMail] = useState("");
     const [peopleID,setPeopleId] = useState("");
     const [role,setRole] = useState("");
@@ -12,8 +13,13 @@ const ModalAddManager = (props)  => {
         let res = await  postManager(mail,peopleID,role)
         console.log(">>> check res",res)
         console.log(mail,peopleID,role)
-        if(res && res.people ){
+        if(res && res.status ==="Success" ){
             toast.success("Thêm thành công")
+            handleClose()
+            setMail('')
+            setPeopleId('')
+            setRole('')
+            getManager()
                     
         }else{
             toast.error("Lỗi nhập liệu")
@@ -21,6 +27,14 @@ const ModalAddManager = (props)  => {
         }catch(e){
             toast.error(e)
         }
+    }
+    const handleCloseModal = () =>{
+        handleClose()
+        setMail('')
+        setPeopleId('')
+        setRole('')
+
+        
     }
     return(
     <>
@@ -62,7 +76,7 @@ const ModalAddManager = (props)  => {
         </Modal.Body>
 
         <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleCloseModal}>
             Đóng
         </Button>
         <Button variant="primary" onClick={() => handleSaveManager(mail,peopleID,role)

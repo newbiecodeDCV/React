@@ -13,7 +13,7 @@ import Page from './components/PeePage';
 import Page1 from './components/PageCharity';
 import TableCharity from './components/TableCharity';
 import TableCharityPee from './components/TableCharityPee';
-import { DataProvider1,DataProvider2,DataProvider3,DataProvider4,UserProvider} from './Context/UseContext';
+import { DataProvider1,DataProvider2,DataProvider3,DataProvider4,DataProvider5} from './Context/UseContext';
 import TableDonate from './components/TableDonate';
 import PeoplePage from './components/PeopleManagePage';
 import PageDV from './components/PagePeeDV';
@@ -23,6 +23,8 @@ import TablePeeBillAprt from './components/TableBillAprt';
 import TableBill from './components/TableBill'
 import { UserContext} from './Context/UseContext';
 import { useContext, useEffect } from 'react';
+import FormGuest from './components/Formguest';
+import TableForm from './components/TableForm';
 function App() {
     const {user,loginContext} = useContext(UserContext)
     console.log(user)
@@ -30,7 +32,7 @@ function App() {
         if(localStorage.getItem('accessToken')){
          loginContext(localStorage.getItem('email'),localStorage.getItem('accessToken'))
         }
-    })
+    },[])
     return (
 
         <>
@@ -38,7 +40,7 @@ function App() {
          <DataProvider2>
          <DataProvider3>
          <DataProvider4>
-        
+         <DataProvider5>
             <div className="app-container">
                 <Header />
                 <Container>
@@ -70,6 +72,8 @@ function App() {
                         <Route path="/peePage/page2/func2" element={<TablePeeDept />} />
                         <Route path="/peePage/page2/func3" element={<TablePeeBillAprt />} />
                         <Route path="/peePage/page2/func4" element={<TableBill />} />
+                        <Route path="/form" element={<FormGuest />} />
+                        <Route path="/Tableform" element={< TableForm/>} />
                     </Routes>
                 </Container>
             </div>
@@ -86,7 +90,7 @@ function App() {
                 theme="light"
             />
             {/* Same as */}
-        
+            </DataProvider5>
             </DataProvider4>
             </DataProvider3>
             </DataProvider2>

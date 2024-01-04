@@ -42,10 +42,6 @@ const PageDV = () => {
         <button className="func-card func4 mb-3"
         onClick={handleOpen1}
         >Tra cứu hóa đơn căn hộ</button>
-    
-        <button className="func-card func5 mb-3"
-        onClick={handleOpen3}
-        >Đóng Tiền</button>
         <button className="func-card func6"
         onClick={handleOpen4}
         >Tra cứu hóa đơn </button>

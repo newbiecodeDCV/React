@@ -5,7 +5,16 @@ import { fetchAllCharity } from '../service/UserService';
 import { useData1 } from '../Context/UseContext';
 import { Button } from 'react-bootstrap';
 import ModalAddCharity from './ModalAddCharity';
+import ModalCharity from './ModalCharity';
 const TableCharity = () =>{
+  const [isShowModalCharity,SetIsShowModalCharity] = useState(false)
+   const handleClose2 = () =>{
+   SetIsShowModalCharity(false)
+  }
+  const handleModalCharityClick = () => {
+   SetIsShowModalCharity(true);
+ };
+
     const { setData,data,setAndRedirect} = useData1()
     const [isShowModalAdd,setIsShowModalAdd] = useState(false)
     const [data1,setData1] = useState([])
@@ -38,7 +47,11 @@ const TableCharity = () =>{
          
         <>
         <div className ="my-3 add-new">
-           <span> <b>Danh sách các khoản phí từ thiện</b></span>
+    
+           <span> <b>Danh sách các phí từ thiện</b></span>
+           <button className="btn btn-success"
+            onClick={handleModalCharityClick}
+             >Thêm phí từ thiện</button>
         </div>     
 
         <Table striped bordered hover>
@@ -77,6 +90,11 @@ const TableCharity = () =>{
         show = {isShowModalAdd}
         handleClose = {handleClose}
         />
+         <ModalCharity
+           show={isShowModalCharity}
+           handleClose = {handleClose2}
+           getCharity = {getCharity}
+           />
       </>
       )
 }

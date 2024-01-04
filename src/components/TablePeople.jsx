@@ -35,6 +35,8 @@ const TablePeople = (props) => {
             console.log(listUsers);
         }
     };
+   
+    
     const handlePageClick = (event) => {
         console.log(event);
         getUser(event.selected + 1);

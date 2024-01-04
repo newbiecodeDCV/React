@@ -3,11 +3,11 @@ import { Modal, Button} from 'react-bootstrap';
 import { postCharity } from '../service/UserService';
 import { toast } from 'react-toastify';
 const ModalCharity = (props)  => {
-    const { show ,handleClose } = props;
+    const { show ,handleClose,getCharity} = props;
     const [name,setName] = useState("");
     const [startDate,setStartDate] = useState("");
     const [endDate,setEndDate] = useState("");
-    const handleSaveUser = async (name,startDate,endDate) => {
+    const handleSaveCharity = async (name,startDate,endDate) => {
         try{
         let res = await  postCharity(name,startDate,endDate)
         console.log(">>> check res",res,name,startDate,endDate)
@@ -17,6 +17,11 @@ const ModalCharity = (props)  => {
                     
         }else{
             toast.success("Thêm thành công")
+            setName('')
+            setEndDate('')
+            setStartDate('')
+            handleClose()
+            getCharity()
         }
         }catch(e){
             toast.error(e)
@@ -32,7 +37,7 @@ const ModalCharity = (props)  => {
         <Modal.Body>
         <div className='body-add-new'>
             <div className="mb-3">
-                <label className="form-label">Họ Tên</label>
+                <label className="form-label">Tên Phí Từ Thiện</label>
                 <input 
                 type="text" 
                 className="form-control" 
@@ -41,7 +46,7 @@ const ModalCharity = (props)  => {
                 />
             </div>
             <div className="mb-3">
-                <label className='form-label'>Id</label>
+                <label className='form-label'>Ngày Bắt Đầu</label>
                 <input 
                 type="text" 
                 className="form-control"
@@ -50,7 +55,7 @@ const ModalCharity = (props)  => {
                 />
             </div>
             <div className="mb-3">
-                <label className="form-label">Loại</label>
+                <label className="form-label">Ngày Kết Thúc</label>
                 <input 
                 type="text" 
                 className="form-control" 
@@ -65,7 +70,7 @@ const ModalCharity = (props)  => {
         <Button variant="secondary" onClick={handleClose}>
             Đóng
         </Button>
-        <Button variant="primary" onClick={() => handleSaveUser(name,startDate,endDate)}>
+        <Button variant="primary" onClick={() => handleSaveCharity(name,startDate,endDate)}>
         Lưu thay đổi
         </Button>
         </Modal.Footer>

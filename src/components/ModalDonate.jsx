@@ -7,13 +7,15 @@ const ModalDonate = (props)  => {
     const { show ,handleClose,peopleId} = props;
     const [amount,setAmount] = useState('');
     const {data} = useData1()
-    const handleSaveManager = async (amount) => {
+    const handleSaveDonate = async (amount) => {
         try{
         let res = await  postCharityPee(data,peopleId,amount)
         console.log(" check res",res)
         console.log(data,peopleId,amount)
         if(res && res.status === 'Success' ){
             toast.success("Thêm thành công")
+            handleClose()
+            setAmount('')
                     
         }else{
             toast.error("Lỗi nhập liệu")
@@ -48,7 +50,7 @@ const ModalDonate = (props)  => {
         <Button variant="secondary" onClick={handleClose}>
             Đóng
         </Button>
-        <Button variant="primary" onClick={() => handleSaveManager(amount)
+        <Button variant="primary" onClick={() => handleSaveDonate(amount)
         }>
         Lưu thay đổi
         </Button>

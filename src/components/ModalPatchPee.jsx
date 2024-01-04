@@ -3,7 +3,7 @@ import { Modal, Button} from 'react-bootstrap';
 import { patchPee} from '../service/UserService';
 import { toast } from 'react-toastify';
 const ModalPatchPee = (props)  => {
-    const { show ,handleClose,id} = props;
+    const { show ,handleClose,id,getPeeDV} = props;
     const [unitPrice,setUnitPrice] = useState("");
 
     const patchPeedv = async ()=>{
@@ -13,7 +13,9 @@ const ModalPatchPee = (props)  => {
           console.log(id)
           if(res && res.status ==='Success'){
             toast.success("Thay đổi thành công")
+            setUnitPrice('')
            handleClose()
+           getPeeDV()
          }
          }catch(e){
             console.log(e)
