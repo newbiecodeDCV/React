@@ -5,11 +5,13 @@ import Button from 'react-bootstrap/Button';
 import { deletePee } from '../service/UserService';
 import { toast } from 'react-toastify';
 import ModalPatchPee from './ModalPatchPee';
+import ModalAddPeeDV from './ModalAddPeeDV';
 const TablePeeDV = (props) =>{
-
+    const [isShowModalAddPeeDV,setIsShowModalAddPeeDV] = useState(false)
     const [listPee,setListPee] = useState([]);
     const [isModalPatchPeeDV,setIsModalPatchPee] = useState(false)
     const [id,setId] =useState('')
+
     useEffect(() =>{
          //call API
         getPeeDV();
@@ -46,11 +48,21 @@ const TablePeeDV = (props) =>{
     const handleClose =()=>{
       setIsModalPatchPee(false)
     }
+    const handleClose1 = () =>{
+      setIsShowModalAddPeeDV(false)
+  }
+  const handleOpen1 = () =>{
+      setIsShowModalAddPeeDV(true)
+  }
     return (
 
         <>
         <div className ="my-3 add-new">
            <span> <b>Danh sách phí dịch vụ</b></span>
+           <button
+            className="btn btn-success"
+            onClick={handleOpen1}>Thêm phí
+                </button>
         </div>     
         <Table striped bordered hover>
           <thead>
@@ -87,6 +99,12 @@ const TablePeeDV = (props) =>{
         handleClose={handleClose}
         id= {id}
         />
+        <ModalAddPeeDV
+        show ={isShowModalAddPeeDV}
+        handleClose={handleClose1}
+        getPeeDV={getPeeDV}
+        />
+
      </>
          
     );

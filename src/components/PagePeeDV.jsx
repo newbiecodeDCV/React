@@ -3,21 +3,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { useState } from 'react';
-import ModalAddPeeDV from './ModalAddPeeDV';
 import ModalBillPhong from './ModalBillPhong';
 import ModalPatchBill from './ModalPatchBill';
 import ModalBill from './ModalBill';
 const PageDV = () => {
-    const [isShowModalAddPeeDV,setIsShowModalAddPeeDV] = useState(false)
     const [isShơModalBillPhong,setIsShowModalBillPhong] = useState(false)
     const [isShowModalPatchBill,setIsShowModalPatchBill] = useState(false)
     const [isShowModalBill,setIsShowModalBill] = useState(false)
-    const handleClose = () =>{
-        setIsShowModalAddPeeDV(false)
-    }
-    const handleOpen = () =>{
-        setIsShowModalAddPeeDV(true)
-    }
+  
     const handleClose1 = () =>{
       setIsShowModalBillPhong(false)
     }
@@ -40,9 +33,6 @@ const PageDV = () => {
   <Container className="text-center mt-5">
     <h1>Chức năng</h1>
     <div className="d-flex flex-column align-items-center">
-        <button className="func-card func1 mb-3"
-        onClick={handleOpen}
-        >Tạo phí mới</button>
       <Link to="/peePage/page2/func1" className="mb-3">
         <button className="func-card func2">Phí dịch vụ</button>
       </Link>
@@ -60,10 +50,6 @@ const PageDV = () => {
         onClick={handleOpen4}
         >Tra cứu hóa đơn </button>
     </div>
-    <ModalAddPeeDV
-    show = {isShowModalAddPeeDV}
-    handleClose = {handleClose}
-    />
     <ModalBillPhong
     show ={isShơModalBillPhong}
     handleClose={handleClose1}

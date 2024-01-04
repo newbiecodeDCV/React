@@ -2,18 +2,20 @@ import { useState} from 'react'
 import { Modal, Button} from 'react-bootstrap';
 import { postPeeDV } from '../service/UserService';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const ModalAddPeeDV = (props)  => {
-    const { show ,handleClose} = props;
+    const { show ,handleClose,getPeeDV} = props;
     const [name,setName] = useState('')
     const [unitPrice,setUnitPrice] = useState('')
-    
+    const Navigate = useNavigate()
     const handlePee = async () => {
         try{
         let res = await  postPeeDV(name,unitPrice)
         console.log(" check res",res)
         if(res && res.status === 'Success' ){
             toast.success("Thêm thành công")
-                    
+            handleClose()
+            getPeeDV()
         }else{
             toast.error("Lỗi nhập liệu")
         }
