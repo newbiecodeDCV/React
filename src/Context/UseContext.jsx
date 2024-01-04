@@ -107,3 +107,37 @@ export const useData4 = () => {
   }
   return context;
 };
+
+const UserContext = createContext({ email: '', auth: false });
+const UserProvider = ({ children }) => {
+  // User is the name of the "data" that gets stored in context
+  const [user, setUser] = useState({ email: '', auth: true });
+
+  // Login updates the user data with a name parameter
+  const loginContext = (email,accessToken) => {
+    setUser(() => ({
+      email: email,
+      auth: true,
+    }));
+    localStorage.setItem("accessToken",accessToken)
+    localStorage.setItem("email",email)
+  };
+
+  // Logout updates the user data to default
+  const logout = (email) => {
+    localStorage.removeItem("accessToken")
+    localStorage.removeItem("email")
+    setUser(() => ({
+      email: email,
+      auth: false,
+    }));
+  };
+
+  return (
+    <UserContext.Provider value={{ user, loginContext, logout }}>
+      {children}
+    </UserContext.Provider>
+  );
+}
+
+export {UserContext,UserProvider}

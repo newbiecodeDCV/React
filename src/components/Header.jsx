@@ -5,11 +5,16 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import logo from '../asset/image/images.jpg'
 import { useLocation,NavLink,useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useContext, useState } from 'react';
+import { UserContext } from '../Context/UseContext';
+import { useEffect } from 'react';
 const Header = (props) => {
+  const {logout,user} = useContext(UserContext)
     const navigate = useNavigate();
     const location  = useLocation();
+   
     const handleLogout = ()=>{
-      localStorage.removeItem("accessToken")
+      logout()
       navigate("/login");
       toast.success("Đăng xuất thành công");
     }
@@ -28,6 +33,8 @@ const Header = (props) => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
+        {(user && user.auth || window.location.pathname ==='/home')&&
+        <>
           <Nav className="me-auto" activeKey={location.pathname} >
             <NavLink to ='/home' className="nav-link">Trang chủ</NavLink>
         
@@ -38,10 +45,14 @@ const Header = (props) => {
             </Nav>
             <Nav>
             <NavDropdown title="Setting" >
-              <NavLink to ='/login' className="dropdown-item">Login</NavLink>
-              <NavDropdown.Item onClick={() => handleLogout()}>Logout</NavDropdown.Item>
+            {user && user.auth
+            ?  <NavDropdown.Item onClick={() => handleLogout()}>Logout</NavDropdown.Item>
+             : <NavLink to ='/login' className="dropdown-item">Login</NavLink>
+            }
             </NavDropdown>
             </Nav>
+            </>
+          }
         </Navbar.Collapse >
       </Container>
     </Navbar>

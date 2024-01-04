@@ -13,7 +13,7 @@ import Page from './components/PeePage';
 import Page1 from './components/PageCharity';
 import TableCharity from './components/TableCharity';
 import TableCharityPee from './components/TableCharityPee';
-import { DataProvider1,DataProvider2,DataProvider3,DataProvider4} from './Context/UseContext';
+import { DataProvider1,DataProvider2,DataProvider3,DataProvider4,UserProvider} from './Context/UseContext';
 import TableDonate from './components/TableDonate';
 import PeoplePage from './components/PeopleManagePage';
 import PageDV from './components/PagePeeDV';
@@ -21,7 +21,16 @@ import TablePeeDV from './components/TablePeeDV';
 import TablePeeDept from './components/TablePeeDept';
 import TablePeeBillAprt from './components/TableBillAprt';
 import TableBill from './components/TableBill'
+import { UserContext} from './Context/UseContext';
+import { useContext, useEffect } from 'react';
 function App() {
+    const {user,loginContext} = useContext(UserContext)
+    console.log(user)
+    useEffect(()=> {
+        if(localStorage.getItem('accessToken')){
+         loginContext(localStorage.getItem('email'),localStorage.getItem('accessToken'))
+        }
+    })
     return (
 
         <>
@@ -29,6 +38,7 @@ function App() {
          <DataProvider2>
          <DataProvider3>
          <DataProvider4>
+        
             <div className="app-container">
                 <Header />
                 <Container>
@@ -45,7 +55,7 @@ function App() {
                                 <TablePeople></TablePeople>
                             }
                         />
-                        <Route path="/home" element={<Home />} />
+                        <Route path="/" element={<Home />} />
                         <Route path="/peoplePage" element={<PeoplePage />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/peePage" element={<Page/>} />
@@ -76,6 +86,7 @@ function App() {
                 theme="light"
             />
             {/* Same as */}
+        
             </DataProvider4>
             </DataProvider3>
             </DataProvider2>

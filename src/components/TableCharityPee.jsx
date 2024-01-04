@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 const TableCharityPee = () => {
     const {data,setAndRedirect} = useData1()
     const [totalPage,setTotalPage] = useState(0)
+    const [sum,setSum] = useState(0)
+    const [listDonator,setListDonator] = useState([])
     const handlePageClick = (event) =>{
         getCP(event.selected +1)
 
@@ -18,8 +20,10 @@ const TableCharityPee = () => {
     const getCP = async (page) => {
         let res = await getCharityPee(page,data)
         console.log(res)
-        console.log(data)
+        setListDonator(res.data.fund)
         setTotalPage(res.data.totalPage)
+        setSum(res.data.sum)
+        console.log(sum)
     }
     return (
         
@@ -33,19 +37,18 @@ const TableCharityPee = () => {
             <tr>
               <th>Họ Tên</th>
               <th>Số Phòng</th>
-              <th>Vai Trò</th>
-              <th>Trạng Thái</th>
-              <th>Tùy Chọn</th>
+              <th>Số tiền ủng hộ</th>
             </tr>
           </thead>
           <tbody>
-                <tr>
-                  <td>item.name</td>
-                  <td>item.apartmentId</td>
-                  <td>item.relationWithHouseholder</td>
-                  <td>item.status</td>  
+                {listDonator && listDonator.length >0
+                &&  listDonator.map((item, index) => (
+                            <tr key={`user-${index}`}>
+                                <td>{item.donator}</td>
+                                <td>{item.apartmentid}</td>
+                                <td>{item.total}</td>
                 </tr>
-             
+                ))}
           </tbody>
         </Table>
         <ReactPaginate
@@ -66,6 +69,9 @@ const TableCharityPee = () => {
         containerClassName="pagination"
         activeClassName="active"
       />
+      <div className ="my-3 add-new">
+           <span> <b>Tổng: {sum}</b></span>
+        </div>     
       </>
     )
 }

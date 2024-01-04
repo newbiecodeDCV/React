@@ -2,8 +2,11 @@ import { useEffect, useState } from "react"
 import { loginAPI } from "../service/UserService";
 import { toast } from 'react-toastify';
 import {useNavigate} from 'react-router-dom'
+import { useContext } from 'react';
+import { UserContext } from '../Context/UseContext';
 const Login = () =>
 {   
+    const {loginContext} = useContext(UserContext)
     const navigate = useNavigate()
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("");
@@ -15,6 +18,9 @@ const Login = () =>
         navigate("/");
      }
     },[])
+    const handleBack  = () =>{
+      navigate('/')
+    }
     const handleLogin = async ( ) => {
         try{
         if(!email || ! password){
@@ -24,7 +30,7 @@ const Login = () =>
        setLoadingAPI(true)
         let res = await loginAPI(email,password);
         if(res  && res.data.accessToken ){
-        localStorage.setItem("accessToken",res.data.accessToken)
+        loginContext(email,res.data.accessToken )
         navigate("/");
     
       }else{
@@ -64,7 +70,7 @@ return (<>
         &nbsp;Login
         </button>
         <div className="back">
-          Go back
+        <span onClick={handleBack}>&nbsp;Go back </span>
         </div>
     </div>
 
