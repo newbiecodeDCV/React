@@ -98,7 +98,6 @@ function RegisterResidenceForm() {
             } else if(response.status === 'Success') {
                 setSuccessModalShow(true);
             }
-            console.log()
         }
     };
     return (
@@ -199,7 +198,7 @@ function RegisterResidenceForm() {
                         show={errorModalShow}
                         onHide={() => {
                             setErrorModalShow(false);
-                            navigate('/');
+                            navigate('/peoplePage');
                         }}
                     >
                         {errorMessage}
@@ -210,7 +209,7 @@ function RegisterResidenceForm() {
                         show={successModalShow}
                         onHide={() => {
                             setErrorModalShow(false);
-                            navigate('/');
+                            navigate('/peoplePage');
                         }}
                     ></SuccessModal>
                 }

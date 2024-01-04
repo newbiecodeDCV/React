@@ -1,7 +1,7 @@
 import './App.scss';
 import Header from './components/Header';
 import Container from 'react-bootstrap/Container';
-import TableUser from './components/TableUser';
+import TablePeople from './components/TablePeople';
 import Home from './components/Home';
 import { Routes, Route } from 'react-router-dom';
 import Login from './components/login';
@@ -15,6 +15,7 @@ import TableCharity from './components/TableCharity';
 import TableCharityPee from './components/TableCharityPee';
 import { DataProvider1,DataProvider2 } from './Context/UseContext';
 import TableDonate from './components/TableDonate';
+import PeoplePage from './components/PeopleManagePage';
 function App() {
     return (
 
@@ -31,12 +32,18 @@ function App() {
                                 <RegisterResidenceForm></RegisterResidenceForm>
                             }
                         />
+                        <Route
+                            path="people/list"
+                            element={
+                                <TablePeople></TablePeople>
+                            }
+                        />
                         <Route path="/home" element={<Home />} />
-                        <Route path="/users" element={<TableUser />} />
+                        <Route path="/peoplePage" element={<PeoplePage />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/peePage" element={<Page/>} />
                         <Route path="/apartments"element={<TableApartments />}  />
-                        <Route path="/manager" element={<TableManager />} />
+                        <Route path="/admin" element={<TableManager />} />
                         <Route path="/peePage/page1" element={<Page1 />} />
                         <Route path="/peePage/page1/func1" element={<TableCharity/>} />
                         <Route path="/peePage/page1/func4" element={<TableCharityPee/>} />

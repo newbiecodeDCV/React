@@ -14,12 +14,12 @@ function ModalDetailAprt(props) {
         <Modal.Body>
          {data.owner !== null && (
       <>
-        <p>name:{data.owner?.name}</p>
-        <p>nation:{data.owner?.nation}</p>
-        <p>dateOfBirth:{data.owner?.dateOfBirth}</p>
-        <p>citizenId:{data.owner?.citizenId}</p>
-        <p>phoneNumber:{data.owner?.phoneNumber}</p>
-        <p>permanentAddress:{data.owner?.permanentAddress}</p>
+        <p>Họ tên: {data.owner?.name}</p>
+        <p>Quốc tịch: {data.owner?.nation}</p>
+        <p>Ngày sinh: {data.owner?.dateOfBirth}</p>
+        <p>Số căn cước: {data.owner?.citizenId}</p>
+        <p>Số điện thoại: {data.owner?.phoneNumber}</p>
+        <p>Địa chỉ thường trú: {data.owner?.permanentAddress}</p>
       </>
     )} 
         </Modal.Body>

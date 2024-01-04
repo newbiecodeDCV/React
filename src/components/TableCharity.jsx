@@ -44,7 +44,7 @@ const TableCharity = () =>{
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Tên Qũy</th>
+              <th>Tên Quỹ</th>
               <th>Ngày bắt đầu</th>
               <th>Ngày kết thúc</th>
               <th>Thay đổi lúc</th>

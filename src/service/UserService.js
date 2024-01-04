@@ -1,6 +1,6 @@
 import axios from "./axios"
 const fetchAllUser = (page) => {
-    return axios.get(`/people/?page=${page}&recordPerPage=4`);
+    return axios.get(`/people/?page=${page}&recordPerPage=10`);
 }
 
 
@@ -10,7 +10,7 @@ const loginAPI = (email,password) => {
 
 const fetchAllApartMents =(page) =>
 {
-    return axios.get(`/apartments?page=${page}&recordPerPage=4`)
+    return axios.get(`/apartments?page=${page}&recordPerPage=10`)
 }
 
 const postApartMents = (area,apartmentId,type) =>{

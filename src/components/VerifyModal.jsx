@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-export default function SuccessModal(props) {
+export default function VerifyModal(props) {
     return (
         <Modal
             {...props}
@@ -10,9 +10,14 @@ export default function SuccessModal(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Thêm nhân khẩu thành công
+                    Đã xảy ra lỗi
                 </Modal.Title>
             </Modal.Header>
+            <Modal.Body>
+                <p>
+                    {props.children}
+                </p>
+            </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Quay lại</Button>
             </Modal.Footer>

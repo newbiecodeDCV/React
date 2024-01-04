@@ -29,7 +29,7 @@ const TableManager=  () => {
     return (
         <>
         <div className ="my-3 add-new">
-           <span> <b>Danh sách quản trị</b></span>
+           <span> <b>Danh sách ban quản trị</b></span>
            <button className="btn btn-success"
             onClick={() => setIsShowModalManager(true)}
 
@@ -41,8 +41,8 @@ const TableManager=  () => {
             <tr>
               <th>Họ Tên</th>
               <th>Số Phòng</th>
-              <th>Quan hệ với chủ nhà</th>
-              <th>Trạng Thái</th>
+              <th>Email tài khoản</th>
+              <th>Số điện thoại</th>
             </tr>
           </thead>
           <tbody>
@@ -51,8 +51,8 @@ const TableManager=  () => {
                 <tr key={`manager-${index}`}>
                   <td>{item.people.name}</td>
                   <td>{item.people.apartmentId}</td>
-                  <td>{item.people.relationWithHouseholder}</td>
-                  <td>{item.people.status}</td>
+                  <td>{item.email}</td>
+                  <td>{item.people.phoneNumber}</td>
                 </tr>
               ))}
           </tbody>

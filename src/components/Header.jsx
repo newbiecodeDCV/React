@@ -19,22 +19,22 @@ const Header = (props) => {
         <Navbar.Brand href="/">
         <img
               src={logo}
-              width="30"
-              height="30"
+              width="100"
+              height="50"
               className="d-inline-block align-top"
               alt="React Bootstrap logo"
             />
-            <span> App </span>
+            {/* <span> App </span> */}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname} >
             <NavLink to ='/home' className="nav-link">Trang chủ</NavLink>
         
-            <NavLink to ='/users' className="nav-link">Quản lí nhân khẩu</NavLink>
+            <NavLink to ='/peoplePage' className="nav-link">Quản lí nhân khẩu</NavLink>
             <NavLink to ='/apartments' className="nav-link">Quản lí căn hộ</NavLink>
-            <NavLink to ='/manager' className="nav-link">Danh sách quản lí</NavLink>
-            <NavLink to ='/peePage' className="nav-link">Các khoản phí</NavLink>
+            <NavLink to ='/admin' className="nav-link">Danh sách quản lí</NavLink>
+            <NavLink to ='/peePage' className="nav-link">Quản lý phí thu</NavLink>
             </Nav>
             <Nav>
             <NavDropdown title="Setting" >
