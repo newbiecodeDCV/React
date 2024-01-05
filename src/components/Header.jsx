@@ -47,7 +47,8 @@ const Header = (props) => {
             <Nav>
             <NavDropdown title="Setting" >
             {user && user.auth
-            ?  <NavDropdown.Item onClick={() => handleLogout()}>Logout</NavDropdown.Item>
+            ? <> <NavDropdown.Item onClick={() => handleLogout()}>Logout</NavDropdown.Item>
+               <NavLink to ='/password' className="dropdown-item">Đổi Mật Khẩu</NavLink></>
              : <NavLink to ='/login' className="dropdown-item">Login</NavLink>
             }
             </NavDropdown>

@@ -2,11 +2,10 @@ import { useState} from 'react'
 import { Modal, Button} from 'react-bootstrap';
 import { patchBill} from '../service/UserService';
 import { toast } from 'react-toastify';
+import { useData3 } from '../Context/UseContext';
 const ModalPatchBill = (props)  => {
-    const { show ,handleClose,getpeedept} = props;
-    const [apartmentId,setApartmentId] = useState("");
-    const [month,setMonth] =useState("")
-    const [year,setYear] =useState("")
+    const{apartmentId,month,year} = useData3()
+    const { show ,handleClose,getpeebill} = props;
     const [payMoney,setPayMoney] =useState("")
     const [payername,setPayername] = useState("")
 
@@ -18,12 +17,12 @@ const ModalPatchBill = (props)  => {
           if(res && res.status ==='Success'){
             toast.success("Thanh toán thành công")
            handleClose()
-           setApartmentId('')
-           setMonth('')
-           setYear('')
+           getpeebill()
            setPayMoney('')
            setPayername('')
-           getpeedept(1)
+          
+         }else{
+            toast.error("Thanh toán thất bại")
          }
          }catch(e){
             console.log(e)
@@ -40,33 +39,7 @@ const ModalPatchBill = (props)  => {
 
         <Modal.Body>
         <div className='body-add-new'>
-            <div className="mb-3">
-                <label className="form-label">Số Phòng</label>
-                <input 
-                type="text" 
-                className="form-control" 
-                value={apartmentId}
-                onChange={(event) =>setApartmentId(event.target.value)}
-                />
-            </div>
-            <div className="mb-3">
-                <label className="form-label">Tháng</label>
-                <input 
-                type="text" 
-                className="form-control" 
-                value={month}
-                onChange={(event) =>setMonth(event.target.value)}
-                />
-                </div>
-                <div className="mb-3">
-                <label className="form-label">Năm</label>
-                <input 
-                type="text" 
-                className="form-control" 
-                value={year}
-                onChange={(event) =>setYear(event.target.value)}
-                />
-                </div>
+            
                 <div className="mb-3">
                 <label className="form-label">Số tiền</label>
                 <input 
