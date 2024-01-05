@@ -1,6 +1,7 @@
 import axios from "./axios"
-const fetchAllUser = (page) => {
-    return axios.get(`/people/?page=${page}&recordPerPage=10`);
+const fetchAllUser = (page,name) => {
+    if(name) return axios.get(`/people/?page=${page}&recordPerPage=10&name=${name}`);
+    else return axios.get(`/people/?page=${page}&recordPerPage=10`)
 }
 
 
@@ -108,5 +109,13 @@ const getBill = (page,month,year) =>{
 const getGust = (apartmentId,citizenId) =>{
     return axios.get(`http://localhost:3000/api/v1/guest/bill?apartmentId=${apartmentId}&citizenId=${citizenId}`)
 
+}
+export const addAdmin = (id,email) => {
+    try {
+        return axios.post('/users',{peopleId: id,email,role:'Thành viên ban quản trị'})
+    } catch (error) {
+        console.log("🚀 ~ addAdmin ~ error:", error)
+        
+    }
 }
 export {fetchAllUser,loginAPI,fetchAllApartMents,postApartMents,pathApartMents,fetchAllManager,postManager,fetchAllCharity,postCharity,getCharityPee,fetchAllUser_2,postCharityPee,postPeeDV,getPee,deletePee,patchPee,getPeeDept,getPeeBill,patchBill,getBill,getGust}

@@ -5,12 +5,13 @@ import ReactPaginate from 'react-paginate';
 import ModalAddNew from './ModalAddNewApartment';
 import Button from 'react-bootstrap/Button';
 import ModalDetail from './ModalDetail';
-import { deletePeople } from '../service/PeopleService';
+import { deleteHousehold, deletePeople } from '../service/PeopleService';
 import { toast } from 'react-toastify';
 import VerifyModal from './VerifyModal';
-const TablePeople = (props) => {
-    const [listUsers, setListUsers] = useState([]);
-    const [totalUsers, setToatalUsers] = useState(0);
+import { getHousehold } from '../service/PeopleService';
+const HouseHold = (props) => {
+    const [listPeople, setListPeople] = useState([]);
+    const [isShowDeleteButton, setIsShowDeleteButton] = useState(false);
     const [totalPage, setTotalPage] = useState(0);
     const [isShowModaAddNew, setIsShowModaAddNew] = useState(false);
     const [isShowModalDetail, setIsShowModalDetail] = useState(false);
@@ -18,8 +19,8 @@ const TablePeople = (props) => {
     const [data, setData] = useState([]);
     const [idToDelete, setIdToDelete] = useState('');
     const [isReload, setIsReload] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [nameFilter, setNameFilter] = useState(undefined);
+    const [apartmentId, setApartmentId] = useState(undefined);
+    const [apartmentIdToDelete, setApartmentIdDelete] = useState(undefined);
     const handleClose = () => {
         setIsShowModaAddNew(false);
     };
@@ -30,54 +31,48 @@ const TablePeople = (props) => {
 
     useEffect(() => {
         //call API
-        getUser(currentPage, nameFilter);
+        handleGetHousehold(apartmentId);
     }, [isReload]);
 
-    const getUser = async (page, name) => {
-        let res = await fetchAllUser(page, name);
+    const handleGetHousehold = async (apartmentId) => {
+        let res = await getHousehold(apartmentId);
         console.log(res);
         if (res && res.data) {
-            console.log(res);
-            setListUsers(res.data.peopleList);
-            setToatalUsers(res.data.totalRecord);
-            setTotalPage(res.data.totalPage);
-            console.log(listUsers);
-        }
+            setListPeople(res.data);
+            if (res.data.length === 0)
+                toast.error('Không có người trong hộ hoặc hộ không tồn tại');
+        } else setListPeople([]);
     };
 
-    const handlePageClick = (event) => {
-        setCurrentPage(event.selected + 1);
-        console.log(event);
-        getUser(event.selected + 1, nameFilter);
-    };
     const handleCT = (data) => {
         setIsShowModalDetail(true);
         console.log(data);
         setData(data);
     };
-    const handleDeletePeople = async (id) => {
+    const handleDeleteHousehold = async (apartmentId) => {
         try {
-            const res = await deletePeople(id);
-            if (res.data.status === 'Fail' || res.data.status === 'Error')
+            const res = await deleteHousehold(apartmentId);
+            console.log(res);
+            if (res.data?.status === 'Fail' || res.data?.status === 'Error')
                 toast.error(res.data.message);
             else {
                 toast.success('Xóa thành công');
                 setIsShowModalVerify(false);
-                setIsReload((prev) => !prev);
+                setListPeople([]);
                 setIdToDelete('');
             }
         } catch (error) {
             console.log(error);
         }
     };
-    const handleClickDelete = (id) => {
-        setIdToDelete(id);
+    const handleClickDelete = () => {
+        setIdToDelete(apartmentId);
         setIsShowModalVerify(true);
     };
     const handleFilter = () => {
-        setCurrentPage(1);
-        console.log(nameFilter);
         setIsReload((prev) => !prev);
+        setApartmentIdDelete(apartmentId);
+        setIsShowDeleteButton(true);
         // setCurrentPage(1);
     };
     return (
@@ -95,90 +90,62 @@ const TablePeople = (props) => {
                 </button> */}
             </div>
             <div>
-                Lọc theo tên{' '}
+                Nhập số hiệu căn hộ{' '}
                 <input
                     type="text"
-                    onChange={(event) => setNameFilter(event.target.value)}
+                    onChange={(event) => setApartmentId(event.target.value)}
                 />{' '}
                 <button
                     className="btn btn-success"
                     onClick={() => handleFilter()}
                 >
                     Lọc
-                </button>
+                </button>{' '}
+                {isShowDeleteButton && listPeople.length !== 0 && (
+                    <Button
+                        variant="danger"
+                        onClick={() => handleClickDelete()}
+                    >
+                        Xóa hộ {apartmentIdToDelete}
+                    </Button>
+                )}
             </div>
             <br></br>
             <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Họ Tên</th>
-                        <th>Số Phòng</th>
                         <th>Ngày sinh</th>
                         <th>Giới tính</th>
                         <th>Quê quán</th>
                         <th>Trạng Thái</th>
-
+                        <th>Quan hệ với chủ hộ</th>
                         <th>Tùy Chọn</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {listUsers &&
-                        listUsers.length > 0 &&
-                        listUsers.map((item, index) => (
+                    {listPeople &&
+                        listPeople.length > 0 &&
+                        listPeople.map((item, index) => (
                             <tr key={`user-${index}`}>
                                 <td>{item.name}</td>
-                                <td>{item.apartmentId}</td>
                                 <td>{item.dateOfBirth}</td>
                                 <td>{item.gender}</td>
                                 <td>{item.hometown}</td>
                                 <td>{item.status}</td>
+                                <td>{item.relationWithHouseholder}</td>
                                 <td>
                                     <Button
                                         variant="info"
                                         onClick={() => handleCT(item)}
                                     >
                                         Chi tiết
-                                    </Button>{' '}
-                                    <Button
-                                        variant="primary"
-                                        onClick={() =>
-                                            handleClickDelete(item.id)
-                                        }
-                                    >
-                                        Chỉnh sửa
-                                    </Button>{' '}
-                                    <Button
-                                        variant="danger"
-                                        onClick={() =>
-                                            handleClickDelete(item.id)
-                                        }
-                                    >
-                                        Xóa
                                     </Button>
                                 </td>
                             </tr>
                         ))}
                 </tbody>
             </Table>
-            <ReactPaginate
-                forcePage={currentPage - 1}
-                breakLabel="..."
-                nextLabel="next >"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={5}
-                pageCount={totalPage}
-                previousLabel="< previous"
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                containerClassName="pagination"
-                activeClassName="active"
-            />
             <ModalAddNew show={isShowModaAddNew} handleClose={handleClose} />
             <ModalDetail
                 show={isShowModalDetail}
@@ -187,11 +154,11 @@ const TablePeople = (props) => {
             />
             <VerifyModal
                 show={isShowModalVerify}
-                onVerify={handleDeletePeople}
-                idToDelete={idToDelete}
+                onVerify={handleDeleteHousehold}
+                idToDelete={apartmentIdToDelete}
                 onClose={() => setIsShowModalVerify(false)}
             ></VerifyModal>
         </>
     );
 };
-export default TablePeople;
+export default HouseHold;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import { fetchAllUser } from '../service/UserService';
+import { addAdmin, fetchAllUser } from '../service/UserService';
 import ReactPaginate from 'react-paginate';
 import ModalAddNew from './ModalAddNewApartment';
 import Button from 'react-bootstrap/Button';
@@ -8,7 +8,8 @@ import ModalDetail from './ModalDetail';
 import { deletePeople } from '../service/PeopleService';
 import { toast } from 'react-toastify';
 import VerifyModal from './VerifyModal';
-const TablePeople = (props) => {
+import VerifyAddModal from './VerifyAddModal';
+const AddAdmin = (props) => {
     const [listUsers, setListUsers] = useState([]);
     const [totalUsers, setToatalUsers] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
@@ -17,6 +18,8 @@ const TablePeople = (props) => {
     const [isShowModalVerify, setIsShowModalVerify] = useState(false);
     const [data, setData] = useState([]);
     const [idToDelete, setIdToDelete] = useState('');
+    const [id, setId] = useState(undefined);
+    const [email, setEmail] = useState(undefined);
     const [isReload, setIsReload] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [nameFilter, setNameFilter] = useState(undefined);
@@ -55,23 +58,27 @@ const TablePeople = (props) => {
         console.log(data);
         setData(data);
     };
-    const handleDeletePeople = async (id) => {
+    const handleAddAdmin = async (id, email) => {
         try {
-            const res = await deletePeople(id);
-            if (res.data.status === 'Fail' || res.data.status === 'Error')
+            const res = await addAdmin(id, email);
+            console.log(res)
+            if (res.data?.status === 'Fail' || res.data?.status === 'Error')
                 toast.error(res.data.message);
             else {
-                toast.success('Xóa thành công');
+                toast.success('Thêm thành công');
                 setIsShowModalVerify(false);
-                setIsReload((prev) => !prev);
-                setIdToDelete('');
+                setId(undefined);
+                setEmail(undefined);
+                // setIsReload((prev) => !prev);
+                // setIdToDelete('');
             }
         } catch (error) {
             console.log(error);
         }
     };
-    const handleClickDelete = (id) => {
-        setIdToDelete(id);
+    const handleClickAdd = (id, email) => {
+        setId(id);
+        setEmail(email);
         setIsShowModalVerify(true);
     };
     const handleFilter = () => {
@@ -142,19 +149,11 @@ const TablePeople = (props) => {
                                     <Button
                                         variant="primary"
                                         onClick={() =>
-                                            handleClickDelete(item.id)
+                                            handleClickAdd(item.id, item.email)
                                         }
                                     >
-                                        Chỉnh sửa
+                                        Thêm làm ban quản trị
                                     </Button>{' '}
-                                    <Button
-                                        variant="danger"
-                                        onClick={() =>
-                                            handleClickDelete(item.id)
-                                        }
-                                    >
-                                        Xóa
-                                    </Button>
                                 </td>
                             </tr>
                         ))}
@@ -185,13 +184,14 @@ const TablePeople = (props) => {
                 handle2Close={handle2Close}
                 data={data}
             />
-            <VerifyModal
+            <VerifyAddModal
                 show={isShowModalVerify}
-                onVerify={handleDeletePeople}
-                idToDelete={idToDelete}
+                onVerify={handleAddAdmin}
+                id={id}
                 onClose={() => setIsShowModalVerify(false)}
-            ></VerifyModal>
+                email={email}
+            ></VerifyAddModal>
         </>
     );
 };
-export default TablePeople;
+export default AddAdmin;

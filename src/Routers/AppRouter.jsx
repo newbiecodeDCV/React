@@ -5,7 +5,7 @@ import Login from '../components/login';
 import { Routes, Route } from 'react-router-dom';
 import Home from '../components/Home';
 import PrivateRoute from './PrivateRouter';
-import RegisterResidenceForm from '../components/Home';
+import RegisterResidenceForm from '../components/RegisterResidenceForm';
 import TableApartments from '../components/TableApartments';
 import TableManager from '../components/TableManager';
 import Page from '../components/PeePage';
@@ -20,6 +20,8 @@ import TablePeeDept from '../components/TablePeeDept';
 import TablePeeBillAprt from '../components/TableBillAprt';
 import TableBill from '../components/TableBill';
 import TablePeople from '../components/TablePeople';
+import HouseHold from '../components/Household';
+import AddAdmin from '../components/AddAdmin';
 const AppRouter = () => {
   return (
     <>
@@ -59,6 +61,9 @@ const AppRouter = () => {
          <Route path="/peePage/page2/func4" element={<PrivateRoute><TableBill /></PrivateRoute>} />
          <Route path="/form" element={<PrivateRoute><FormGuest /></PrivateRoute>} />
          <Route path="/Tableform" element={<PrivateRoute>< TableForm/></PrivateRoute>} />
+         <Route path='/people/household' element={<PrivateRoute><HouseHold/></PrivateRoute>}></Route>
+         <Route path='/admin/addAdmin' element={<PrivateRoute><AddAdmin/></PrivateRoute>}></Route>
+
         </Routes>
      
     </>

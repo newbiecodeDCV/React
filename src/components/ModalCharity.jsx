@@ -48,7 +48,7 @@ const ModalCharity = (props)  => {
             <div className="mb-3">
                 <label className='form-label'>Ngày Bắt Đầu</label>
                 <input 
-                type="text" 
+                type="date" 
                 className="form-control"
                 value={startDate}
                 onChange={(event) =>setStartDate(event.target.value)}   
@@ -57,7 +57,7 @@ const ModalCharity = (props)  => {
             <div className="mb-3">
                 <label className="form-label">Ngày Kết Thúc</label>
                 <input 
-                type="text" 
+                type="date" 
                 className="form-control" 
                 value={endDate}
                 onChange={(event) =>setEndDate(event.target.value)}

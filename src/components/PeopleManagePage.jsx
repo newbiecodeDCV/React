@@ -12,6 +12,9 @@ const PeoplePage = () => (
       <Link to="/people/registerResidenceForm" className="mb-3">
         <button className="func-card func2">Đăng ký cư trú</button>
       </Link>
+      <Link to="/people/household" className="mb-3">
+        <button  className="func-card func1">Thông tin hộ gia đình</button>
+      </Link>
     </div>
   </Container>
 );

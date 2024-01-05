@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-export default function VerifyModal(props) {
-    const { idToDelete, onVerify, onClose } = props;
+export default function VerifyAddModal(props) {
+    const { id, onVerify, onClose, email } = props;
     return (
         <Modal
             show={props.show}
@@ -12,7 +12,7 @@ export default function VerifyModal(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Bạn có chắc chắn muốn xóa?
+                    Bạn có chắc chắn muốn thêm?
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -28,7 +28,7 @@ export default function VerifyModal(props) {
                 </Button>
                 <Button
                     onClick={() => {
-                        onVerify(idToDelete);
+                        onVerify(id,email);
                     }}
                 >
                     Xác nhận

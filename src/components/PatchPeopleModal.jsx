@@ -2,16 +2,17 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function ModalDetail(props) {
+function ModalPatchPeople(props) {
     const { show, handle2Close, data } = props;
 
     return (
         <>
             <Modal show={show} onHide={handle2Close}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Thông tin chi tiết</Modal.Title>
+                    <Modal.Title>Chỉnh sửa thông tin nhân khẩu</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    <input></input>
                     <p>Mã số: {data.id}</p>
                     <p>Họ tên: {data.name}</p>
                     <p>Ngày sinh: {data.dateOfBirth}</p>
@@ -27,7 +28,6 @@ function ModalDetail(props) {
                     <p>Email: {data.email}</p>
                     <p>Số điện thoại: {data.phoneNumber}</p>
                     <p>Trạng thái:{ data.status}</p>
-                    <p>Quan hệ với chủ hộ: {data.relationWithHouseholder}</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handle2Close}>
@@ -39,4 +39,4 @@ function ModalDetail(props) {
     );
 }
 
-export default ModalDetail;
+export default ModalPatchPeople;

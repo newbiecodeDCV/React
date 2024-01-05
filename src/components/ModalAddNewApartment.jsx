@@ -17,14 +17,19 @@ const ModalAddNewApartment = (props) => {
             const res = await postApartMents(area, apartmentId, type);
             console.log('>>> check res', res, area, apartmentId, type);
             console.log(res.data.status);
-            if (res && res.data.status == 'Fail') {
-                toast.error(res.data.message);
+            if (
+                res &&
+                (res.data.status == 'Fail' || res.data.status == 'Error')
+            ) {
+                if (res.data?.message[0])
+                    toast.error('Hãy điền đày đủ thông tin');
+                else toast.error(res.data.message);
             } else {
                 toast.success('Thêm thành công');
                 onPostSuccess((prev) => !prev);
+                handleClose();
+                return resetState();
             }
-            handleClose();
-            return resetState();
         } catch (e) {
             toast.error(e);
         }
@@ -50,20 +55,22 @@ const ModalAddNewApartment = (props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Loại</label><br></br>
+                            <label className="form-label">Loại</label>
+                            <br></br>
                             <input
                                 type="radio"
-                                name='type'
+                                name="type"
                                 id="normal"
                                 value="Thường"
                                 onChange={(event) =>
                                     setType(event.target.value)
                                 }
                             />
-                            <label for="normal">Thường</label><br></br>
-                             <input
+                            <label for="normal">Thường</label>
+                            <br></br>
+                            <input
                                 type="radio"
-                                name='type'
+                                name="type"
                                 id="penthouse"
                                 value="Penthouse"
                                 onChange={(event) =>
