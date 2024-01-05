@@ -51,29 +51,6 @@ const TableManager=  () => {
                 </button>
             </div>
 
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Họ Tên</th>
-                        <th>Số Phòng</th>
-                        <th>Email tài khoản</th>
-                        <th>Số điện thoại</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {listManager &&
-                        listManager.length > 0 &&
-                        listManager.map((item, index) => (
-                            <tr key={`manager-${index}`}>
-                                <td>{item.people?.name}</td>
-                                <td>{item.people?.apartmentId}</td>
-                                <td>{item.email}</td>
-                                <td>{item.people?.phoneNumber}</td>
-                            </tr>
-                        ))}
-                </tbody>
-            </Table>
-
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -88,10 +65,10 @@ const TableManager=  () => {
             {listManager && listManager.length > 0 &&
               listManager.map((item, index) => (
                 <tr key={`manager-${index}`}>
-                  <td>{item.people.name}</td>
-                  <td>{item.people.apartmentId}</td>
+                  <td>{item.people?.name}</td>
+                  <td>{item.people?.apartmentId}</td>
                   <td>{item.email}</td>
-                  <td>{item.people.phoneNumber}</td>
+                  <td>{item.people?.phoneNumber}</td>
                   <td>
                     <Button variant="primary" 
                     onClick={()=>handledelete(item.id)
