@@ -20,6 +20,7 @@ import TablePeeDept from '../components/TablePeeDept';
 import TablePeeBillAprt from '../components/TableBillAprt';
 import TableBill from '../components/TableBill';
 import TablePeople from '../components/TablePeople';
+import FormPassWord from '../components/FormPassWord';
 const AppRouter = () => {
   return (
     <>
@@ -44,6 +45,7 @@ const AppRouter = () => {
             </PrivateRoute>
           }
         />
+         <Route path="/password" element={<PrivateRoute><FormPassWord /></PrivateRoute>} />
          <Route path="/peoplePage" element={<PrivateRoute><PeoplePage /></PrivateRoute>} />
          <Route path="/peePage" element={<PrivateRoute><Page/></PrivateRoute>} />
          <Route path="/apartments"element={<PrivateRoute><TableApartments /></PrivateRoute>}  />

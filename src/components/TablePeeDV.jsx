@@ -6,10 +6,13 @@ import { deletePee } from '../service/UserService';
 import { toast } from 'react-toastify';
 import ModalPatchPee from './ModalPatchPee';
 import ModalAddPeeDV from './ModalAddPeeDV';
+import ModalDelete from './ModalDelete';
+import ModalDeletePee from './ModalDeletePee';
 const TablePeeDV = (props) =>{
     const [isShowModalAddPeeDV,setIsShowModalAddPeeDV] = useState(false)
     const [listPee,setListPee] = useState([]);
     const [isModalPatchPeeDV,setIsModalPatchPee] = useState(false)
+    const [isModalDeletePee,setIsModalDeletePee] = useState(false)
     const [id,setId] =useState('')
 
     useEffect(() =>{
@@ -29,16 +32,10 @@ const TablePeeDV = (props) =>{
        }
       }
 
-    const deletePeeDV =async (id) =>{
-      try{
-        let res = await deletePee(id)
-        if(res && res.status === 'Success' ){
-          toast.success("Xóa thành công")
-          getPeeDV()
-        }
-      }catch(e){
-        console.log(e)
-      }
+    const handledelete = (id) =>{
+      setIsModalDeletePee(true)
+      setId(id)
+
     }
     const handlePatchPeeDV = (id) =>{
       setId(id)
@@ -51,6 +48,9 @@ const TablePeeDV = (props) =>{
     const handleClose1 = () =>{
       setIsShowModalAddPeeDV(false)
   }
+  const handleClose2 = () =>{
+    setIsModalDeletePee(false)
+}
   const handleOpen1 = () =>{
       setIsShowModalAddPeeDV(true)
   }
@@ -84,7 +84,7 @@ const TablePeeDV = (props) =>{
                   <td>{item.updatedAt}</td>
                   <td>
                   <Button variant="danger mx-3"
-                  onClick={() =>deletePeeDV(item.id)}
+                  onClick={() =>handledelete(item.id)}
                   >Xóa</Button>
                    <Button variant="warning"
                    onClick={()=>handlePatchPeeDV(item.id)}
@@ -103,6 +103,12 @@ const TablePeeDV = (props) =>{
         <ModalAddPeeDV
         show ={isShowModalAddPeeDV}
         handleClose={handleClose1}
+        getPeeDV={getPeeDV}
+        />
+        <ModalDeletePee
+        show ={isModalDeletePee}
+        handleClose={handleClose2}
+        id ={id}
         getPeeDV={getPeeDV}
         />
 

@@ -109,4 +109,14 @@ const getGust = (apartmentId,citizenId) =>{
     return axios.get(`http://localhost:3000/api/v1/guest/bill?apartmentId=${apartmentId}&citizenId=${citizenId}`)
 
 }
-export {fetchAllUser,loginAPI,fetchAllApartMents,postApartMents,pathApartMents,fetchAllManager,postManager,fetchAllCharity,postCharity,getCharityPee,fetchAllUser_2,postCharityPee,postPeeDV,getPee,deletePee,patchPee,getPeeDept,getPeeBill,patchBill,getBill,getGust}
+const patchPassWord = (password,newpassword) =>{
+    return axios.patch('/users/password',{
+        'password':password,
+        'newPassword':newpassword
+    })
+}
+const deleteUser = (id) =>{
+    return axios.delete(`/users/${id}`)
+}
+
+export {fetchAllUser,loginAPI,fetchAllApartMents,deleteUser,postApartMents,pathApartMents,fetchAllManager,postManager,fetchAllCharity,postCharity,getCharityPee,fetchAllUser_2,postCharityPee,postPeeDV,getPee,deletePee,patchPee,getPeeDept,getPeeBill,patchBill,getBill,getGust,patchPassWord}

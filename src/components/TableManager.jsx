@@ -2,14 +2,24 @@ import Table from 'react-bootstrap/Table';
 import { useEffect, useState } from 'react';
 import { fetchAllManager} from '../service/UserService';
 import ModalAddManager from './ModalPostManager';
+import { Button } from 'react-bootstrap';
+import ModalDelete from './ModalDelete';
 
 const TableManager=  () => {
     const [listManager,setListManager] = useState([])
     const [isShowModalManager,setIsShowModalManager] = useState(false)
-    
+    const [isShowModalDelete,setIsShowModalDelete] = useState(false)
+     const [id,setID ] =useState('')
     const handleClose =() =>{
         setIsShowModalManager(false)
     }
+    const handleClose2 =() =>{
+      setIsShowModalDelete(false)
+  }
+  const handledelete =(id)=>{
+    setIsShowModalDelete(true)
+   setID(id)
+  }
     useEffect(() =>{
         //call API
        getManager();
@@ -43,6 +53,7 @@ const TableManager=  () => {
               <th>Số Phòng</th>
               <th>Email tài khoản</th>
               <th>Số điện thoại</th>
+              <th> Tùy Chọn</th>
             </tr>
           </thead>
           <tbody>
@@ -53,6 +64,12 @@ const TableManager=  () => {
                   <td>{item.people.apartmentId}</td>
                   <td>{item.email}</td>
                   <td>{item.people.phoneNumber}</td>
+                  <td>
+                    <Button variant="primary" 
+                    onClick={()=>handledelete(item.id)
+                    }
+                    >Xóa</Button>
+                  </td>
                 </tr>
               ))}
           </tbody>
@@ -63,6 +80,12 @@ const TableManager=  () => {
            show={isShowModalManager}
            handleClose = {handleClose}
            getManager ={getManager}
+           />
+           <ModalDelete
+           show={isShowModalDelete}
+           handleClose = {handleClose2}
+           id ={id}
+           getManager={getManager}
            />
            </>
     )
