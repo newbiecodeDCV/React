@@ -5,7 +5,7 @@ import { useData5 } from '../Context/UseContext';
 
 const TableForm =  () => {
     const {apartmentId,citizenId} = useData5()
-
+    const [listPee,setListPee] = useState('')
     useEffect(() => {
         //call API
         getgust();
@@ -14,8 +14,9 @@ const TableForm =  () => {
 
     const getgust = async () =>{
         try{
-        let res = getGust(apartmentId,citizenId)
+        let res = await  getGust(apartmentId,citizenId)
         console.log(res)
+        setListPee(res.data.record)
         }catch(e){
             console.log(e)
         }
@@ -30,20 +31,29 @@ const TableForm =  () => {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Họ Tên</th>
-              <th>Số Phòng</th>
-              <th>Email tài khoản</th>
-              <th>Số điện thoại</th>
+              <th>Tên Phí</th>
+              <th>Tháng</th>
+              <th>Năm</th>
+              <th>Trạng Thái</th>
+              <th>Người nộp</th>
+              <th>Nộp ngày</th>
+              <th>Tổng tiền</th>
             </tr>
           </thead>
           <tbody>
-           
-                  <td>item.people.name</td>
-                  <td>item.people.apartmentId</td>
-                  <td>item.email</td>
-                  <td>item.people.phoneNumbe</td>
-               
-          </tbody>
+          {listPee && listPee.length > 0 &&
+          listPee.map((item,index) =>(
+            <tr key={`user-${index}`}>
+                                <td>{item.fee.name}</td>
+                                <td>{item.month}</td>
+                                <td>{item.year}</td>
+                                <td>{item.status}</td>
+                                <td>{item.payerName}</td>
+                                <td>{item.payDay}</td>
+                                <td>{item.amount}</td>
+                                </tr>
+          ))}
+         </tbody>
           </Table>
           </>
     )

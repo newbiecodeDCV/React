@@ -10,7 +10,6 @@ const FormGuest = () => {
     const [citizenId,setCitizenId] = useState('')
     const handleSubmit = () =>{
         setAndRedirect(apartmentId,citizenId)
-        console.log(apartmentId)
         navigate('/Tableform')
     }
   return (

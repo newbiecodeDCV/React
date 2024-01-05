@@ -15,7 +15,7 @@ const Header = (props) => {
    
     const handleLogout = ()=>{
       logout()
-      navigate("/login");
+      navigate("/");
       toast.success("Đăng xuất thành công");
     }
     return (
@@ -36,7 +36,7 @@ const Header = (props) => {
         {(user && user.auth || window.location.pathname ==='/')&&
         <>
           <Nav className="me-auto" activeKey={location.pathname} >
-            <NavLink to ='/home' className="nav-link">Trang chủ</NavLink>
+            <NavLink to ='/' className="nav-link">Trang chủ</NavLink>
         
             <NavLink to ='/peoplePage' className="nav-link">Quản lí nhân khẩu</NavLink>
             <NavLink to ='/apartments' className="nav-link">Quản lí căn hộ</NavLink>

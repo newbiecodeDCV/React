@@ -136,11 +136,11 @@ export const useData5 = () => {
 const UserContext = createContext({ email: '', auth: false });
 const UserProvider = ({ children }) => {
   // User is the name of the "data" that gets stored in context
-  const [user, setUser] = useState({ email: '', auth: true });
+  const [user, setUser] = useState({ email: '', auth: false });
 
   // Login updates the user data with a name parameter
   const loginContext = (email,accessToken) => {
-    setUser(() => ({
+    setUser((user) => ({
       email: email,
       auth: true,
     }));
