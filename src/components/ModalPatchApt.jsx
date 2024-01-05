@@ -41,11 +41,12 @@ const ModalPatchApt = (props) => {
                 phoneNumber,
                 permanentAddress
             );
+            console.log(res);
             if (res.status === 'Success') {
                 toast.success('Thay đổi thành công');
                 handle2Close();
                 onPatchSuccess((prev) => !prev);
-            } else toast.error(res.data?.message);
+            } else if (res.data?.message[0]) toast.error('Hãy điền đủ thông tin !!!');
             return resetState();
         } catch (e) {
             console.log(e);
@@ -70,6 +71,7 @@ const ModalPatchApt = (props) => {
                                 onChange={(event) =>
                                     setName(event.target.value)
                                 }
+                                required
                             />
                         </div>
                         <div className="mb-3">
@@ -81,6 +83,7 @@ const ModalPatchApt = (props) => {
                                 onChange={(event) =>
                                     setNation(event.target.value)
                                 }
+                                required
                             />
                         </div>
                         <div className="mb-3">
@@ -92,6 +95,7 @@ const ModalPatchApt = (props) => {
                                 onChange={(event) =>
                                     setDateOfBirth(event.target.value)
                                 }
+                                required
                             />
                         </div>
                         <div className="mb-3">
@@ -105,6 +109,7 @@ const ModalPatchApt = (props) => {
                                 onChange={(event) =>
                                     setCitizenId(event.target.value)
                                 }
+                                required
                             />
                         </div>
                         <div className="mb-3">
@@ -116,6 +121,7 @@ const ModalPatchApt = (props) => {
                                 onChange={(event) =>
                                     setPhoneNumber(event.target.value)
                                 }
+                                required
                             />
                         </div>
                         <div className="mb-3">
@@ -129,6 +135,7 @@ const ModalPatchApt = (props) => {
                                 onChange={(event) =>
                                     setPermanentAddress(event.target.value)
                                 }
+                                required
                             />
                         </div>
                     </div>
