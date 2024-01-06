@@ -4,7 +4,10 @@ import { fetchAllAdmin } from '../service/UserService';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import ModalDelete from './ModalDelete';
+import { UserContext } from '../Context/UseContext';
+import { useContext } from 'react';
 const TableManager = () => {
+    const {user} = useContext(UserContext)
     const navigate = useNavigate();
     const [listManager, setListManager] = useState([]);
     const [isShowModalDelete, setIsShowModalDelete] = useState(false);
@@ -38,12 +41,12 @@ const TableManager = () => {
                     {' '}
                     <b>Danh sách ban quản trị</b>
                 </span>
-                <button
+               {user.role === 'Quản lý' && <button
                     className="btn btn-success"
                     onClick={() => navigate('/admin/addAdmin')}
                 >
                     Thêm quản trị
-                </button>
+                </button>}
             </div>
 
             <Table striped bordered hover>
@@ -53,7 +56,7 @@ const TableManager = () => {
                         <th>Số Phòng</th>
                         <th>Email tài khoản</th>
                         <th>Số điện thoại</th>
-                        <th> Tùy Chọn</th>
+                       {user.role ==='Quản lý' && <th> Tùy Chọn</th>}
                     </tr>
                 </thead>
                 <tbody>
@@ -65,14 +68,14 @@ const TableManager = () => {
                                 <td>{item.people?.apartmentId}</td>
                                 <td>{item.email}</td>
                                 <td>{item.people?.phoneNumber}</td>
-                                <td>
-                                    <Button
+                                {user.role ==='Quản lý' &&  <td>
+                                  <Button
                                         variant="primary"
                                         onClick={() => handledelete(item.id)}
                                     >
                                         Xóa
                                     </Button>
-                                </td>
+                                </td>}
                             </tr>
                         ))}
                 </tbody>

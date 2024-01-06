@@ -37,10 +37,9 @@ const Header = (props) => {
         <>
           <Nav className="me-auto" activeKey={location.pathname} >
             <NavLink to ='/' className="nav-link">Trang chủ</NavLink>
-        
             <NavLink to ='/peoplePage' className="nav-link">Quản lí nhân khẩu</NavLink>
             <NavLink to ='/apartments' className="nav-link">Quản lí căn hộ</NavLink>
-            <NavLink to ='/admin' className="nav-link">Danh sách quản lí</NavLink>
+            <NavLink to ='/admin' className="nav-link">Danh sách thành viên ban quản trị</NavLink>
             <NavLink to ='/peePage' className="nav-link">Quản lý phí thu</NavLink>
             <NavLink to ='/Form' className="nav-link">Tra cứu</NavLink>
             </Nav>

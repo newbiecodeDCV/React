@@ -12,8 +12,9 @@ const TablePeeBillAprt = () => {
     const [total, setTotal] = useState(0);
     const navigate = useNavigate();
     useEffect(() => {
-        //call API
+        //call API console.log("check")
         getfeebill();
+      
     }, []);
     const getfeebill = async () => {
         try {

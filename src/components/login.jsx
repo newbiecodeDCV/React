@@ -29,8 +29,9 @@ const Login = () =>
        }
        setLoadingAPI(true)
         let res = await loginAPI(email,password);
+        console.log(res)
         if(res  && res.data.accessToken ){
-        loginContext(email,res.data.accessToken )
+        loginContext(email,res.data.accessToken,res.data.role )
         navigate("/");
     
       }else{

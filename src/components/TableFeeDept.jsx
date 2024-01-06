@@ -47,7 +47,7 @@ const TableFeeDept = (props) => {
                         <th>Tháng</th>
                         <th>Năm</th>
                         <th>Tổng nợ</th>
-                        <th></th>
+                       
                     </tr>
                 </thead>
                 <tbody>

@@ -6,7 +6,10 @@ import { useState } from 'react';
 import ModalBillPhong from './ModalBillPhong';
 import ModalPatchBill from './ModalPatchBill';
 import ModalBill from './ModalBill';
+import { useContext } from 'react';
+import { UserContext } from '../Context/UseContext';
 const PageDV = () => {
+  const {user} = useContext(UserContext)
     const [isShơModalBillPhong,setIsShowModalBillPhong] = useState(false)
     const [isShowModalPatchBill,setIsShowModalPatchBill] = useState(false)
     const [isShowModalBill,setIsShowModalBill] = useState(false)
@@ -34,7 +37,7 @@ const PageDV = () => {
     <h1>Chức năng</h1>
     <div className="d-flex flex-column align-items-center">
       <Link to="/peePage/page2/func1" className="mb-3">
-        <button className="func-card func2">Phí dịch vụ</button>
+       { <button className="func-card func2">Phí dịch vụ</button>}
       </Link>
       <Link to="/peePage/page2/func2" className="mb-3">
         <button className="func-card func3">Danh sách hóa đơn bị nợ</button>
