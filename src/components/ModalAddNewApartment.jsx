@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import { postApartMents } from '../service/UserService';
+import { Modal, Button, FormControl } from 'react-bootstrap';
+import { postApartMents } from '../service/ApartmentService';
 import { toast } from 'react-toastify';
 const ModalAddNewApartment = (props) => {
     const { show, handleClose, onPostSuccess } = props;
-    const [area, setArea] = useState('');
-    const [apartmentId, setApartmentId] = useState('');
-    const [type, setType] = useState('');
+    const [area, setArea] = useState(undefined);
+    const [apartmentId, setApartmentId] = useState(undefined);
+    const [type, setType] = useState(undefined);
     const resetState = () => {
         setArea('');
         setApartmentId('');
@@ -14,24 +14,13 @@ const ModalAddNewApartment = (props) => {
     };
     const handleSaveApartment = async (area, apartmentId, type) => {
         try {
-            const res = await postApartMents(area, apartmentId, type);
-            console.log('>>> check res', res, area, apartmentId, type);
-            console.log(res.data.status);
-            if (
-                res &&
-                (res.data.status == 'Fail' || res.data.status == 'Error')
-            ) {
-                if (res.data?.message[0])
-                    toast.error('Hãy điền đày đủ thông tin');
-                else toast.error(res.data.message);
-            } else {
-                toast.success('Thêm thành công');
-                onPostSuccess((prev) => !prev);
-                handleClose();
-                return resetState();
-            }
+            await postApartMents(area, apartmentId, type);
+            toast.success('Thêm thành công');
+            onPostSuccess((prev) => !prev);
+            handleClose();
+            return resetState();
         } catch (e) {
-            toast.error(e);
+            console.log('🚀 ~ handleSaveApartment ~ e:', e);
         }
     };
     return (
@@ -39,6 +28,7 @@ const ModalAddNewApartment = (props) => {
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Thêm căn hộ</Modal.Title>
+                    {/* <button type="button" class="btn-close" aria-label="Close"></button> */}
                 </Modal.Header>
 
                 <Modal.Body>
@@ -52,6 +42,7 @@ const ModalAddNewApartment = (props) => {
                                 onChange={(event) =>
                                     setApartmentId(event.target.value)
                                 }
+                                required
                             />
                         </div>
                         <div className="mb-3">

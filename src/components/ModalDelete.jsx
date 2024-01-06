@@ -8,13 +8,10 @@ const ModalDelete =(props) => {
    const handleDelete = async () =>{
      try{
         let res = await deleteUser(id)
-        console.log(res)
         if (res && res.status === 'Success'){
             handleClose()
             toast.success("Xóa Thành Công")
             getManager()
-        }else{
-            toast.error("Thất bại")
         }
     }catch(e){
         console.log(e)

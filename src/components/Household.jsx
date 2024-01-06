@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import { fetchAllUser } from '../service/UserService';
-import ReactPaginate from 'react-paginate';
 import ModalAddNew from './ModalAddNewApartment';
 import Button from 'react-bootstrap/Button';
 import ModalDetail from './ModalDetail';
@@ -12,7 +10,6 @@ import { getHousehold } from '../service/PeopleService';
 const HouseHold = (props) => {
     const [listPeople, setListPeople] = useState([]);
     const [isShowDeleteButton, setIsShowDeleteButton] = useState(false);
-    const [totalPage, setTotalPage] = useState(0);
     const [isShowModaAddNew, setIsShowModaAddNew] = useState(false);
     const [isShowModalDetail, setIsShowModalDetail] = useState(false);
     const [isShowModalVerify, setIsShowModalVerify] = useState(false);
@@ -35,18 +32,22 @@ const HouseHold = (props) => {
     }, [isReload]);
 
     const handleGetHousehold = async (apartmentId) => {
-        let res = await getHousehold(apartmentId);
-        console.log(res);
-        if (res && res.data) {
-            setListPeople(res.data);
-            if (res.data.length === 0)
-                toast.error('Không có người trong hộ hoặc hộ không tồn tại');
-        } else setListPeople([]);
+        try {
+            let res = await getHousehold(apartmentId);
+            if (res && res.data) {
+                setListPeople(res.data);
+                if (res.data.length === 0)
+                    toast.error(
+                        'Không có người trong hộ hoặc hộ không tồn tại'
+                    );
+            } else setListPeople([]);
+        } catch (error) {
+            console.log('🚀 ~ handleGetHousehold ~ error:', error);
+        }
     };
 
     const handleCT = (data) => {
         setIsShowModalDetail(true);
-        console.log(data);
         setData(data);
     };
     const handleDeleteHousehold = async (apartmentId) => {
@@ -157,7 +158,9 @@ const HouseHold = (props) => {
                 onVerify={handleDeleteHousehold}
                 idToDelete={apartmentIdToDelete}
                 onClose={() => setIsShowModalVerify(false)}
-            ></VerifyModal>
+            >
+                <div>Toàn bộ nhân khẩu trong hộ {apartmentIdToDelete}</div>
+            </VerifyModal>
         </>
     );
 };

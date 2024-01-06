@@ -45,15 +45,15 @@ const Login = () =>
 }
 return (<>
     <div className="login-container col-12 col-sm-4">
-        <div className="title">Log in</div>
-        <div className = "text">Email or username</div>
+        <div className="title">Đăng nhập</div>
+        <div className = "text">Email</div>
         <input type="text" placeholder="Email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
         />
        
         <div className="input-2">
-        <input type={isShowPassword === true ?"text":"password"} placeholder="Password"
+        <input type={isShowPassword === true ?"text":"password"} placeholder="Mật khẩu"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
          />
@@ -67,10 +67,10 @@ return (<>
         onClick={() => handleLogin()}
         >
         {loadingAPI && <i className="fa-solid fa-sync fa-spin"></i>}
-        &nbsp;Login
+        &nbsp;Đăng nhập
         </button>
         <div className="back">
-        <span onClick={handleBack}>&nbsp;Go back </span>
+        <span onClick={handleBack}>&nbsp;Quay lại </span>
         </div>
     </div>
 

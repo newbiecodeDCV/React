@@ -1,7 +1,7 @@
 import Table from 'react-bootstrap/Table';
 import ReactPaginate from 'react-paginate';
 import { useEffect, useState } from 'react';
-import { fetchAllApartMents } from '../service/UserService';
+import { fetchAllApartMents } from '../service/ApartmentService';
 import ModalAddNewApartment from './ModalAddNewApartment';
 import Button from 'react-bootstrap/Button';
 import ModalPatchApt from './ModalPatchApt';
@@ -34,12 +34,16 @@ const TableApartments = () => {
     }, [isPatchSuccess, isPostSuccess]);
 
     const getApartments = async (page) => {
-        let res = await fetchAllApartMents(page);
-        if (res && res.data) {
-            console.log(res);
-            setTotalPage(res.data.totalPage);
-            setTotalApart(res.data.totalRecord);
-            setListApart(res.data.apartmentList);
+        try {
+            let res = await fetchAllApartMents(page);
+            if (res && res.data) {
+                console.log(res);
+                setTotalPage(res.data.totalPage);
+                setTotalApart(res.data.totalRecord);
+                setListApart(res.data.apartmentList);
+            }
+        } catch (error) {
+            console.log('🚀 ~ getApartments ~ error:', error);
         }
     };
 

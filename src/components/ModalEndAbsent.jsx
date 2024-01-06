@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-export default function VerifyModal(props) {
-    const { idToDelete, onVerify, onClose } = props;
+export default function EndAbsentModal(props) {
+    const { id, onVerify, onClose } = props;
     return (
         <Modal
             show={props.show}
@@ -13,7 +13,7 @@ export default function VerifyModal(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Bạn có chắc chắn muốn xóa?
+                    Bạn có chắc chắn muốn kết thúc tạm vắng?
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -22,7 +22,14 @@ export default function VerifyModal(props) {
             <Modal.Footer>
                 <Button
                     onClick={() => {
-                        onVerify(idToDelete);
+                        onClose();
+                    }}
+                >
+                    Đóng
+                </Button>
+                <Button
+                    onClick={() => {
+                        onVerify(id);
                     }}
                 >
                     Xác nhận

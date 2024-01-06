@@ -1,66 +1,57 @@
-import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { postCharity } from '../service/CharityService';
-import { toast } from 'react-toastify';
-const ModalCharity = (props) => {
-    const { show, handleClose, getCharity } = props;
-    const [name, setName] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-    const handleSaveCharity = async (name, startDate, endDate) => {
-        try {
-            await postCharity(name, startDate, endDate);
-            toast.success('Thêm thành công');
-            setName('');
-            setEndDate('');
-            setStartDate('');
-            handleClose();
-            getCharity();
-        } catch (e) {
-            console.log('🚀 ~ handleSaveCharity ~ e:', e);
-        }
-    };
+
+const ModalRegisterAbsent = (props) => {
+    const { show, handleClose, submit, setForm, form, id } = props;
     return (
         <>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Thêm phí từ thiện</Modal.Title>
+                    <Modal.Title>Thêm tạm vắng</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
                     <div className="body-add-new">
                         <div className="mb-3">
-                            <label className="form-label">
-                                Tên Phí Từ Thiện
-                            </label>
+                            <label className="form-label">Lý do</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                value={name}
+                                value={form.reason}
                                 onChange={(event) =>
-                                    setName(event.target.value)
+                                    setForm('reason',event.target.value)
                                 }
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Ngày Bắt Đầu</label>
+                            <label className="form-label">Tạm vắng từ</label>
                             <input
                                 type="date"
                                 className="form-control"
-                                value={startDate}
+                                value={form.startDate}
                                 onChange={(event) =>
-                                    setStartDate(event.target.value)
+                                    setForm('startDate',event.target.value)
                                 }
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Ngày Kết Thúc</label>
+                            <label className="form-label">Tạm vắng đến</label>
                             <input
                                 type="date"
                                 className="form-control"
-                                value={endDate}
+                                value={form.endDate}
                                 onChange={(event) =>
-                                    setEndDate(event.target.value)
+                                    setForm('endDate',event.target.value)
+                                }
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Nơi đến</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={form.destinationAddress}
+                                onChange={(event) =>
+                                    setForm('destinationAddress',event.target.value)
                                 }
                             />
                         </div>
@@ -74,7 +65,7 @@ const ModalCharity = (props) => {
                     <Button
                         variant="primary"
                         onClick={() =>
-                            handleSaveCharity(name, startDate, endDate)
+                            submit(id,form)
                         }
                     >
                         Lưu thay đổi
@@ -84,4 +75,4 @@ const ModalCharity = (props) => {
         </>
     );
 };
-export default ModalCharity;
+export default ModalRegisterAbsent;

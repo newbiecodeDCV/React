@@ -1,42 +1,43 @@
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { postCharityFee } from '../service/CharityService'; 
+import { patchFee } from '../service/FeeService';
 import { toast } from 'react-toastify';
-import { useData1 } from '../Context/UseContext';
-const ModalDonate = (props) => {
-    const { show, handleClose, peopleId } = props;
-    const [amount, setAmount] = useState('');
-    const { data } = useData1();
-    const handleSaveDonate = async (amount) => {
+const ModalPatchPee = (props) => {
+    const { show, handleClose, id, getPeeDV } = props;
+    const [unitPrice, setUnitPrice] = useState('');
+
+    const patchFeedv = async () => {
         try {
-            let res = await postCharityFee(data, peopleId, amount);
-            console.log(' check res', res);
+            let res = await patchFee(id, unitPrice);
+            console.log(res);
             if (res && res.status === 'Success') {
-                toast.success('Thêm thành công');
+                toast.success('Thay đổi thành công');
+                setUnitPrice('');
                 handleClose();
-                setAmount('');
+                getPeeDV();
             }
         } catch (e) {
-            console.log('🚀 ~ handleSaveDonate ~ e:', e);
+            console.log(e);
         }
     };
+
     return (
         <>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Ủng hộ</Modal.Title>
+                    <Modal.Title>Thay đổi phí dịch vụ</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
                     <div className="body-add-new">
                         <div className="mb-3">
-                            <label className="form-label">Số tiền</label>
+                            <label className="form-label">Gía thay đổi</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                value={amount}
+                                value={unitPrice}
                                 onChange={(event) =>
-                                    setAmount(event.target.value)
+                                    setUnitPrice(event.target.value)
                                 }
                             />
                         </div>
@@ -47,10 +48,7 @@ const ModalDonate = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Đóng
                     </Button>
-                    <Button
-                        variant="primary"
-                        onClick={() => handleSaveDonate(amount)}
-                    >
+                    <Button variant="primary" onClick={() => patchFeedv()}>
                         Lưu thay đổi
                     </Button>
                 </Modal.Footer>
@@ -58,4 +56,4 @@ const ModalDonate = (props) => {
         </>
     );
 };
-export default ModalDonate;
+export default ModalPatchPee;

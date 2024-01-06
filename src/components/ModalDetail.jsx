@@ -26,7 +26,7 @@ function ModalDetail(props) {
                     <p>Số hiệu căn hộ: {data.apartmentId}</p>
                     <p>Email: {data.email}</p>
                     <p>Số điện thoại: {data.phoneNumber}</p>
-                    <p>Trạng thái:{ data.status}</p>
+                    <p>Trạng thái: { data.status}</p>
                     <p>Quan hệ với chủ hộ: {data.relationWithHouseholder}</p>
                 </Modal.Body>
                 <Modal.Footer>

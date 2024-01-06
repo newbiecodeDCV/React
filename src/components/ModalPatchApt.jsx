@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { pathApartMents } from '../service/UserService';
 import { toast } from 'react-toastify';
+import { patchApartMents } from '../service/ApartmentService';
 const ModalPatchApt = (props) => {
     const { show, handle2Close, data, onPatchSuccess } = props;
     const [name, setName] = useState('');
@@ -21,7 +21,7 @@ const ModalPatchApt = (props) => {
     const handleCloseModal = () => {
         handle2Close();
         return resetState();
-    }
+    };
     const handlePatchApart = async (
         apartmentId,
         name,
@@ -32,7 +32,7 @@ const ModalPatchApt = (props) => {
         permanentAddress
     ) => {
         try {
-            const res = await pathApartMents(
+            const res = await patchApartMents(
                 apartmentId,
                 name,
                 nation,
@@ -46,7 +46,7 @@ const ModalPatchApt = (props) => {
                 toast.success('Thay đổi thành công');
                 handle2Close();
                 onPatchSuccess((prev) => !prev);
-            } else if (res.data?.message[0]) toast.error('Hãy điền đủ thông tin !!!');
+            }
             return resetState();
         } catch (e) {
             console.log(e);

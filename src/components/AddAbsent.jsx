@@ -1,32 +1,30 @@
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import { addAdmin } from '../service/UserService';
 import { fetchAllPeople } from '../service/PeopleService';
 import ReactPaginate from 'react-paginate';
-import ModalAddNew from './ModalAddNewApartment';
 import Button from 'react-bootstrap/Button';
 import ModalDetail from './ModalDetail';
-import { deletePeople } from '../service/PeopleService';
 import { toast } from 'react-toastify';
-import VerifyModal from './VerifyModal';
-import VerifyAddModal from './VerifyAddModal';
-const AddAdmin = (props) => {
+import ModalRegisterAbsent from './ModalRegisterAbsent';
+import { registerAbsent } from '../service/PeopleService';
+const AddAbsent = (props) => {
     const [listUsers, setListUsers] = useState([]);
     const [totalUsers, setToatalUsers] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
-    const [isShowModaAddNew, setIsShowModaAddNew] = useState(false);
+    const [isShowModalRegister, setIsShowModalRegister] = useState(false);
     const [isShowModalDetail, setIsShowModalDetail] = useState(false);
-    const [isShowModalVerify, setIsShowModalVerify] = useState(false);
     const [data, setData] = useState([]);
     const [id, setId] = useState(undefined);
-    const [email, setEmail] = useState(undefined);
+    const [form, setForm] = useState({});
     const [isReload, setIsReload] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [nameFilter, setNameFilter] = useState(undefined);
-    const handleClose = () => {
-        setIsShowModaAddNew(false);
+    // const handleClose = () => {
+    //     setIsShowModaAddNew(false);
+    // };
+    const setField = (key, value) => {
+        setForm({ ...form, [key]: value });
     };
-
     const handle2Close = () => {
         setIsShowModalDetail(false);
     };
@@ -45,30 +43,33 @@ const AddAdmin = (props) => {
                 setTotalPage(res.data.totalPage);
             }
         } catch (error) {
-            console.log('🚀 ~ getUser ~ error:', error);
+            console.log('🚀 ~ getPeople ~ error:', error);
         }
     };
 
     const handlePageClick = (event) => {
         setCurrentPage(event.selected + 1);
-        console.log(event);
         getPeople(event.selected + 1, nameFilter);
     };
-    const handleAddAdmin = async (id, email) => {
+    const handleCT = (data) => {
+        setIsShowModalDetail(true);
+        setData(data);
+    };
+    const handleAddAbsent = async (id, form) => {
         try {
-            await addAdmin(id, email);
-            toast.success('Thêm thành viên ban quản trị thành công');
-            setIsShowModalVerify(false);
+            await registerAbsent(id, form);
+            toast.success('Thêm tạm vắng thành công');
             setId(undefined);
-            setEmail(undefined);
+            setForm({});
+            setIsReload((prev) => !prev);
+            setIsShowModalRegister(false);
         } catch (error) {
             console.log(error);
         }
     };
     const handleClickAdd = (id, email) => {
         setId(id);
-        setEmail(email);
-        setIsShowModalVerify(true);
+        setIsShowModalRegister(true);
     };
     const handleFilter = () => {
         setCurrentPage(1);
@@ -103,9 +104,9 @@ const AddAdmin = (props) => {
                         <th>Số Phòng</th>
                         <th>Ngày sinh</th>
                         <th>Giới tính</th>
-                        <th>Email</th>
-                        <th>Số điện thoại</th>
-                        <th>Mã số căn cước</th>
+                        <th>Quê quán</th>
+                        <th>Trạng Thái</th>
+
                         <th>Tùy Chọn</th>
                     </tr>
                 </thead>
@@ -118,11 +119,16 @@ const AddAdmin = (props) => {
                                 <td>{item.apartmentId}</td>
                                 <td>{item.dateOfBirth}</td>
                                 <td>{item.gender}</td>
-                                <td>{item.email}</td>
-                                <td>{item.phoneNumber}</td>
-                                <td>{item.citizenId}</td>
+                                <td>{item.hometown}</td>
+                                <td>{item.status}</td>
                                 <td>
-                                    {item.email && (
+                                    <Button
+                                        variant="info"
+                                        onClick={() => handleCT(item)}
+                                    >
+                                        Chi tiết
+                                    </Button>{' '}
+                                    {item.status !== 'Tạm vắng' && (
                                         <Button
                                             variant="primary"
                                             onClick={() =>
@@ -132,7 +138,7 @@ const AddAdmin = (props) => {
                                                 )
                                             }
                                         >
-                                            Thêm quản trị
+                                            Đăng ký tạm vắng
                                         </Button>
                                     )}{' '}
                                 </td>
@@ -159,20 +165,23 @@ const AddAdmin = (props) => {
                 containerClassName="pagination"
                 activeClassName="active"
             />
-            <ModalAddNew show={isShowModaAddNew} handleClose={handleClose} />
             <ModalDetail
                 show={isShowModalDetail}
                 handle2Close={handle2Close}
                 data={data}
             />
-            <VerifyAddModal
-                show={isShowModalVerify}
-                onVerify={handleAddAdmin}
+            <ModalRegisterAbsent
+                show={isShowModalRegister}
                 id={id}
-                onClose={() => setIsShowModalVerify(false)}
-                email={email}
-            ></VerifyAddModal>
+                submit={handleAddAbsent}
+                handleClose={() => {
+                    setIsShowModalRegister(false);
+                    setForm({});
+                }}
+                setForm={setField}
+                form={form}
+            ></ModalRegisterAbsent>
         </>
     );
 };
-export default AddAdmin;
+export default AddAbsent;

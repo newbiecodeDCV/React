@@ -5,8 +5,8 @@ import { useData3 } from '../Context/UseContext';
 const ModalBillPhong = (props)  => {
     const { show ,handleClose } = props;
     const [apartmentId,setApartmentId] = useState("");
-    const [month,setMonth] = useState("")
-    const [year,setYear] = useState("")
+    const [month,setMonth] = useState(new Date().getMonth() + 1)
+    const [year,setYear] = useState(new Date().getFullYear())
     const {setAndRedirect} = useData3()
 
     const handleBillPhong = () =>{

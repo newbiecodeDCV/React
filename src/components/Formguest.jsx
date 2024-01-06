@@ -28,7 +28,7 @@ const FormGuest = () => {
       <Button variant="primary" type="submit" 
       onClick={handleSubmit}
       >
-        Submit
+        Gửi
       </Button>
     </Form>
   );

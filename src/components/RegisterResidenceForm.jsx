@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import HouseholderInfoForm from './HouseholderInfoForm';
 import OtherInfoForm from './OtherInfoForm';
 import { registerResidence } from '../service/PeopleService';
-import ErrorModal from './ErrorModal';
+import ErrorModal from './ModalError';
 import { useNavigate } from 'react-router-dom';
 import SuccessModal from './SuccessModal';
 function RegisterResidenceForm() {
@@ -81,23 +81,21 @@ function RegisterResidenceForm() {
         return newErrors;
     };
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        const newErrors = findFormErrors();
-        if (Object.keys(newErrors).length > 0) {
-            // We got errors!
-            setErrors(newErrors);
-        } else {
-            form.isCreateHousehold =
-                form.isCreateHousehold === 'true' ? true : false;
-            // No errors! Put any logic here for the form submission!
-            const response = await registerResidence(form);
-            console.log(response)
-            if (response.data?.status === 'Fail') {
-                setErrorMessage(response.data.message);
-                setErrorModalShow(true);
-            } else if(response.status === 'Success') {
+        try {
+            event.preventDefault();
+            const newErrors = findFormErrors();
+            if (Object.keys(newErrors).length > 0) {
+                // We got errors!
+                setErrors(newErrors);
+            } else {
+                form.isCreateHousehold =
+                    form.isCreateHousehold === 'true' ? true : false;
+                // No errors! Put any logic here for the form submission!
+                const response = await registerResidence(form);
                 setSuccessModalShow(true);
             }
+        } catch (error) {
+            console.log('🚀 ~ handleSubmit ~ error:', error);
         }
     };
     return (
@@ -183,13 +181,15 @@ function RegisterResidenceForm() {
                 {/* <Button variant="primary" type="submit">
                     Submit
                 </Button> */}
-                {(form.isCreateHousehold === 'true' || form.isCreateHousehold === true) && (
+                {(form.isCreateHousehold === 'true' ||
+                    form.isCreateHousehold === true) && (
                     <HouseholderInfoForm
                         setField={setField}
                         errors={errors}
                     ></HouseholderInfoForm>
                 )}
-                {(form.isCreateHousehold === 'false' || form.isCreateHousehold===false)&& (
+                {(form.isCreateHousehold === 'false' ||
+                    form.isCreateHousehold === false) && (
                     <OtherInfoForm setField={setField} errors={errors} />
                 )}
                 <Button type="submit">Gửi</Button>

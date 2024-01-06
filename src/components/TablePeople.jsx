@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import { fetchAllUser } from '../service/UserService';
+import { fetchAllPeople } from '../service/PeopleService';
 import ReactPaginate from 'react-paginate';
 import ModalAddNew from './ModalAddNewApartment';
 import Button from 'react-bootstrap/Button';
 import ModalDetail from './ModalDetail';
-import { deletePeople } from '../service/PeopleService';
+import { deletePeople, patchPeople } from '../service/PeopleService';
 import { toast } from 'react-toastify';
 import VerifyModal from './VerifyModal';
+import ModalPatchPeople from './ModalPatchPeople';
 const TablePeople = (props) => {
     const [listUsers, setListUsers] = useState([]);
     const [totalUsers, setToatalUsers] = useState(0);
@@ -15,11 +16,38 @@ const TablePeople = (props) => {
     const [isShowModaAddNew, setIsShowModaAddNew] = useState(false);
     const [isShowModalDetail, setIsShowModalDetail] = useState(false);
     const [isShowModalVerify, setIsShowModalVerify] = useState(false);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({});
     const [idToDelete, setIdToDelete] = useState('');
+    const [idToPatch, setIdToPatch] = useState(undefined);
     const [isReload, setIsReload] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [nameFilter, setNameFilter] = useState(undefined);
+    const [newData, setNewData] = useState({});
+    const [form, setForm] = useState({});
+    const setField = (field, value) => {
+        setForm({ ...form, [field]: value });
+    };
+    const [isShowModalPatch, setIsShowModalPatch] = useState(false);
+    const handleClickPatch = (data) => {
+        setIdToPatch(data.id);
+        setNewData(data);
+        setData(data);
+        setIsShowModalPatch(true);
+    };
+    const handlePatch = async (id, form) => {
+        try {
+            await patchPeople(id, form);
+            toast.success('Thay đổi thành công');
+            setForm({});
+            setNewData({});
+            setIdToPatch(undefined);
+            setIsShowModalPatch(false);
+            setIsReload((prev) => !prev);
+            return true;
+        } catch (error) {
+            console.log('🚀 ~ handlePatch ~ error:', error);
+        }
+    };
     const handleClose = () => {
         setIsShowModaAddNew(false);
     };
@@ -30,11 +58,11 @@ const TablePeople = (props) => {
 
     useEffect(() => {
         //call API
-        getUser(currentPage, nameFilter);
+        getPeople(currentPage, nameFilter);
     }, [isReload]);
 
-    const getUser = async (page, name) => {
-        let res = await fetchAllUser(page, name);
+    const getPeople = async (page, name) => {
+        let res = await fetchAllPeople(page, name);
         console.log(res);
         if (res && res.data) {
             console.log(res);
@@ -48,7 +76,7 @@ const TablePeople = (props) => {
     const handlePageClick = (event) => {
         setCurrentPage(event.selected + 1);
         console.log(event);
-        getUser(event.selected + 1, nameFilter);
+        getPeople(event.selected + 1, nameFilter);
     };
     const handleCT = (data) => {
         setIsShowModalDetail(true);
@@ -70,7 +98,8 @@ const TablePeople = (props) => {
             console.log(error);
         }
     };
-    const handleClickDelete = (id) => {
+    const handleClickDelete = (id, data) => {
+        setData(data);
         setIdToDelete(id);
         setIsShowModalVerify(true);
     };
@@ -141,16 +170,14 @@ const TablePeople = (props) => {
                                     </Button>{' '}
                                     <Button
                                         variant="primary"
-                                        onClick={() =>
-                                            handleClickDelete(item.id)
-                                        }
+                                        onClick={() => handleClickPatch(item)}
                                     >
                                         Chỉnh sửa
                                     </Button>{' '}
                                     <Button
                                         variant="danger"
                                         onClick={() =>
-                                            handleClickDelete(item.id)
+                                            handleClickDelete(item.id, item)
                                         }
                                     >
                                         Xóa
@@ -190,7 +217,26 @@ const TablePeople = (props) => {
                 onVerify={handleDeletePeople}
                 idToDelete={idToDelete}
                 onClose={() => setIsShowModalVerify(false)}
-            ></VerifyModal>
+            >
+                <div>Nhân khẩu: {data.name}</div>
+                <div>Mã số hộ: {data.apartmentId}</div>
+            </VerifyModal>
+            <ModalPatchPeople
+                show={isShowModalPatch}
+                handleClose={() => {
+                    setIsShowModalPatch(false);
+                    setForm({});
+                    setNewData({});
+                    setIdToPatch(undefined);
+                }}
+                form={form}
+                onVerify={handlePatch}
+                id={idToPatch}
+                data={data}
+                setField={setField}
+                setNewData={setNewData}
+                newData={newData}
+            ></ModalPatchPeople>
         </>
     );
 };

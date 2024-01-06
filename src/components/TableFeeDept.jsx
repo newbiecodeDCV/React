@@ -1,58 +1,59 @@
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import { useData4 } from '../Context/UseContext';
-import { getBill } from '../service/FeeService';
+import { getFeeDept } from '../service/FeeService';
 import ReactPaginate from 'react-paginate';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-const TableBill = () => {
+const TableFeeDept = (props) => {
     const navigate = useNavigate();
-    const { month, year } = useData4();
-    const [totalPage, setTotalPage] = useState('');
-    const [paymentList, setPaymentList] = useState([]);
+    const [listPeeDept, setListPeeDept] = useState([]);
+    const [totalPage, setTotalPage] = useState(0);
+
     useEffect(() => {
         //call API
-        getbill(1);
+        getFeedept(1);
     }, []);
-    const getbill = async (page) => {
+
+    const getFeedept = async (page) => {
         try {
-            let res = await getBill(page, month, year);
-            setTotalPage(res.data.totalPage);
-            setPaymentList(res.data.paymentList);
-            console.log(res);
-        } catch (e) {
-            console.log(e);
+            let res = await getFeeDept(page);
+            if (res && res.status === 'Success') {
+                console.log(res);
+                setListPeeDept(res.data.deptList);
+                setTotalPage(res.data.totalPage);
+            }
+        } catch (error) {
+            console.log('🚀 ~ getpeedept ~ error:', error);
         }
     };
     const handlePageClick = (event) => {
         console.log(event);
-        getbill(event.selected + 1);
+        getFeedept(event.selected + 1);
     };
+
     return (
         <>
             <div className="my-3 add-new">
                 <span>
                     {' '}
-                    <b>Hóa đơn</b>
+                    <b>Danh sách Bill nợ</b>
                 </span>
             </div>
 
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>Phòng</th>
+                        <th>Số hiệu căn hộ</th>
                         <th>Tháng</th>
                         <th>Năm</th>
-                        <th>Sô tiền </th>
-                        <th>Trạng Thái</th>
-                        <th>Ngày nộp</th>
-                        <th>Tên người nộp</th>
+                        <th>Tổng nợ</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {paymentList &&
-                        paymentList.length > 0 &&
-                        paymentList.map((item, index) => (
+                    {listPeeDept &&
+                        listPeeDept.length > 0 &&
+                        listPeeDept.map((item, index) => (
                             <tr key={`user-${index}`}>
                                 <td>{item.bill_apartmentId}</td>
                                 <td>{item.bill_month}</td>
@@ -63,9 +64,6 @@ const TableBill = () => {
                                         currency: 'VND',
                                     })}
                                 </td>
-                                <td>{item.bill_status}</td>
-                                <td>{item.bill_payDay}</td>
-                                <td>{item.bill_payerName}</td>
                             </tr>
                         ))}
                 </tbody>
@@ -102,4 +100,4 @@ const TableBill = () => {
         </>
     );
 };
-export default TableBill;
+export default TableFeeDept;

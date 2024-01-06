@@ -45,11 +45,11 @@ const Header = (props) => {
             <NavLink to ='/Form' className="nav-link">Tra cứu</NavLink>
             </Nav>
             <Nav>
-            <NavDropdown title="Setting" >
+            <NavDropdown title="Cài đặt" >
             {user && user.auth
-            ? <> <NavDropdown.Item onClick={() => handleLogout()}>Logout</NavDropdown.Item>
+            ? <> <NavDropdown.Item onClick={() => handleLogout()}>Đăng xuất</NavDropdown.Item>
                <NavLink to ='/password' className="dropdown-item">Đổi Mật Khẩu</NavLink></>
-             : <NavLink to ='/login' className="dropdown-item">Login</NavLink>
+             : <NavLink to ='/login' className="dropdown-item">Đăng nhập</NavLink>
             }
             </NavDropdown>
             </Nav>

@@ -1,5 +1,5 @@
 import React from 'react';
-import FormGuest from '../components/Formguest';
+import FormGuest from '../components/FormGuest';
 import TableForm from '../components/TableForm';
 import Login from '../components/login';
 import { Routes, Route } from 'react-router-dom';
@@ -8,21 +8,23 @@ import PrivateRoute from './PrivateRouter';
 import RegisterResidenceForm from '../components/RegisterResidenceForm';
 import TableApartments from '../components/TableApartments';
 import TableManager from '../components/TableManager';
-import Page from '../components/PeePage';
+import Page from '../components/FeePage';
 import Page1 from '../components/PageCharity';
 import TableCharity from '../components/TableCharity';
-import TableCharityPee from '../components/TableCharityPee';
+import TableCharityFee from '../components/TableCharityFee';
 import TableDonate from '../components/TableDonate';
 import PeoplePage from '../components/PeopleManagePage';
-import PageDV from '../components/PagePeeDV';
-import TablePeeDV from '../components/TablePeeDV';
-import TablePeeDept from '../components/TablePeeDept';
-import TablePeeBillAprt from '../components/TableBillAprt';
+import PageDV from '../components/PageFeeDV';
+import TableFeeDV from '../components/TableFeeDV';
+import TableFeeDept from '../components/TableFeeDept';
+import TableFeeBillAprt from '../components/TableBillAprt';
 import TableBill from '../components/TableBill';
 import TablePeople from '../components/TablePeople';
 import HouseHold from '../components/Household';
 import AddAdmin from '../components/AddAdmin';
 import FormPassWord from '../components/FormPassWord';
+import AddAbsent from '../components/AddAbsent';
+import TableAbsent from '../components/TableAbsent';
 const AppRouter = () => {
   return (
     <>
@@ -54,18 +56,19 @@ const AppRouter = () => {
          <Route path="/admin" element={<PrivateRoute><TableManager /></PrivateRoute>} />
          <Route path="/peePage/page1" element={<PrivateRoute><Page1 /></PrivateRoute>} />
          <Route path="/peePage/page1/func1" element={<PrivateRoute><TableCharity/></PrivateRoute>} />
-         <Route path="/peePage/page1/func4" element={<PrivateRoute><TableCharityPee/></PrivateRoute>} />
+         <Route path="/peePage/page1/func4" element={<PrivateRoute><TableCharityFee/></PrivateRoute>} />
          <Route path="/peePage/page1/func2" element={<PrivateRoute><TableDonate/></PrivateRoute>} />
          <Route path="/peePage/page2" element={<PrivateRoute><PageDV /></PrivateRoute>} />
-         <Route path="/peePage/page2/func1" element={<PrivateRoute><TablePeeDV /></PrivateRoute>} />
-         <Route path="/peePage/page2/func2" element={<PrivateRoute><TablePeeDept /></PrivateRoute>} />
-         <Route path="/peePage/page2/func3" element={<PrivateRoute><TablePeeBillAprt /></PrivateRoute>} />
+         <Route path="/peePage/page2/func1" element={<PrivateRoute><TableFeeDV /></PrivateRoute>} />
+         <Route path="/peePage/page2/func2" element={<PrivateRoute><TableFeeDept /></PrivateRoute>} />
+         <Route path="/peePage/page2/func3" element={<PrivateRoute><TableFeeBillAprt /></PrivateRoute>} />
          <Route path="/peePage/page2/func4" element={<PrivateRoute><TableBill /></PrivateRoute>} />
          <Route path="/form" element={<PrivateRoute><FormGuest /></PrivateRoute>} />
          <Route path="/Tableform" element={<PrivateRoute>< TableForm/></PrivateRoute>} />
          <Route path='/people/household' element={<PrivateRoute><HouseHold/></PrivateRoute>}></Route>
          <Route path='/admin/addAdmin' element={<PrivateRoute><AddAdmin/></PrivateRoute>}></Route>
-
+         <Route path='/people/addAbsent' element={<PrivateRoute><AddAbsent/></PrivateRoute>}></Route>
+         <Route path='/people/listAbsent' element={<PrivateRoute><TableAbsent/></PrivateRoute>}></Route>
         </Routes>
      
     </>

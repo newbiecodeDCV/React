@@ -1,64 +1,54 @@
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { patchBill } from '../service/FeeService';
+import { postFeeDV } from '../service/FeeService';
 import { toast } from 'react-toastify';
-import { useData3 } from '../Context/UseContext';
-const ModalPatchBill = (props) => {
-    const { apartmentId, month, year } = useData3();
-    const { show, handleClose, getFeebill } = props;
-    const [payMoney, setPayMoney] = useState('');
-    const [payername, setPayername] = useState('');
-
-    const patchBilldv = async () => {
+const ModalAddFeeDV = (props) => {
+    const { show, handleClose, getPeeDV } = props;
+    const [name, setName] = useState('');
+    const [unitPrice, setUnitPrice] = useState('');
+    const handleFee = async () => {
         try {
-            let res = await patchBill(
-                apartmentId,
-                month,
-                year,
-                payMoney,
-                payername
-            );
-            console.log(res);
+            let res = await postFeeDV(name, unitPrice);
+            console.log(' check res', res);
             if (res && res.status === 'Success') {
-                toast.success('Thanh toán thành công');
+                toast.success('Thêm thành công');
                 handleClose();
-                getFeebill();
-                setPayMoney('');
-                setPayername('');
+                setName('');
+                setUnitPrice('');
+                getPeeDV();
             }
         } catch (e) {
-            console.log(e);
+            console.log('🚀 ~ handleFee ~ e:', e);
         }
     };
-
     return (
         <>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Đóng Tiền</Modal.Title>
+                    <Modal.Title>Thêm phí</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
                     <div className="body-add-new">
                         <div className="mb-3">
-                            <label className="form-label">Số tiền</label>
+                            <label className="form-label">Tên Phí</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                value={payMoney}
+                                value={name}
                                 onChange={(event) =>
-                                    setPayMoney(event.target.value)
+                                    setName(event.target.value)
                                 }
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Người đóng</label>
+                            <label className="form-label">Đơn vị giá</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                value={payername}
+                                value={unitPrice}
                                 onChange={(event) =>
-                                    setPayername(event.target.value)
+                                    setUnitPrice(event.target.value)
                                 }
                             />
                         </div>
@@ -69,7 +59,7 @@ const ModalPatchBill = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Đóng
                     </Button>
-                    <Button variant="primary" onClick={() => patchBilldv()}>
+                    <Button variant="primary" onClick={() => handleFee()}>
                         Lưu thay đổi
                     </Button>
                 </Modal.Footer>
@@ -77,4 +67,4 @@ const ModalPatchBill = (props) => {
         </>
     );
 };
-export default ModalPatchBill;
+export default ModalAddFeeDV;
