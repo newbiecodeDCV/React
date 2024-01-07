@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import { useData3 } from '../Context/UseContext';
 import { getFeeBill } from '../service/FeeService';
 import { Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import ModalPatchBill from './ModalPatchBill';
 const TablePeeBillAprt = () => {
-    const { apartmentId, month, year } = useData3();
+    const { apartmentId } = useParams();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const month = searchParams.get('month');
+    const year = searchParams.get('year');
     const [listRecord, setListRecord] = useState([]);
     const [isShowModalPatchBill, setIsShowModalPatchBill] = useState(false);
     const [total, setTotal] = useState(0);
@@ -14,7 +16,6 @@ const TablePeeBillAprt = () => {
     useEffect(() => {
         //call API console.log("check")
         getfeebill();
-      
     }, []);
     const getfeebill = async () => {
         try {
@@ -63,7 +64,12 @@ const TablePeeBillAprt = () => {
                         listRecord.map((item, index) => (
                             <tr key={`user-${index}`}>
                                 <td>{item.fee.name}</td>
-                                <td>{item.amount}</td>
+                                <td>
+                                    {item.amount.toLocaleString('vi', {
+                                        style: 'currency',
+                                        currency: 'VND',
+                                    })}
+                                </td>
                                 <td>{item.status}</td>
                                 <td>{item.payDay}</td>
                                 <td>{item.payerName}</td>
@@ -77,13 +83,23 @@ const TablePeeBillAprt = () => {
                 getFeebill={getfeebill}
             />
 
-            <div>{total > 0 && <p>Tổng phải đóng: {total} đồng</p>}</div>
+            <div>
+                {total > 0 && (
+                    <p>
+                        Tổng phải đóng:{' '}
+                        {total.toLocaleString('vi', {
+                            style: 'currency',
+                            currency: 'VND',
+                        })}{' '}
+                    </p>
+                )}
+            </div>
             <div className="my-3 add-new">
                 <span>
                     {' '}
                     <Button
                         variant="success"
-                        onClick={() => navigate('/peePage/page2')}
+                        onClick={() => navigate('/feePage/fee')}
                     >
                         Quay lại
                     </Button>

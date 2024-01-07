@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { postFeeDV } from '../service/FeeService';
 import { toast } from 'react-toastify';
+import CurrencyInput from 'react-currency-input-field';
 const ModalAddFeeDV = (props) => {
     const { show, handleClose, getPeeDV } = props;
     const [name, setName] = useState('');
@@ -43,12 +44,14 @@ const ModalAddFeeDV = (props) => {
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Đơn vị giá</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={unitPrice}
-                                onChange={(event) =>
-                                    setUnitPrice(event.target.value)
+                            <br></br>
+                            <CurrencyInput
+                                intlConfig={{ locale: 'vi', currency: 'VND' }}
+                                id="input-example"
+                                name="input-name"
+                                // suffix='đ'
+                                onValueChange={(value, name, values) =>
+                                    setUnitPrice(value)
                                 }
                             />
                         </div>
@@ -56,7 +59,14 @@ const ModalAddFeeDV = (props) => {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button
+                        variant="secondary"
+                        onClick={() => {
+                            handleClose();
+                            setName(undefined);
+                            setUnitPrice(undefined);
+                        }}
+                    >
                         Đóng
                     </Button>
                     <Button variant="primary" onClick={() => handleFee()}>

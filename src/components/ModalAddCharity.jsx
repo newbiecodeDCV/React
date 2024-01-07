@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useData2 } from '../Context/UseContext';
+import { useNavigate } from 'react-router-dom';
 const ModalAddCharity = (props) => {
-    const { show, handleClose } = props;
+    const { show, handleClose,feeId } = props;
     const [name, setName] = useState('');
     const [apartmentId, setApartmentId] = useState('');
-    const { setAndRedirect } = useData2();
+    const navigate = useNavigate();
     const handleShow = () => {
-        setAndRedirect(name, apartmentId);
-        console.log('Truyền thành công');
-        setName('');
-        setApartmentId('');
+        navigate(
+            `/feePage/charity/addDonate/${feeId}?name=${name}&apartmentId=${apartmentId}`
+        );
     };
     return (
         <>

@@ -1,5 +1,5 @@
 import React from 'react';
-import FormGuest from '../components/Formguest';
+import FormGuest from '../components/FormGuest';
 import TableForm from '../components/TableForm';
 import Login from '../components/login';
 import { Routes, Route } from 'react-router-dom';
@@ -52,22 +52,29 @@ const AppRouter = () => {
         />
          <Route path="/password" element={<PrivateRoute><FormPassWord /></PrivateRoute>} />
          <Route path="/peoplePage" element={<PrivateRoute><PeoplePage /></PrivateRoute>} />
-         <Route path="/peePage" element={<PrivateRoute><Page/></PrivateRoute>} />
+         <Route path="/feePage" element={<PrivateRoute><Page/></PrivateRoute>} />
          <Route path="/apartments"element={<PrivateRoute><TableApartments /></PrivateRoute>}  />
          <Route path="/admin" element={<PrivateRoute><TableManager /></PrivateRoute>} />
-         <Route path="/peePage/page1" element={<PrivateRoute><Page1 /></PrivateRoute>} />
-         <Route path="/peePage/page1/func1" element={<PrivateRoute><TableCharity/></PrivateRoute>} />
-         <Route path="/peePage/page1/func4" element={<PrivateRoute><TableCharityFee/></PrivateRoute>} />
-         <Route path="/peePage/page1/func2" element={<PrivateRoute><TableDonate/></PrivateRoute>} />
-         <Route path="/peePage/page2" element={<PrivateRoute><PageDV /></PrivateRoute>} />
-         <Route path="/peePage/page2/func1" element={<PrivateRoute><TableFeeDV /></PrivateRoute>} />
-         <Route path="/peePage/page2/func2" element={<PrivateRoute><TableFeeDept /></PrivateRoute>} />
-         <Route path="/peePage/page2/func3" element={<PrivateRoute><TableFeeBillAprt /></PrivateRoute>} />
-         <Route path="/peePage/page2/func4" element={<PrivateRoute><TableBill /></PrivateRoute>} />
+         <Route path="/feePage/charity" element={<PrivateRoute><Page1 /></PrivateRoute>} />
+         <Route path="/feePage/charity/listFee" element={<PrivateRoute><TableCharity/></PrivateRoute>} />
+         <Route path="/feePage/charity/fund" element={<PrivateRoute><TableCharityFee/></PrivateRoute>} >
+            <Route path=":feeId" element={<TableCharityFee />} />
+         </Route>
+         <Route path="/feePage/charity/addDonate" element={<PrivateRoute><TableDonate/></PrivateRoute>} >
+            <Route path=":feeId" element={<TableDonate />} />
+          </Route>
+         <Route path="/feePage/fee" element={<PrivateRoute><PageDV /></PrivateRoute>} />
+         <Route path="/feePage/fee/listFee" element={<PrivateRoute><TableFeeDV /></PrivateRoute>} />
+         <Route path="/feePage/fee/deptBill" element={<PrivateRoute><TableFeeDept /></PrivateRoute>} />
+         {/* use context ?? */}
+         <Route path="/feePage/fee/billOfApartment" element={<PrivateRoute><TableFeeBillAprt /></PrivateRoute>}>
+                <Route path=":apartmentId" element={<TableFeeBillAprt />} />
+          </Route>
+         <Route path="/feePage/fee/listBill" element={<PrivateRoute><TableBill /></PrivateRoute>} />
          <Route path="/form" element={<PrivateRoute><FormGuest /></PrivateRoute>} />
          <Route path="/Tableform" element={<PrivateRoute>< TableForm/></PrivateRoute>} />
          <Route path='/people/household' element={<PrivateRoute><HouseHold/></PrivateRoute>}></Route>
-         <Route path='/admin/addAdmin' element={<PrivateRoute><AddAdmin/></PrivateRoute>}></Route>
+         <Route path='/admin/addAdmin' element={<PrivateRoute role='Quản lý'><AddAdmin/></PrivateRoute>}></Route>
          <Route path='/people/addAbsent' element={<PrivateRoute><AddAbsent/></PrivateRoute>}></Route>
          <Route path='/people/listAbsent' element={<PrivateRoute><TableAbsent/></PrivateRoute>}></Route>
         </Routes>

@@ -36,10 +36,10 @@ const PageDV = () => {
   <Container className="text-center mt-5">
     <h1>Chức năng</h1>
     <div className="d-flex flex-column align-items-center">
-      <Link to="/peePage/page2/func1" className="mb-3">
-       { <button className="func-card func2">Phí dịch vụ</button>}
+      <Link to="/feePage/fee/listFee" className="mb-3">
+        <button className="func-card func2">Phí dịch vụ</button>
       </Link>
-      <Link to="/peePage/page2/func2" className="mb-3">
+      <Link to="/feePage/fee/deptBill" className="mb-3">
         <button className="func-card func3">Danh sách hóa đơn bị nợ</button>
       </Link>
         <button className="func-card func4 mb-3"

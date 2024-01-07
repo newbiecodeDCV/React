@@ -12,7 +12,7 @@ export const DataProvider1 = ({ children }) => {
 
   const setAndRedirect = (newData) => {
     setData(newData);
-    navigate('/peePage/page1/func4');
+    navigate('/feePage/charity/fund');
     if (data !== null){
         console.log("Đã truyền thành công",data)
     }
@@ -32,7 +32,7 @@ export const DataProvider2 = ({ children }) => {
     const setAndRedirect = (name,apartmentId) => {
       setName(name);
       setApartmentId(apartmentId);
-      navigate('/peePage/page1/func2');
+      navigate('/feePage/charity/addDonate');
       
     }
   return (
@@ -51,7 +51,7 @@ export const DataProvider2 = ({ children }) => {
       setApartmentId(apartmentId);
       setMonth(month)
       setYear(year)
-      navigate('/peePage/page2/func3');
+      navigate('/feePage/fee/billOfApartment');
       
     }
   return (
@@ -68,7 +68,7 @@ export const DataProvider2 = ({ children }) => {
     const setAndRedirect = (month,year) => {
       setMonth(month)
       setYear(year)
-      navigate('/peePage/page2/func4');
+      navigate('/feePage/fee/listBill');
       
     }
   return (
@@ -143,7 +143,7 @@ const UserProvider = ({ children }) => {
     setUser((user) => ({
       email: email,
       auth: true,
-      roel:role
+      role:role
     }));
     localStorage.setItem("accessToken",accessToken)
     localStorage.setItem("email",email)

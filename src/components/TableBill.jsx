@@ -4,10 +4,12 @@ import { useData4 } from '../Context/UseContext';
 import { getBill } from '../service/FeeService';
 import ReactPaginate from 'react-paginate';
 import { Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 const TableBill = () => {
     const navigate = useNavigate();
-    const { month, year } = useData4();
+    const [searchParams,setSearchParams]=useSearchParams();
+    const month = searchParams.get('month');
+    const year = searchParams.get('year')
     const [totalPage, setTotalPage] = useState('');
     const [paymentList, setPaymentList] = useState([]);
     useEffect(() => {
@@ -93,7 +95,7 @@ const TableBill = () => {
                     {' '}
                     <Button
                         variant="success"
-                        onClick={() => navigate('/peePage/page2')}
+                        onClick={() => navigate('/feePage')}
                     >
                         Quay lại
                     </Button>
