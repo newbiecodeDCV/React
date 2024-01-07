@@ -6,7 +6,11 @@ import { toast } from 'react-toastify';
 import ModalPatchFee from './ModalPatchFee';
 import ModalAddFeeDV from './ModalAddFeeDV';
 import ModalDeleteFee from './ModalDeleteFee';
+import { UserContext } from '../Context/UseContext';
+import { useContext } from 'react';
 const TableFeeDV = (props) => {
+    
+    const {user} = useContext(UserContext)
     const [isShowModalAddPeeDV, setIsShowModalAddPeeDV] = useState(false);
     const [listPee, setListPee] = useState([]);
     const [isModalPatchPeeDV, setIsModalPatchPee] = useState(false);
@@ -56,9 +60,9 @@ const TableFeeDV = (props) => {
                     {' '}
                     <b>Danh sách phí dịch vụ</b>
                 </span>
-                <button className="btn btn-success" onClick={handleOpen1}>
+               {user.role ==='Quản lý'&& <button className="btn btn-success" onClick={handleOpen1}>
                     Thêm phí
-                </button>
+                </button>}
             </div>
             <Table striped bordered hover>
                 <thead>
@@ -67,7 +71,7 @@ const TableFeeDV = (props) => {
                         <th>Giá</th>
                         <th>Tạo ngày</th>
                         <th>Cập nhập lúc</th>
-                        <th>Tùy Chọn</th>
+                     {user.role ==='Quản lý' &&   <th>Tùy Chọn</th>}
                     </tr>
                 </thead>
                 <tbody>
@@ -84,7 +88,7 @@ const TableFeeDV = (props) => {
                                 </td>
                                 <td>{item.createdAt}</td>
                                 <td>{item.updatedAt}</td>
-                                <td>
+                                {user.role ==='Quản lý' &&     <td>
                                     <Button
                                         variant="danger mx-3"
                                         onClick={() => handledelete(item.id)}
@@ -99,7 +103,7 @@ const TableFeeDV = (props) => {
                                     >
                                         Sửa
                                     </Button>
-                                </td>
+                                </td>}
                             </tr>
                         ))}
                 </tbody>

@@ -6,7 +6,10 @@ import { useState } from 'react';
 import ModalBillPhong from './ModalBillPhong';
 import ModalPatchBill from './ModalPatchBill';
 import ModalBill from './ModalBill';
+import { useContext } from 'react';
+import { UserContext } from '../Context/UseContext';
 const PageDV = () => {
+  const {user} = useContext(UserContext)
     const [isShơModalBillPhong,setIsShowModalBillPhong] = useState(false)
     const [isShowModalPatchBill,setIsShowModalPatchBill] = useState(false)
     const [isShowModalBill,setIsShowModalBill] = useState(false)

@@ -6,8 +6,10 @@ import ModalAddNewApartment from './ModalAddNewApartment';
 import Button from 'react-bootstrap/Button';
 import ModalPatchApt from './ModalPatchApt';
 import ModalDetailAprt from './ModalDetailAprt';
-
+import { UserContext } from '../Context/UseContext';
+import { useContext } from 'react';
 const TableApartments = () => {
+    const {user} = useContext(UserContext)
     const [listApart, setListApart] = useState([]);
     const [totalPage, setTotalPage] = useState(0);
     const [totalApart, setTotalApart] = useState(0);
@@ -58,12 +60,12 @@ const TableApartments = () => {
                     {' '}
                     <b>Danh sách căn hộ</b>
                 </span>
-                <button
+            { user.role ==='Quản lý' &&  <button
                     className="btn btn-success"
                     onClick={() => setIsShowModaAddNew(true)}
                 >
                     Thêm căn hộ
-                </button>
+                </button>}
             </div>
 
             <Table striped bordered hover>
