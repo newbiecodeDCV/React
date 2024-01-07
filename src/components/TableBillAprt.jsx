@@ -3,9 +3,11 @@ import Table from 'react-bootstrap/Table';
 import { useData3 } from '../Context/UseContext';
 import { getFeeBill } from '../service/FeeService';
 import { Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ModalPatchBill from './ModalPatchBill';
 const TablePeeBillAprt = () => {
+    const {userId} = useParams();
+    console.log(userId)
     const { apartmentId, month, year } = useData3();
     const [listRecord, setListRecord] = useState([]);
     const [isShowModalPatchBill, setIsShowModalPatchBill] = useState(false);
@@ -82,7 +84,7 @@ const TablePeeBillAprt = () => {
                     {' '}
                     <Button
                         variant="success"
-                        onClick={() => navigate('/peePage/page2')}
+                        onClick={() => navigate('/feePage')}
                     >
                         Quay lại
                     </Button>

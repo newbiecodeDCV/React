@@ -57,7 +57,7 @@ const ModalBillPhong = (props)  => {
         </Button>
         <Button variant="primary" 
         onClick={()=>handleBillPhong()}>
-        Lưu thay đổi
+        Tra cứu
         </Button>
         </Modal.Footer>
         </Modal>

@@ -93,7 +93,7 @@ const TableBill = () => {
                     {' '}
                     <Button
                         variant="success"
-                        onClick={() => navigate('/peePage/page2')}
+                        onClick={() => navigate('/feePage')}
                     >
                         Quay lại
                     </Button>

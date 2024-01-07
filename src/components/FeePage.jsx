@@ -7,10 +7,10 @@ const Page = () => (
   <Container className="text-center mt-5">
     <h1>Các khoản phí</h1>
     <div className="d-flex flex-column align-items-center">
-      <Link to="/peePage/page1" className="mb-3">
+      <Link to="/feePage/charity" className="mb-3">
         <button  className="func-card func1">Phí đóng góp từ thiện</button>
       </Link>
-      <Link to="/peePage/page2" className="mb-3">
+      <Link to="/feePage/fee" className="mb-3">
         <button className="func-card func2">Phí dịch vụ</button>
       </Link>
     </div>

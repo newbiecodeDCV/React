@@ -14,7 +14,7 @@ const TableDonate = () => {
     const [peopleID, setPeopleId] = useState('');
     const navigate = useNavigate();
     const handleBack = () => {
-        navigate('/peePage/page1/func1');
+        navigate('/feePage/charity/listFee');
     };
     const handlePageClick = (event) => {
         console.log(event);

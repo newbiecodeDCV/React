@@ -10,7 +10,7 @@ const Page1 = () => {
     <p>Chọn một chức năng để tiếp tục.</p>
     <Row className="justify-content-center">
       <Col md={3}>
-        <Link to="/peePage/page1/func1">
+        <Link to="/feePage/charity/listFee">
           <Button variant="primary" size="lg" block
           >
             Danh sách các khoản từ thiện
