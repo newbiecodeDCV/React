@@ -3,8 +3,13 @@ import { Modal, Button } from 'react-bootstrap';
 import { patchBill } from '../service/FeeService';
 import { toast } from 'react-toastify';
 import { useData3 } from '../Context/UseContext';
+import CurrencyInput from 'react-currency-input-field';
+import { useParams, useSearchParams } from 'react-router-dom';
 const ModalPatchBill = (props) => {
-    const { apartmentId, month, year } = useData3();
+    const { apartmentId } = useParams();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const month = searchParams.get('month');
+    const year = searchParams.get('year');
     const { show, handleClose, getFeebill } = props;
     const [payMoney, setPayMoney] = useState('');
     const [payername, setPayername] = useState('');
@@ -42,12 +47,14 @@ const ModalPatchBill = (props) => {
                     <div className="body-add-new">
                         <div className="mb-3">
                             <label className="form-label">Số tiền</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={payMoney}
-                                onChange={(event) =>
-                                    setPayMoney(event.target.value)
+                            <br></br>
+                            <CurrencyInput
+                                intlConfig={{ locale: 'vi', currency: 'VND' }}
+                                id="input-example"
+                                name="input-name"
+                                // suffix='đ'
+                                onValueChange={(value, name, values) =>
+                                    setPayMoney(value)
                                 }
                             />
                         </div>

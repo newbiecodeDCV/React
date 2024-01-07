@@ -1,10 +1,10 @@
 import { Table } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import { getCharityFee } from '../service/CharityService';
-import { useData1 } from '../Context/UseContext';
 import { useEffect, useState } from 'react';
-const TableCharityPee = () => {
-    const { data, setAndRedirect } = useData1();
+import { useParams } from 'react-router-dom';
+const TableCharityFee = () => {
+    const { feeId } = useParams();
     const [totalPage, setTotalPage] = useState(0);
     const [sum, setSum] = useState(0);
     const [listDonator, setListDonator] = useState([]);
@@ -18,7 +18,7 @@ const TableCharityPee = () => {
 
     const getCF = async (page) => {
         try {
-            let res = await getCharityFee(page, data);
+            let res = await getCharityFee(page, feeId);
             console.log(res);
             setListDonator(res.data.fund);
             setTotalPage(res.data.totalPage);
@@ -94,4 +94,4 @@ const TableCharityPee = () => {
         </>
     );
 };
-export default TableCharityPee;
+export default TableCharityFee;

@@ -143,7 +143,7 @@ const UserProvider = ({ children }) => {
     setUser((user) => ({
       email: email,
       auth: true,
-      roel:role
+      role:role
     }));
     localStorage.setItem("accessToken",accessToken)
     localStorage.setItem("email",email)

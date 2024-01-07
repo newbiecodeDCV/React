@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useData4 } from '../Context/UseContext';
+import { useNavigate } from 'react-router-dom';
 const ModalBill = (props) => {
     const { show, handleClose } = props;
     const [month, setMonth] = useState(new Date().getMonth() + 1);
     const [year, setYear] = useState(new Date().getFullYear());
-    const { setAndRedirect } = useData4();
+    const navigate = useNavigate();
     const handleBill = () => {
-        setAndRedirect(month, year);
+        navigate(
+            `/feePage/fee/listBill?month=${month}&year=${year}`
+        );
     };
     return (
         <>

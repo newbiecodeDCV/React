@@ -6,8 +6,10 @@ import { Button } from 'react-bootstrap';
 import ModalAddCharity from './ModalAddCharity';
 import ModalCharity from './ModalCharity';
 import { getDate } from '../utils/getDate';
+import { useNavigate } from 'react-router-dom';
 const TableCharity = () => {
     const [isShowModalCharity, SetIsShowModalCharity] = useState(false);
+    const [feeId, setFeeId] = useState(undefined);
     const handleClose2 = () => {
         SetIsShowModalCharity(false);
     };
@@ -15,15 +17,15 @@ const TableCharity = () => {
         SetIsShowModalCharity(true);
     };
 
-    const { setData, data, setAndRedirect } = useData1();
     const [isShowModalAdd, setIsShowModalAdd] = useState(false);
+    const navigate = useNavigate();
     const [data1, setData1] = useState([]);
     const handleClose = () => {
         setIsShowModalAdd(false);
     };
     const handleOpen = (param) => {
         setIsShowModalAdd(true);
-        setData(param);
+        setFeeId(param)
     };
 
     const getCharity = async () => {
@@ -37,10 +39,7 @@ const TableCharity = () => {
     }, []);
 
     const handleButtonClick = (param) => () => {
-        const newData = param;
-        // Truyền newData cho setAndRedirect
-        setAndRedirect(newData);
-        console.log(data);
+        navigate(`/feePage/charity/fund/${param}`)
     };
 
     return (
@@ -82,21 +81,24 @@ const TableCharity = () => {
                                         Thống kê quỹ
                                     </Button>
                                     {new Date(item.endDate).getTime() >
-                                        Date.now() && new Date(item.startDate).getTime() <
                                         Date.now() &&
-                                        <Button
-                                            variant="success"
-                                            onClick={() => handleOpen(item.id)}
-                                        >
-                                            Đóng góp
-                                        </Button>
-                                    }
+                                        new Date(item.startDate).getTime() <
+                                            Date.now() && (
+                                            <Button
+                                                variant="success"
+                                                onClick={() =>
+                                                    handleOpen(item.id)
+                                                }
+                                            >
+                                                Đóng góp
+                                            </Button>
+                                        )}
                                 </td>
                             </tr>
                         ))}
                 </tbody>
             </Table>
-            <ModalAddCharity show={isShowModalAdd} handleClose={handleClose} />
+            <ModalAddCharity feeId={feeId} show={isShowModalAdd} handleClose={handleClose} />
             <ModalCharity
                 show={isShowModalCharity}
                 handleClose={handleClose2}

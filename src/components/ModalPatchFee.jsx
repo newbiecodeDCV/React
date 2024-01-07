@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { patchFee } from '../service/FeeService';
 import { toast } from 'react-toastify';
+import CurrencyInput from 'react-currency-input-field';
 const ModalPatchPee = (props) => {
     const { show, handleClose, id, getPeeDV } = props;
     const [unitPrice, setUnitPrice] = useState('');
@@ -31,13 +32,15 @@ const ModalPatchPee = (props) => {
                 <Modal.Body>
                     <div className="body-add-new">
                         <div className="mb-3">
-                            <label className="form-label">Gía thay đổi</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={unitPrice}
-                                onChange={(event) =>
-                                    setUnitPrice(event.target.value)
+                            <label className="form-label">Giá thay đổi</label>
+                            <br></br>
+                            <CurrencyInput
+                                intlConfig={{ locale: 'vi', currency: 'VND' }}
+                                id="input-example"
+                                name="input-name"
+                                // suffix='đ'
+                                onValueChange={(value, name, values) =>
+                                    setUnitPrice(value)
                                 }
                             />
                         </div>

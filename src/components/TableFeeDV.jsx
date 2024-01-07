@@ -11,10 +11,10 @@ import { useContext } from 'react';
 const TableFeeDV = (props) => {
     
     const {user} = useContext(UserContext)
-    const [isShowModalAddPeeDV, setIsShowModalAddPeeDV] = useState(false);
-    const [listPee, setListPee] = useState([]);
-    const [isModalPatchPeeDV, setIsModalPatchPee] = useState(false);
-    const [isModalDeletePee, setIsModalDeletePee] = useState(false);
+    const [isShowModalAddFeeDV, setIsShowModalAddFeeDV] = useState(false);
+    const [listFee, setListFee] = useState([]);
+    const [isModalPatchFeeDV, setIsModalPatchFee] = useState(false);
+    const [isModalDeleteFee, setIsModalDeleteFee] = useState(false);
     const [id, setId] = useState('');
 
     useEffect(() => {
@@ -26,7 +26,7 @@ const TableFeeDV = (props) => {
         try {
             let res = await getFee();
             if (res && res.data) {
-                setListPee(res.data);
+                setListFee(res.data);
             }
         } catch (e) {
             console.log(e);
@@ -34,24 +34,24 @@ const TableFeeDV = (props) => {
     };
 
     const handledelete = (id) => {
-        setIsModalDeletePee(true);
+        setIsModalDeleteFee(true);
         setId(id);
     };
-    const handlePatchPeeDV = (id) => {
+    const handlePatchFeeDV = (id) => {
         setId(id);
-        setIsModalPatchPee(true);
+        setIsModalPatchFee(true);
     };
     const handleClose = () => {
-        setIsModalPatchPee(false);
+        setIsModalPatchFee(false);
     };
     const handleClose1 = () => {
-        setIsShowModalAddPeeDV(false);
+        setIsShowModalAddFeeDV(false);
     };
     const handleClose2 = () => {
-        setIsModalDeletePee(false);
+        setIsModalDeleteFee(false);
     };
     const handleOpen1 = () => {
-        setIsShowModalAddPeeDV(true);
+        setIsShowModalAddFeeDV(true);
     };
     return (
         <>
@@ -75,9 +75,9 @@ const TableFeeDV = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {listPee &&
-                        listPee.length > 0 &&
-                        listPee.map((item, index) => (
+                    {listFee &&
+                        listFee.length > 0 &&
+                        listFee.map((item, index) => (
                             <tr key={`user-${index}`}>
                                 <td>{item.name}</td>
                                 <td>
@@ -98,7 +98,7 @@ const TableFeeDV = (props) => {
                                     <Button
                                         variant="warning"
                                         onClick={() =>
-                                            handlePatchPeeDV(item.id)
+                                            handlePatchFeeDV(item.id)
                                         }
                                     >
                                         Sửa
@@ -109,18 +109,18 @@ const TableFeeDV = (props) => {
                 </tbody>
             </Table>
             <ModalPatchFee
-                show={isModalPatchPeeDV}
+                show={isModalPatchFeeDV}
                 handleClose={handleClose}
                 id={id}
                 getPeeDV={getFeeDV}
             />
             <ModalAddFeeDV
-                show={isShowModalAddPeeDV}
+                show={isShowModalAddFeeDV}
                 handleClose={handleClose1}
                 getPeeDV={getFeeDV}
             />
             <ModalDeleteFee
-                show={isModalDeletePee}
+                show={isModalDeleteFee}
                 handleClose={handleClose2}
                 id={id}
                 getPeeDV={getFeeDV}

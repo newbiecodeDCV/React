@@ -5,9 +5,12 @@ import { useData2 } from '../Context/UseContext';
 import { fetchAllPeople_2 } from '../service/PeopleService';
 import { Button } from 'react-bootstrap';
 import ModalDonate from './ModalDonate';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 const TableDonate = () => {
-    const { name, apartmentId } = useData2();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { feeId } = useParams();
+    const name = searchParams.get('name');
+    const apartmentId = searchParams.get('apartmentId');
     const [listUsers, setListUsers] = useState([]);
     const [totalPage, setTotalPage] = useState(0);
     const [isShowModalDonate, setIsShowModalDonate] = useState(false);
@@ -56,7 +59,9 @@ const TableDonate = () => {
                     <tr>
                         <th>Họ Tên</th>
                         <th>Số Phòng</th>
-                        <th>Vai Trò</th>
+                        <th>Ngày sinh</th>
+                        <th>Số điện thoại</th>
+                        <th>Quan hệ với chủ hộ</th>
                         <th>Trạng Thái</th>
                         <th>Tùy Chọn</th>
                     </tr>
@@ -68,6 +73,8 @@ const TableDonate = () => {
                             <tr key={`user-${index}`}>
                                 <td>{item.name}</td>
                                 <td>{item.apartmentId}</td>
+                                <td>{item.dateOfBirth}</td>
+                                <td>{item.phoneNumber}</td>
                                 <td>{item.relationWithHouseholder}</td>
                                 <td>{item.status}</td>
 
@@ -108,6 +115,7 @@ const TableDonate = () => {
                 </span>
             </div>
             <ModalDonate
+                feeId={feeId}
                 show={isShowModalDonate}
                 handleClose={handleClose}
                 peopleId={peopleID}
