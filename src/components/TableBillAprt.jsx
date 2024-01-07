@@ -7,8 +7,8 @@ import ModalPatchBill from './ModalPatchBill';
 const TablePeeBillAprt = () => {
     const { apartmentId } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
-    const month = searchParams.get('month')
-    const year = searchParams.get('year')
+    const month = searchParams.get('month');
+    const year = searchParams.get('year');
     const [listRecord, setListRecord] = useState([]);
     const [isShowModalPatchBill, setIsShowModalPatchBill] = useState(false);
     const [total, setTotal] = useState(0);
@@ -64,7 +64,12 @@ const TablePeeBillAprt = () => {
                         listRecord.map((item, index) => (
                             <tr key={`user-${index}`}>
                                 <td>{item.fee.name}</td>
-                                <td>{item.amount}</td>
+                                <td>
+                                    {item.amount.toLocaleString('vi', {
+                                        style: 'currency',
+                                        currency: 'VND',
+                                    })}
+                                </td>
                                 <td>{item.status}</td>
                                 <td>{item.payDay}</td>
                                 <td>{item.payerName}</td>
@@ -78,7 +83,17 @@ const TablePeeBillAprt = () => {
                 getFeebill={getfeebill}
             />
 
-            <div>{total > 0 && <p>Tổng phải đóng: {total} đồng</p>}</div>
+            <div>
+                {total > 0 && (
+                    <p>
+                        Tổng phải đóng:{' '}
+                        {total.toLocaleString('vi', {
+                            style: 'currency',
+                            currency: 'VND',
+                        })}{' '}
+                    </p>
+                )}
+            </div>
             <div className="my-3 add-new">
                 <span>
                     {' '}
