@@ -25,6 +25,7 @@ import AddAdmin from '../components/AddAdmin';
 import FormPassWord from '../components/FormPassWord';
 import AddAbsent from '../components/AddAbsent';
 import TableAbsent from '../components/TableAbsent';
+
 const AppRouter = () => {
   return (
     <>
