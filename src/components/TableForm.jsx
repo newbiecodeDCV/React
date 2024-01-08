@@ -57,12 +57,28 @@ const TableForm = () => {
                                 <td>{item.status}</td>
                                 <td>{item.payerName}</td>
                                 <td>{item.payDay}</td>
-                                <td>{item.amount}</td>
+                                <td>
+                                    {item.amount.toLocaleString('vi', {
+                                        style: 'currency',
+                                        currency: 'VND',
+                                    })}
+                                </td>
                             </tr>
                         ))}
                 </tbody>
             </Table>
-            <div>{total > 0 && <p>Tổng phải đóng: {total} đồng</p>}</div>
+            <div>
+                {total > 0 && (
+                    <p>
+                        Tổng phải đóng:{' '}
+                        {total.toLocaleString('vi', {
+                            style: 'currency',
+                            currency: 'VND',
+                        })}{' '}
+                        đồng
+                    </p>
+                )}
+            </div>
         </>
     );
 };
