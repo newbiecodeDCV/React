@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import './styles/home.scss';
-import FluidExample from './Image';
 import {
   Button,
   Alert,
@@ -11,6 +10,7 @@ import {
   CardSubtitle,
   CardText,
 } from "react-bootstrap";
+import { getProfile } from '../service/UserService';
 const Home = () => {
     const [profile, setProfile] = useState({});
     useEffect(() => {
