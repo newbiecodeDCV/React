@@ -15,7 +15,7 @@ const Login = () =>
     useEffect(()=>{
      let token = localStorage.getItem("accessToken")
      if(token){
-        navigate("/");
+        navigate("/dashboard");
      }
     },[])
     const handleBack  = () =>{
@@ -32,7 +32,7 @@ const Login = () =>
         console.log(res)
         if(res  && res.data.accessToken ){
         loginContext(email,res.data.accessToken,res.data.role )
-        navigate("/");
+        navigate("/dashboard");
     
       }else{
             toast.error(res.data.message)

@@ -24,16 +24,13 @@ const ModalDelete =(props) => {
       </Modal.Header>
 
       <Modal.Body>
-        <p>Bạn muốn tiếp tục xóa.</p>
+        <p>Bạn chắc chắn muốn xóa.</p>
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
         <Button variant="primary"
         onClick={handleDelete}
-        >Save changes</Button>
+        >Xác nhận</Button>
       </Modal.Footer>
     </Modal>
   );

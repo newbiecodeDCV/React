@@ -7,7 +7,7 @@ import Home from '../components/Home';
 import PrivateRoute from './PrivateRouter';
 import RegisterResidenceForm from '../components/RegisterResidenceForm';
 import TableApartments from '../components/TableApartments';
-import TableManager from '../components/TableManager';
+import TableUser from '../components/TableUser';
 import Page from '../components/FeePage';
 import Page1 from '../components/PageCharity';
 import TableCharity from '../components/TableCharity';
@@ -26,7 +26,8 @@ import FormPassWord from '../components/FormPassWord';
 import AddAbsent from '../components/AddAbsent';
 import TableAbsent from '../components/TableAbsent';
 import TableAdminForGuest from '../components/TableAdminForGuest';
-
+import Dashboard from '../components/Dashboard';
+import UserManagementPage from '../components/UserManagePage';
 const AppRouter = () => {
   return (
     <>
@@ -36,6 +37,14 @@ const AppRouter = () => {
         <Route path="/form" element={<FormGuest />} />
         <Route path="/Tableform" element={<TableForm />} />
         <Route path='/AdminInfo' element={<TableAdminForGuest/>}></Route>
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+             <Dashboard />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="people/registerResidenceForm"
           element={
@@ -56,10 +65,10 @@ const AppRouter = () => {
          <Route path="/peoplePage" element={<PrivateRoute><PeoplePage /></PrivateRoute>} />
          <Route path="/feePage" element={<PrivateRoute><Page/></PrivateRoute>} />
          <Route path="/apartments"element={<PrivateRoute><TableApartments /></PrivateRoute>}  />
-         <Route path="/admin" element={<PrivateRoute><TableManager /></PrivateRoute>} />
+         <Route path="/admin/list" element={<PrivateRoute><TableUser /></PrivateRoute>} />
          <Route path="/feePage/charity" element={<PrivateRoute><Page1 /></PrivateRoute>} />
-         <Route path="/feePage/charity/listFee" element={<PrivateRoute><TableCharity/></PrivateRoute>} />
-         <Route path="/feePage/charity/fund" element={<PrivateRoute><TableCharityFee/></PrivateRoute>} >
+         <Route path="/feePage/charity/listFee" element={<TableCharity/>} />
+         <Route path="/feePage/charity/fund" element={<TableCharityFee/>} >
             <Route path=":feeId" element={<TableCharityFee />} />
          </Route>
          <Route path="/feePage/charity/addDonate" element={<PrivateRoute><TableDonate/></PrivateRoute>} >
@@ -79,6 +88,8 @@ const AppRouter = () => {
          <Route path='/admin/addAdmin' element={<PrivateRoute role='Quản lý'><AddAdmin/></PrivateRoute>}></Route>
          <Route path='/people/addAbsent' element={<PrivateRoute><AddAbsent/></PrivateRoute>}></Route>
          <Route path='/people/listAbsent' element={<PrivateRoute><TableAbsent/></PrivateRoute>}></Route>
+         <Route path='/admin' element={<PrivateRoute><UserManagementPage/></PrivateRoute>}></Route>
+
         </Routes>
      
     </>

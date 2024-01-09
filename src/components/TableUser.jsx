@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 import ModalDelete from './ModalDelete';
 import { UserContext } from '../Context/UseContext';
 import { useContext } from 'react';
-const TableManager = () => {
+const TableUser = () => {
     const {user} = useContext(UserContext)
     const navigate = useNavigate();
     const [listManager, setListManager] = useState([]);
@@ -41,12 +41,6 @@ const TableManager = () => {
                     {' '}
                     <b>Danh sách ban quản trị</b>
                 </span>
-               {user.role === 'Quản lý' && <button
-                    className="btn btn-success"
-                    onClick={() => navigate('/admin/addAdmin')}
-                >
-                    Thêm quản trị
-                </button>}
             </div>
 
             <Table striped bordered hover>
@@ -70,7 +64,7 @@ const TableManager = () => {
                                 <td>{item.people?.phoneNumber}</td>
                                 {user.role ==='Quản lý' &&  <td>
                                   <Button
-                                        variant="primary"
+                                        variant="danger"
                                         onClick={() => handledelete(item.id)}
                                     >
                                         Xóa
@@ -89,4 +83,4 @@ const TableManager = () => {
         </>
     );
 };
-export default TableManager;
+export default TableUser;
