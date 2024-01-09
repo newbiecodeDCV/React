@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import './styles/home.scss';
-import FluidExample from './Image';
 import {
   Button,
   Alert,
