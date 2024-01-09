@@ -36,6 +36,7 @@ const TablePeople = (props) => {
     };
     const handlePatch = async (id, form) => {
         try {
+            if(Object.keys(form).length === 0) return toast.error('Bạn chưa thay đổi gì!!!')
             await patchPeople(id, form);
             toast.success('Thay đổi thành công');
             setForm({});
