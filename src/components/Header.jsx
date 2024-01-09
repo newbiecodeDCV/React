@@ -14,7 +14,7 @@ const Header = (props) => {
   const { logout, user } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
-
+  const email = localStorage.getItem('email')
   const handleLogout = () => {
     logout();
     navigate('/');
@@ -47,26 +47,23 @@ const Header = (props) => {
                 <NavLink to="/feePage" className="nav-link">
                   Quản lý phí thu
                 </NavLink>
-                <NavLink to="/Form" className="nav-link">
-                  Tra cứu
-                </NavLink>
               </Nav>
               <Nav>
-                <NavDropdown title="Cài đặt">
-                  {user && user.auth ? (
-                    <>
+                {email && <div className="nav-link">
+                      {email}
+                    </div>}
+              </Nav>
+              <Nav>
+                {!user?.auth && <NavLink to="/login" className="nav-link">
+                      Đăng nhập
+                    </NavLink>}
+                {user && user.auth && <NavDropdown title="Cài đặt">
                       {' '}
                       <NavDropdown.Item onClick={() => handleLogout()}>Đăng xuất</NavDropdown.Item>
                       <NavLink to="/password" className="dropdown-item">
                         Đổi Mật Khẩu
                       </NavLink>
-                    </>
-                  ) : (
-                    <NavLink to="/login" className="dropdown-item">
-                      Đăng nhập
-                    </NavLink>
-                  )}
-                </NavDropdown>
+                </NavDropdown>}
               </Nav>
             </>
           )}

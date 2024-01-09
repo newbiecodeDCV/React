@@ -18,6 +18,15 @@ export const fetchAllAdmin = () => {
     }
 };
 
+export const fetchAllAdminForGuest = () => {
+    try {
+        return axios.get('/guest/admin');
+    } catch (error) {
+        console.log('🚀 ~ fetchAllAdminForGuest ~ error:', error);
+        throw error;
+    }
+};
+
 export const addAdmin = (id, email) => {
     try {
         return axios.post('/users', {
@@ -41,11 +50,19 @@ export const patchPassWord = (password, newpassword) => {
         throw error;
     }
 };
-export const deleteUser = (id) => {
+export const deleteUser = async (id) => {
     try {
-        return axios.delete(`/users/${id}`);
+        return await axios.delete(`/users/${id}`);
     } catch (error) {
         console.log('🚀 ~ deleteUser ~ error:', error);
+        throw error;
+    }
+};
+export const getProfile = async () => {
+    try {
+        return await axios.get(`/users/profile`);
+    } catch (error) {
+        console.log('🚀 ~ getProfile ~ error:', error);
         throw error;
     }
 };

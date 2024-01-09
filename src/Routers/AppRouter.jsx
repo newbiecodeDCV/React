@@ -1,5 +1,5 @@
 import React from 'react';
-import FormGuest from '../components/Formguest';
+import FormGuest from '../components/FormGuest';
 import TableForm from '../components/TableForm';
 import Login from '../components/login';
 import { Routes, Route } from 'react-router-dom';
@@ -25,6 +25,7 @@ import AddAdmin from '../components/AddAdmin';
 import FormPassWord from '../components/FormPassWord';
 import AddAbsent from '../components/AddAbsent';
 import TableAbsent from '../components/TableAbsent';
+import TableAdminForGuest from '../components/TableAdminForGuest';
 
 const AppRouter = () => {
   return (
@@ -34,6 +35,7 @@ const AppRouter = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/form" element={<FormGuest />} />
         <Route path="/Tableform" element={<TableForm />} />
+        <Route path='/AdminInfo' element={<TableAdminForGuest/>}></Route>
         <Route
           path="people/registerResidenceForm"
           element={
