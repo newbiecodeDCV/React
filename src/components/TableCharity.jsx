@@ -8,6 +8,7 @@ import ModalCharity from './ModalCharity';
 import { getDate } from '../utils/getDate';
 import { useNavigate } from 'react-router-dom';
 const TableCharity = () => {
+    const token = localStorage.getItem('accessToken');
     const [isShowModalCharity, SetIsShowModalCharity] = useState(false);
     const [feeId, setFeeId] = useState(undefined);
     const handleClose2 = () => {
@@ -63,6 +64,7 @@ const TableCharity = () => {
                         <th>Tên Quỹ</th>
                         <th>Ngày bắt đầu</th>
                         <th>Ngày kết thúc</th>
+                        <th>Trạng thái</th>
                         <th>Tùy Chọn</th>
                     </tr>
                 </thead>
@@ -73,6 +75,7 @@ const TableCharity = () => {
                                 <td>{item.name}</td>
                                 <td>{getDate(item.startDate)}</td>
                                 <td>{getDate(item.endDate)}</td>
+                                {new Date().getTime() <= new Date(item.endDate).getTime() ? <td>Đang diễn ra</td> : <td>Kết thúc</td>}
                                 <td>
                                     <Button
                                         variant="info mx-3"
@@ -84,7 +87,7 @@ const TableCharity = () => {
                                         Date.now() &&
                                         new Date(item.startDate).getTime() <
                                             Date.now() && (
-                                            <Button
+                                            token && <Button
                                                 variant="success"
                                                 onClick={() =>
                                                     handleOpen(item.id)

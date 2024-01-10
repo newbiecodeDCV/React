@@ -36,7 +36,7 @@ const Header = (props) => {
                   Trang chủ
                 </NavLink>
                 <NavLink to="/peoplePage" className="nav-link">
-                  Quản lí nhân khẩu
+                  Quản lí cư trú
                 </NavLink>
                 <NavLink to="/apartments" className="nav-link">
                   Quản lí căn hộ

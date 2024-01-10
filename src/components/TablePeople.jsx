@@ -36,7 +36,8 @@ const TablePeople = (props) => {
     };
     const handlePatch = async (id, form) => {
         try {
-            if(Object.keys(form).length === 0) return toast.error('Bạn chưa thay đổi gì!!!')
+            if (Object.keys(form).length === 0)
+                return toast.error('Bạn chưa thay đổi gì!!!');
             await patchPeople(id, form);
             toast.success('Thay đổi thành công');
             setForm({});
@@ -64,7 +65,6 @@ const TablePeople = (props) => {
 
     const getPeople = async (page, name) => {
         let res = await fetchAllPeople(page, name);
-        console.log(res);
         if (res && res.data) {
             console.log(res);
             setListUsers(res.data.peopleList);

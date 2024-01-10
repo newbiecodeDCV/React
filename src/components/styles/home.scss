@@ -46,4 +46,13 @@ body {
       color: $accent-color;
     }
   }
+  // Trong home.scss
+.custom-card {
+  width: 200px;  // Đặt chiều rộng bạn mong muốn
+  height: 200px; // Đặt chiều cao bằng chiều rộng để có hình vuông
+  margin: 10px;  // Điều chỉnh khoảng cách giữa các Card
+  overflow: hidden;  // Đảm bảo hình vuông bằng cách ẩn nội dung vượt ra ngoài
+}
+
+
 }
