@@ -9,7 +9,7 @@ import ModalDetailAprt from './ModalDetailAprt';
 import { UserContext } from '../Context/UseContext';
 import { useContext } from 'react';
 const TableApartments = () => {
-    const {user} = useContext(UserContext)
+    const { user } = useContext(UserContext);
     const [listApart, setListApart] = useState([]);
     const [totalPage, setTotalPage] = useState(0);
     const [totalApart, setTotalApart] = useState(0);
@@ -60,12 +60,14 @@ const TableApartments = () => {
                     {' '}
                     <b>Danh sách căn hộ</b>
                 </span>
-            { user.role ==='Quản lý' &&  <button
-                    className="btn btn-success"
-                    onClick={() => setIsShowModaAddNew(true)}
-                >
-                    Thêm căn hộ
-                </button>}
+                {user.role === 'Quản lý' && (
+                    <button
+                        className="btn btn-success"
+                        onClick={() => setIsShowModaAddNew(true)}
+                    >
+                        Thêm căn hộ
+                    </button>
+                )}
             </div>
 
             <Table striped bordered hover>
@@ -83,32 +85,17 @@ const TableApartments = () => {
                         listApart.length > 0 &&
                         listApart.map((item, index) => (
                             <tr key={`user-${index}`}>
-                                <td>{item.apartmentId}</td>
-                                <td>{item.area}</td>
-                                <td>{item.type}</td>
-                                <td>
+                                <td style={{ width: '200px' }}>{item.apartmentId}</td>
+                                <td style={{ width: '150px' }}>{item.area}</td>
+                                <td >{item.type}</td>
+                                <td style={{ width: '350px' }}>
                                     {item.owner !== null ? (
-                                        <>
-                                            {item.owner.name}
-                                            <div>
-                                                <Button
-                                                    onClick={() => {
-                                                        setIsShowModalDetailAprt(
-                                                            true
-                                                        );
-                                                        console.log(item);
-                                                        setData(item);
-                                                    }}
-                                                >
-                                                    Chi tiết
-                                                </Button>
-                                            </div>
-                                        </>
+                                        <>{item.owner.name}</>
                                     ) : (
                                         'Không có'
                                     )}
                                 </td>
-                                <td>
+                                <td style={{ width: '400px' }}>
                                     <Button
                                         variant="warning"
                                         onClick={() => {
@@ -118,6 +105,15 @@ const TableApartments = () => {
                                         }}
                                     >
                                         Thay đổi chủ sở hữu
+                                    </Button>{' '}
+                                    <Button
+                                        onClick={() => {
+                                            setIsShowModalDetailAprt(true);
+                                            console.log(item);
+                                            setData(item);
+                                        }}
+                                    >
+                                        Chi tiết
                                     </Button>
                                 </td>
                             </tr>
@@ -142,6 +138,7 @@ const TableApartments = () => {
                 containerClassName="pagination"
                 activeClassName="active"
             />
+            <div style={{fontWeight:'bold'}}>Tổng số căn hộ: {totalApart}</div>
             <ModalAddNewApartment
                 show={isShowModaAddNew}
                 handleClose={handleClose}

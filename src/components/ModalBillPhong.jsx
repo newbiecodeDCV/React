@@ -18,7 +18,7 @@ const ModalBillPhong = (props) => {
         <>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Tra cứu bill Phòng</Modal.Title>
+                    <Modal.Title>Tra cứu hóa đơn Phòng</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>

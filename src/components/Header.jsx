@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 import { useContext } from 'react';
 import { UserContext } from '../Context/UseContext';
 import logo from '../asset/image/images.jpg';
-import { useEffect } from 'react';
 
 const Header = (props) => {
   const { logout, user } = useContext(UserContext);

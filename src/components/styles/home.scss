@@ -9,7 +9,7 @@ $light-background: #f8f8f8; // Light background color
 $background-gradient: linear-gradient(to bottom right, $primary-color, $secondary-color);
 
 body {
-  margin: 0;
+  margin: 20;
   padding: 0;
   font-family: 'Arial', sans-serif;
   background: $light-background;
@@ -17,7 +17,7 @@ body {
 }
 
 .home-container {
-  padding: 20px;
+  padding: 10px;
 
   .jumbotron {
     background: $background-gradient;
@@ -29,10 +29,10 @@ body {
   }
 
   .card {
-    margin-top: 20px;
+    margin-top: 40px;
     border: none;
     background: $light-background;
-
+    margin: 30px;
     &:hover {
       box-shadow: 0 0 10px rgba($accent-color, 0.5);
     }

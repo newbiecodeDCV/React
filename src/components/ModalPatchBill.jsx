@@ -59,7 +59,7 @@ const ModalPatchBill = (props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Người đóng</label>
+                            <label className="form-label">Họ tên người đóng</label>
                             <input
                                 type="text"
                                 className="form-control"

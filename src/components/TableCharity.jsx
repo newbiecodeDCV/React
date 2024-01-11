@@ -50,12 +50,12 @@ const TableCharity = () => {
                     {' '}
                     <b>Danh sách các phí từ thiện</b>
                 </span>
-                <button
+                {token && <button
                     className="btn btn-success"
                     onClick={handleModalCharityClick}
                 >
                     Thêm phí từ thiện
-                </button>
+                </button>}
             </div>
 
             <Table striped bordered hover>

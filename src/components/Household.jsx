@@ -3,21 +3,32 @@ import Table from 'react-bootstrap/Table';
 import ModalAddNew from './ModalAddNewApartment';
 import Button from 'react-bootstrap/Button';
 import ModalDetail from './ModalDetail';
-import { deleteHousehold, deletePeople } from '../service/PeopleService';
+import {
+    changeHouseholder,
+    deleteHousehold,
+    deletePeople,
+    patchPeople,
+} from '../service/PeopleService';
 import { toast } from 'react-toastify';
 import VerifyModal from './VerifyModal';
 import { getHousehold } from '../service/PeopleService';
+import ModalPatchRelation from './ModalPatchRelation';
+import ModalChangeHouseholder from './ModalChangeHouseholder';
 const HouseHold = (props) => {
     const [listPeople, setListPeople] = useState([]);
     const [isShowDeleteButton, setIsShowDeleteButton] = useState(false);
     const [isShowModaAddNew, setIsShowModaAddNew] = useState(false);
     const [isShowModalDetail, setIsShowModalDetail] = useState(false);
+    const [isShowModalPatch, setIsShowModalPatch] = useState(false);
     const [isShowModalVerify, setIsShowModalVerify] = useState(false);
     const [data, setData] = useState([]);
+    const [idToPatch, setIdToPatch] = useState(undefined);
     const [idToDelete, setIdToDelete] = useState('');
     const [isReload, setIsReload] = useState(false);
     const [apartmentId, setApartmentId] = useState(undefined);
     const [apartmentIdToDelete, setApartmentIdDelete] = useState(undefined);
+    const [isShowModalChangeHouseholder, setIsShowModalChangeHouseholder] =
+        useState(false);
     const handleClose = () => {
         setIsShowModaAddNew(false);
     };
@@ -50,18 +61,49 @@ const HouseHold = (props) => {
         setIsShowModalDetail(true);
         setData(data);
     };
+    const handleClickPatch = (id) => {
+        setIsShowModalPatch(true);
+        setIdToPatch(id);
+    };
+    const handleClickChange = () => {
+        setIsShowModalChangeHouseholder(true);
+    };
+    const handlePatch = async (id, newRelation) => {
+        try {
+            await patchPeople(id, { relationWithHouseholder: newRelation });
+            toast.success('Thay đổi thành công');
+            setIsShowModalPatch(false);
+            setIdToPatch(undefined);
+            setIsReload((prev) => !prev);
+            return true;
+        } catch (error) {
+            console.log('🚀 ~ handlePatch ~ error:', error);
+            return false;
+        }
+    };
+    const handleChangeHouseholder = async (apartmentId, form) => {
+        try {
+            await changeHouseholder(apartmentId,form);
+            toast.success('Thay đổi thành công');
+            setIsShowModalChangeHouseholder(false);
+            setIsReload((prev) => !prev);
+            return true;
+        } catch (error) {
+            console.log("🚀 ~ handleChangeHouseholder ~ error:", error)
+            return false;
+        }
+    };
+    const handleClosePatch = () => {
+        setIsShowModalPatch(false);
+        setIdToPatch(undefined);
+    };
     const handleDeleteHousehold = async (apartmentId) => {
         try {
             const res = await deleteHousehold(apartmentId);
-            console.log(res);
-            if (res.data?.status === 'Fail' || res.data?.status === 'Error')
-                toast.error(res.data.message);
-            else {
-                toast.success('Xóa thành công');
-                setIsShowModalVerify(false);
-                setListPeople([]);
-                setIdToDelete('');
-            }
+            toast.success('Xóa thành công');
+            setIsShowModalVerify(false);
+            setListPeople([]);
+            setIdToDelete('');
         } catch (error) {
             console.log(error);
         }
@@ -104,6 +146,14 @@ const HouseHold = (props) => {
                 </button>{' '}
                 {isShowDeleteButton && listPeople.length !== 0 && (
                     <Button
+                        variant="primary"
+                        onClick={() => handleClickChange()}
+                    >
+                        Thay đổi chủ hộ
+                    </Button>
+                )}{' '}
+                {isShowDeleteButton && listPeople.length !== 0 && (
+                    <Button
                         variant="danger"
                         onClick={() => handleClickDelete()}
                     >
@@ -141,12 +191,33 @@ const HouseHold = (props) => {
                                         onClick={() => handleCT(item)}
                                     >
                                         Chi tiết
+                                    </Button>{' '}
+                                    <Button
+                                        variant="primary"
+                                        onClick={() =>
+                                            handleClickPatch(item.id)
+                                        }
+                                    >
+                                        Thay đổi quan hệ với chủ hộ
                                     </Button>
                                 </td>
                             </tr>
                         ))}
                 </tbody>
             </Table>
+            <ModalChangeHouseholder
+                show={isShowModalChangeHouseholder}
+                handleClose={() => setIsShowModalChangeHouseholder(false)}
+                apartmentId={apartmentId}
+                submit={handleChangeHouseholder}
+                data={listPeople}
+            ></ModalChangeHouseholder>
+            <ModalPatchRelation
+                show={isShowModalPatch}
+                handleClose={handleClosePatch}
+                submit={handlePatch}
+                id={idToPatch}
+            ></ModalPatchRelation>
             <ModalAddNew show={isShowModaAddNew} handleClose={handleClose} />
             <ModalDetail
                 show={isShowModalDetail}

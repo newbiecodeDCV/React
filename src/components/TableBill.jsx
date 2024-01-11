@@ -8,35 +8,64 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 const TableBill = () => {
     const navigate = useNavigate();
     const [searchParams,setSearchParams]=useSearchParams();
-    const month = searchParams.get('month');
-    const year = searchParams.get('year')
+    const [month,setMonth] = useState(searchParams.get('month'));
+    const [year,setYear]= useState(searchParams.get('year'));
     const [totalPage, setTotalPage] = useState('');
     const [paymentList, setPaymentList] = useState([]);
+    const [totalRecord,setTotalRecord] = useState(0);
+    const [totalPaid,setTotalPaid] = useState(0);
+    const [isReload,setIsReload]=useState(false);
+    const [currentPage,setCurrentPage] = useState(1)
     useEffect(() => {
         //call API
         getbill(1);
-    }, []);
+    },[isReload]);
     const getbill = async (page) => {
         try {
             let res = await getBill(page, month, year);
             setTotalPage(res.data.totalPage);
             setPaymentList(res.data.paymentList);
-            console.log(res);
+            setTotalRecord(res.data.totalRecord);
+            setTotalPaid(res.data.totalPaid);
         } catch (e) {
             console.log(e);
         }
     };
     const handlePageClick = (event) => {
+        setCurrentPage(event.selected+1);
         console.log(event);
         getbill(event.selected + 1);
     };
     return (
         <>
             <div className="my-3 add-new">
+            {!(paymentList && paymentList.length > 0) && (
+                        <p>Không tìm thấy thông tin!!!</p>
+                    )}{' '}
                 <span>
                     {' '}
                     <b>Hóa đơn</b>
                 </span>
+            </div>
+            <div>
+                Tháng{' '}
+                <input
+                    type="text"
+                    value={month}
+                    onChange={(event) => setMonth(event.target.value)}
+                />{' '}
+                Năm{' '}
+                 <input
+                    type="text"
+                    value={year}
+                    onChange={(event) => setYear(event.target.value)}
+                />{' '}
+                <button
+                    className="btn btn-success"
+                    onClick={() => {navigate(`/feePage/fee/listBill?month=${month}&year=${year}`);setIsReload(prev=>!prev);setCurrentPage(1)}}
+                >
+                    Lọc
+                </button>
             </div>
 
             <Table striped bordered hover>
@@ -73,6 +102,7 @@ const TableBill = () => {
                 </tbody>
             </Table>
             <ReactPaginate
+            forcePage={currentPage-1}
                 breakLabel="..."
                 nextLabel="next >"
                 onPageChange={handlePageClick}
@@ -92,6 +122,7 @@ const TableBill = () => {
             />
             <div className="my-3 add-new">
                 <span>
+                <div style={{fontWeight:'bold'}}>Đã nộp: {totalPaid}/{totalRecord} hộ</div>
                     {' '}
                     <Button
                         variant="success"

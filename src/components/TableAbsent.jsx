@@ -142,6 +142,7 @@ const TableAbsent = (props) => {
                 containerClassName="pagination"
                 activeClassName="active"
             />
+            <div style={{fontWeight:'bold'}}>Tổng số tạm vắng: {totalAbsent}</div>
             <ModalText
                 header="Thông tin chi tiết tạm vắng"
                 show={isShowReason}

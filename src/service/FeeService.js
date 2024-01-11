@@ -16,9 +16,9 @@ export const patchFee = (id, unitPrice) => {
         unitPrice: unitPrice,
     });
 };
-export const getFeeDept = (page) => {
+export const getFeeDebt = (page) => {
     try {
-        return axios.get(`/fee/bills/dept?page=${page}&recordPerPage=10`);
+        return axios.get(`/fee/bills/debt?page=${page}&recordPerPage=10`);
     } catch (error) {
         console.log('🚀 ~ getFeeDept ~ error:', error);
         throw error;
@@ -50,7 +50,7 @@ export const patchBill = (apartmentId, month, year, payMoney, payername) => {
 export const getBill = (page, month, year) => {
     try {
         return axios.get(
-            `/fee/bills?month=${month}&year=${year}&page=${page}&recordPerPage=10`
+            `/fee/bills?month=${month}&year=${year}&page=${page}&recordPerPage=5`
         );
     } catch (error) {
         console.log('🚀 ~ getBill ~ error:', error);

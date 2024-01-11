@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import { getFeeDept } from '../service/FeeService';
+import { getFeeDebt } from '../service/FeeService';
 import ReactPaginate from 'react-paginate';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -8,19 +8,20 @@ const TableFeeDept = (props) => {
     const navigate = useNavigate();
     const [listPeeDept, setListPeeDept] = useState([]);
     const [totalPage, setTotalPage] = useState(0);
-
+    const [totalRecord, setTotalRecord] = useState(undefined);
     useEffect(() => {
         //call API
-        getFeedept(1);
+        getFeedebt(1);
     }, []);
 
-    const getFeedept = async (page) => {
+    const getFeedebt = async (page) => {
         try {
-            let res = await getFeeDept(page);
+            let res = await getFeeDebt(page);
             if (res && res.status === 'Success') {
                 console.log(res);
                 setListPeeDept(res.data.deptList);
                 setTotalPage(res.data.totalPage);
+                setTotalRecord(res.data.totalRecord);
             }
         } catch (error) {
             console.log('🚀 ~ getpeedept ~ error:', error);
@@ -28,7 +29,7 @@ const TableFeeDept = (props) => {
     };
     const handlePageClick = (event) => {
         console.log(event);
-        getFeedept(event.selected + 1);
+        getFeedebt(event.selected + 1);
     };
 
     return (
@@ -47,7 +48,6 @@ const TableFeeDept = (props) => {
                         <th>Tháng</th>
                         <th>Năm</th>
                         <th>Tổng nợ</th>
-                       
                     </tr>
                 </thead>
                 <tbody>
@@ -88,6 +88,7 @@ const TableFeeDept = (props) => {
             />
             <div className="my-3 add-new">
                 <span>
+                <div style={{ fontWeight: 'bold' }}>Tổng số hóa đơn nợ: {totalRecord}</div><br></br>
                     {' '}
                     <Button
                         variant="success"

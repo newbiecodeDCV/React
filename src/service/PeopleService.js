@@ -89,3 +89,14 @@ export const fetchAllPeople_2 = (page, name, apartmentId) => {
 
     }
 };
+export const changeHouseholder = (apartmentId,form)=> {
+    try {
+        return axios.patch(
+            `/people/household/${apartmentId}`,form
+        );
+    } catch (error) {
+        console.log('🚀 ~ error:', error);
+        throw error;
+
+    }
+}

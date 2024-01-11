@@ -8,6 +8,7 @@ const TableCharityFee = () => {
     const [totalPage, setTotalPage] = useState(0);
     const [sum, setSum] = useState(0);
     const [listDonator, setListDonator] = useState([]);
+    const [totalRecord,setTotalRecord] = useState(0);
     const handlePageClick = (event) => {
         getCF(event.selected + 1);
     };
@@ -22,6 +23,7 @@ const TableCharityFee = () => {
             console.log(res);
             setListDonator(res.data.fund);
             setTotalPage(res.data.totalPage);
+            setTotalRecord(res.data.totalRecord);
             setSum(res.data.sum);
         } catch (error) {
             console.log('🚀 ~ getCP ~ error:', error);
@@ -80,10 +82,11 @@ const TableCharityFee = () => {
                 activeClassName="active"
             />
             <div className="my-3 add-new">
+            <div style={{fontWeight:'bold'}}>Tổng số người ủng hộ: {totalRecord}</div>
+
                 <span>
-                    {' '}
                     <b>
-                        Tổng:{' '}
+                        Tổng quỹ:{' '}
                         {sum.toLocaleString('vi', {
                             style: 'currency',
                             currency: 'VND',

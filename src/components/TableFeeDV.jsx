@@ -68,7 +68,7 @@ const TableFeeDV = (props) => {
                 <thead>
                     <tr>
                         <th>Tên Phí</th>
-                        <th>Giá</th>
+                        <th>Giá(/m2)</th>
                         <th>Tạo ngày</th>
                         <th>Cập nhập lúc</th>
                      {user.role ==='Quản lý' &&   <th>Tùy Chọn</th>}

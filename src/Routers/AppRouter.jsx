@@ -1,5 +1,5 @@
 import React from 'react';
-import FormGuest from '../components/Formguest';
+import FormGuest from '../components/FormGuest';
 import TableForm from '../components/TableForm';
 import Login from '../components/login';
 import { Routes, Route } from 'react-router-dom';
@@ -66,7 +66,6 @@ const AppRouter = () => {
          <Route path="/feePage" element={<PrivateRoute><Page/></PrivateRoute>} />
          <Route path="/apartments"element={<PrivateRoute><TableApartments /></PrivateRoute>}  />
          <Route path="/admin/list" element={<PrivateRoute><TableUser /></PrivateRoute>} />
-         <Route path="/feePage/charity" element={<PrivateRoute><Page1 /></PrivateRoute>} />
          <Route path="/feePage/charity/listFee" element={<TableCharity/>} />
          <Route path="/feePage/charity/fund" element={<TableCharityFee/>} >
             <Route path=":feeId" element={<TableCharityFee />} />
@@ -74,9 +73,8 @@ const AppRouter = () => {
          <Route path="/feePage/charity/addDonate" element={<PrivateRoute><TableDonate/></PrivateRoute>} >
             <Route path=":feeId" element={<TableDonate />} />
           </Route>
-         <Route path="/feePage/fee" element={<PrivateRoute><PageDV /></PrivateRoute>} />
          <Route path="/feePage/fee/listFee" element={<PrivateRoute><TableFeeDV /></PrivateRoute>} />
-         <Route path="/feePage/fee/deptBill" element={<PrivateRoute><TableFeeDept /></PrivateRoute>} />
+         <Route path="/feePage/fee/debtBill" element={<PrivateRoute><TableFeeDept /></PrivateRoute>} />
          {/* use context ?? */}
          <Route path="/feePage/fee/billOfApartment" element={<PrivateRoute><TableFeeBillAprt /></PrivateRoute>}>
                 <Route path=":apartmentId" element={<TableFeeBillAprt />} />

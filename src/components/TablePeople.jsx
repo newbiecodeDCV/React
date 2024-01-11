@@ -66,11 +66,9 @@ const TablePeople = (props) => {
     const getPeople = async (page, name) => {
         let res = await fetchAllPeople(page, name);
         if (res && res.data) {
-            console.log(res);
             setListUsers(res.data.peopleList);
             setToatalUsers(res.data.totalRecord);
             setTotalPage(res.data.totalPage);
-            console.log(listUsers);
         }
     };
 
@@ -207,6 +205,7 @@ const TablePeople = (props) => {
                 containerClassName="pagination"
                 activeClassName="active"
             />
+            <div style={{fontWeight:'bold'}}>Tổng số nhân khẩu: {totalUsers}</div>
             <ModalAddNew show={isShowModaAddNew} handleClose={handleClose} />
             <ModalDetail
                 show={isShowModalDetail}

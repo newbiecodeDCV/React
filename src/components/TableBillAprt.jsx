@@ -5,10 +5,13 @@ import { Button } from 'react-bootstrap';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import ModalPatchBill from './ModalPatchBill';
 const TablePeeBillAprt = () => {
-    const { apartmentId } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
-    const month = searchParams.get('month');
-    const year = searchParams.get('year');
+    const [month,setMonth] = useState(searchParams.get('month'))
+    const [year,setYear]= useState(searchParams.get('year'));
+    const {apartmentId: firstApartmentId} = useParams();
+    const [apartmentId,setApartmentId]= useState(firstApartmentId)
+    const [inComingApartmentId,setInComingApartmentId]= useState(firstApartmentId)
+    const [isReload,setIsReload]=useState(false);
     const [listRecord, setListRecord] = useState([]);
     const [isShowModalPatchBill, setIsShowModalPatchBill] = useState(false);
     const [total, setTotal] = useState(0);
@@ -16,7 +19,7 @@ const TablePeeBillAprt = () => {
     useEffect(() => {
         //call API console.log("check")
         getfeebill();
-    }, []);
+    }, [isReload]);
     const getfeebill = async () => {
         try {
             let res = await getFeeBill(apartmentId, month, year);
@@ -46,6 +49,32 @@ const TablePeeBillAprt = () => {
                         </b>
                     )}
                 </span>
+            </div>
+            <div>
+                Căn hộ số{' '}
+                <input
+                    type="text"
+                    value={inComingApartmentId}
+                    onChange={(event) => setInComingApartmentId(event.target.value)}
+                />{' '}
+                Tháng{' '}
+                <input
+                    type="text"
+                    value={month}
+                    onChange={(event) => setMonth(event.target.value)}
+                />{' '}
+                Năm{' '}
+                 <input
+                    type="text"
+                    value={year}
+                    onChange={(event) => setYear(event.target.value)}
+                />{' '}
+                <button
+                    className="btn btn-success"
+                    onClick={() => {navigate(`/feePage/fee/billOfApartment/${inComingApartmentId}?month=${month}&year=${year}`);setApartmentId(inComingApartmentId);setIsReload(prev=>!prev)}}
+                >
+                    Lọc
+                </button>
             </div>
 
             <Table striped bordered hover>
@@ -85,7 +114,7 @@ const TablePeeBillAprt = () => {
 
             <div>
                 {total > 0 && (
-                    <p>
+                    <p style={{fontWeight:'bold'}}>
                         Tổng phải đóng:{' '}
                         {total.toLocaleString('vi', {
                             style: 'currency',
@@ -99,7 +128,7 @@ const TablePeeBillAprt = () => {
                     {' '}
                     <Button
                         variant="success"
-                        onClick={() => navigate('/feePage/fee')}
+                        onClick={() => navigate('/feePage')}
                     >
                         Quay lại
                     </Button>
