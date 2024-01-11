@@ -47,8 +47,11 @@ export const patchBill = (apartmentId, month, year, payMoney, payername) => {
         throw error;
     }
 };
-export const getBill = (page, month, year) => {
+export const getBill = (page, month, year,status) => {
     try {
+        if(status && status!=='--') return axios.get(
+            `/fee/bills?month=${month}&year=${year}&status=${status}&page=${page}&recordPerPage=10`
+        );
         return axios.get(
             `/fee/bills?month=${month}&year=${year}&page=${page}&recordPerPage=5`
         );

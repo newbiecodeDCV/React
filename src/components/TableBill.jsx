@@ -7,22 +7,24 @@ import { Button } from 'react-bootstrap';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 const TableBill = () => {
     const navigate = useNavigate();
-    const [searchParams,setSearchParams]=useSearchParams();
-    const [month,setMonth] = useState(searchParams.get('month'));
-    const [year,setYear]= useState(searchParams.get('year'));
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [month, setMonth] = useState(searchParams.get('month'));
+    const [year, setYear] = useState(searchParams.get('year'));
     const [totalPage, setTotalPage] = useState('');
     const [paymentList, setPaymentList] = useState([]);
-    const [totalRecord,setTotalRecord] = useState(0);
-    const [totalPaid,setTotalPaid] = useState(0);
-    const [isReload,setIsReload]=useState(false);
-    const [currentPage,setCurrentPage] = useState(1)
+    const [totalRecord, setTotalRecord] = useState(0);
+    const [totalPaid, setTotalPaid] = useState(0);
+    const [isReload, setIsReload] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [status, setStatus] = useState(undefined);
+    const [inComingStatus,setInComingStatus]= useState(undefined);
     useEffect(() => {
         //call API
         getbill(1);
-    },[isReload]);
+    }, [isReload]);
     const getbill = async (page) => {
         try {
-            let res = await getBill(page, month, year);
+            let res = await getBill(page, month, year, status);
             setTotalPage(res.data.totalPage);
             setPaymentList(res.data.paymentList);
             setTotalRecord(res.data.totalRecord);
@@ -32,16 +34,16 @@ const TableBill = () => {
         }
     };
     const handlePageClick = (event) => {
-        setCurrentPage(event.selected+1);
+        setCurrentPage(event.selected + 1);
         console.log(event);
         getbill(event.selected + 1);
     };
     return (
         <>
             <div className="my-3 add-new">
-            {!(paymentList && paymentList.length > 0) && (
-                        <p>Không tìm thấy thông tin!!!</p>
-                    )}{' '}
+                {!(paymentList && paymentList.length > 0) && (
+                    <p>Không tìm thấy thông tin!!!</p>
+                )}{' '}
                 <span>
                     {' '}
                     <b>Hóa đơn</b>
@@ -55,14 +57,29 @@ const TableBill = () => {
                     onChange={(event) => setMonth(event.target.value)}
                 />{' '}
                 Năm{' '}
-                 <input
+                <input
                     type="text"
                     value={year}
                     onChange={(event) => setYear(event.target.value)}
                 />{' '}
+                <select
+                    value={inComingStatus}
+                    onChange={(event) => setInComingStatus(event.target.value)}
+                >
+                    <option value={undefined}>--</option>
+                    <option value="Chưa nộp">Chưa nộp</option>
+                    <option value="Đã nộp">Đã nộp</option>
+                </select>{' '}
                 <button
                     className="btn btn-success"
-                    onClick={() => {navigate(`/feePage/fee/listBill?month=${month}&year=${year}`);setIsReload(prev=>!prev);setCurrentPage(1)}}
+                    onClick={() => {
+                        navigate(
+                            `/feePage/fee/listBill?month=${month}&year=${year}`
+                        );
+                        setIsReload((prev) => !prev);
+                        setCurrentPage(1);
+                        setStatus(inComingStatus);
+                    }}
                 >
                     Lọc
                 </button>
@@ -102,7 +119,7 @@ const TableBill = () => {
                 </tbody>
             </Table>
             <ReactPaginate
-            forcePage={currentPage-1}
+                forcePage={currentPage - 1}
                 breakLabel="..."
                 nextLabel="next >"
                 onPageChange={handlePageClick}
@@ -122,8 +139,23 @@ const TableBill = () => {
             />
             <div className="my-3 add-new">
                 <span>
-                <div style={{fontWeight:'bold'}}>Đã nộp: {totalPaid}/{totalRecord} hộ</div>
-                    {' '}
+                    {(!status ||
+                        status === '--') && (
+                            <div style={{ fontWeight: 'bold' }}>
+                                Đã nộp: {totalPaid}/{totalRecord} hộ
+                            </div>
+                        )}
+                    {status === 'Đã nộp' && (
+                        <div style={{ fontWeight: 'bold' }}>
+                            Số hộ đã nộp: {totalRecord}
+                        </div>
+                    )}
+                    {status === 'Chưa nộp' && (
+                        <div style={{ fontWeight: 'bold' }}>
+                            Số hộ chưa nộp: {totalRecord}
+                        </div>
+                    )}
+                    <br></br>
                     <Button
                         variant="success"
                         onClick={() => navigate('/feePage')}
