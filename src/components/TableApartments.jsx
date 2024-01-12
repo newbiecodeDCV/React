@@ -8,7 +8,10 @@ import ModalPatchApt from './ModalPatchApt';
 import ModalDetailAprt from './ModalDetailAprt';
 import { UserContext } from '../Context/UseContext';
 import { useContext } from 'react';
+import InfoDisplay from './DetailPeople';
+import { useData6 } from '../Context/UseContext';
 const TableApartments = () => {
+    const {setAndRedirect} = useData6()
     const { user } = useContext(UserContext);
     const [listApart, setListApart] = useState([]);
     const [totalPage, setTotalPage] = useState(0);
@@ -20,6 +23,7 @@ const TableApartments = () => {
     const [isPatchSuccess, setIsPatchSuccess] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [isPostSuccess, setIsPostSuccess] = useState(false);
+    
     const handleClose = () => {
         setIsShowModaAddNew(false);
     };
@@ -108,9 +112,9 @@ const TableApartments = () => {
                                     </Button>{' '}
                                     <Button
                                         onClick={() => {
-                                            setIsShowModalDetailAprt(true);
+                                            setIsShowModalDetailAprt(true)
                                             console.log(item);
-                                            setData(item);
+                                            setData(item)
                                         }}
                                     >
                                         Chi tiết
@@ -155,7 +159,9 @@ const TableApartments = () => {
                 handle3Close={handle3Close}
                 data={data}
             />
+          
         </>
+        
     );
 };
 export default TableApartments;

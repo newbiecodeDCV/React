@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import "@fortawesome/fontawesome-free/css/all.min.css"; 
 import { UserProvider } from './Context/UseContext';
-import { DataProvider1,DataProvider2,DataProvider3,DataProvider4,DataProvider5} from './Context/UseContext';
+import { DataProvider1,DataProvider2,DataProvider3,DataProvider4,DataProvider5, DataProvider6} from './Context/UseContext';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,9 +17,11 @@ ReactDOM.render(
   <DataProvider3>
   <DataProvider4>
   <DataProvider5>
+  <DataProvider6>
   <UserProvider>
     <App />
     </UserProvider>
+    </DataProvider6>
     </DataProvider5>
     </DataProvider4>
     </DataProvider3>

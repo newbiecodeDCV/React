@@ -1,5 +1,5 @@
 import React from 'react';
-import FormGuest from '../components/FormGuest';
+import FormGuest from '../components/Formguest';
 import TableForm from '../components/TableForm';
 import Login from '../components/login';
 import { Routes, Route } from 'react-router-dom';
@@ -28,6 +28,7 @@ import TableAbsent from '../components/TableAbsent';
 import TableAdminForGuest from '../components/TableAdminForGuest';
 import Dashboard from '../components/Dashboard';
 import UserManagementPage from '../components/UserManagePage';
+import InfoDisplay from '../components/DetailPeople';
 const AppRouter = () => {
   return (
     <>
@@ -87,7 +88,7 @@ const AppRouter = () => {
          <Route path='/people/addAbsent' element={<PrivateRoute><AddAbsent/></PrivateRoute>}></Route>
          <Route path='/people/listAbsent' element={<PrivateRoute><TableAbsent/></PrivateRoute>}></Route>
          <Route path='/admin' element={<PrivateRoute><UserManagementPage/></PrivateRoute>}></Route>
-
+         <Route path='/display' element={<PrivateRoute><InfoDisplay/></PrivateRoute>}></Route>
         </Routes>
      
     </>

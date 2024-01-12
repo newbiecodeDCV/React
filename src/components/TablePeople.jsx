@@ -9,7 +9,10 @@ import { deletePeople, patchPeople } from '../service/PeopleService';
 import { toast } from 'react-toastify';
 import VerifyModal from './VerifyModal';
 import ModalPatchPeople from './ModalPatchPeople';
+import { useData6 } from '../Context/UseContext';
+
 const TablePeople = (props) => {
+    const {setAndRedirect} = useData6()
     const [listUsers, setListUsers] = useState([]);
     const [totalUsers, setToatalUsers] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
@@ -163,7 +166,10 @@ const TablePeople = (props) => {
                                 <td>
                                     <Button
                                         variant="info"
-                                        onClick={() => handleCT(item)}
+                                        onClick={() => {
+                                            setAndRedirect(item)
+                                            console.log(item)
+                                        }}
                                     >
                                         Chi tiết
                                     </Button>{' '}
