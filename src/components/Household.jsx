@@ -70,6 +70,8 @@ const HouseHold = (props) => {
     };
     const handlePatch = async (id, newRelation) => {
         try {
+            // if(Object.keys(form).length===0) return toast.error('Bạn chưa thay đổi gì');
+            if(!newRelation) return toast.error('Bạn chưa điền mối quan hệ mới!!!')
             await patchPeople(id, { relationWithHouseholder: newRelation });
             toast.success('Thay đổi thành công');
             setIsShowModalPatch(false);
