@@ -9,7 +9,10 @@ import { deletePeople, patchPeople } from '../service/PeopleService';
 import { toast } from 'react-toastify';
 import VerifyModal from './VerifyModal';
 import ModalPatchPeople from './ModalPatchPeople';
+import { useData6 } from '../Context/UseContext';
+import { useNavigate } from 'react-router-dom';
 const TablePeople = (props) => {
+    const {setAndRedirect} = useData6()
     const [listUsers, setListUsers] = useState([]);
     const [totalUsers, setToatalUsers] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
@@ -28,6 +31,7 @@ const TablePeople = (props) => {
         setForm({ ...form, [field]: value });
     };
     const [isShowModalPatch, setIsShowModalPatch] = useState(false);
+    const navigate = useNavigate();
     const handleClickPatch = (data) => {
         setIdToPatch(data.id);
         setNewData(data);
@@ -163,7 +167,13 @@ const TablePeople = (props) => {
                                 <td>
                                     <Button
                                         variant="info"
-                                        onClick={() => handleCT(item)}
+                                        onClick={() => {
+                                            navigate('/display', {
+                                            state: { params: {item} },
+                                            replace: false, 
+                                           });
+                                            console.log(item)
+                                        }}
                                     >
                                         Chi tiết
                                     </Button>{' '}

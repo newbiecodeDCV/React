@@ -6,6 +6,7 @@ const DataContext2 = createContext();
 const DataContext3 = createContext();
 const DataContext4 = createContext();
 const DataContext5 = createContext();
+const DataContext6 = createContext();
 export const DataProvider1 = ({ children }) => {
   const [data, setData] = useState(null);
   const navigate = useNavigate();
@@ -93,11 +94,26 @@ export const DataProvider2 = ({ children }) => {
       </DataContext5.Provider>
     );
   };
+  export const DataProvider6 = ({ children }) => {
+    const [data,setData] = useState('')
+
+    const navigate = useNavigate();
   
-  
-  
-export const useData1 = () => {
-    const context = useContext(DataContext1);
+    const setAndRedirect = (data) => {
+      setData(data)
+      navigate('/display');
+      
+    }
+  return (
+      <DataContext6.Provider value={{data,setAndRedirect}}>
+        {children}
+      </DataContext6.Provider>
+    );
+  }
+
+
+export const useData6 = () => {
+    const context = useContext(DataContext6);
     if (!context) {
       throw new Error('useData must be used within a DataProvider');
     }
