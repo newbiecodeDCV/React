@@ -1,6 +1,11 @@
 import axios from './axios';
 export const fetchAllCharity = () => {
-    return axios.get('/charity/fee');
+    try {
+        return axios.get('/charity/fee');
+    } catch (error) {
+        console.log('🚀 ~ fetchAllCharity ~ error:', error);
+        throw error;
+    }
 };
 export const postCharity = (name, startDate, endDate) => {
     try {
@@ -18,7 +23,7 @@ export const postCharity = (name, startDate, endDate) => {
 export const getCharityFee = (page, feeID) => {
     try {
         return axios.get(
-            `/charity/fee/${feeID}/fund?page=${page}&recordPerPage=20`
+            `/charity/fee/${feeID}/fund?page=${page}&recordPerPage=10`
         );
     } catch (error) {
         console.log('🚀 ~ getCharityFee ~ error:', error);

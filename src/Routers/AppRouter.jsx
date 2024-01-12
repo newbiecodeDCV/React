@@ -1,5 +1,5 @@
 import React from 'react';
-import FormGuest from '../components/Formguest';
+import FormGuest from '../components/FormGuest';
 import TableForm from '../components/TableForm';
 import Login from '../components/login';
 import { Routes, Route } from 'react-router-dom';
