@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import VerifyModal from './VerifyModal';
 import ModalPatchPeople from './ModalPatchPeople';
 import { useData6 } from '../Context/UseContext';
-
+import { useNavigate } from 'react-router-dom';
 const TablePeople = (props) => {
     const {setAndRedirect} = useData6()
     const [listUsers, setListUsers] = useState([]);
@@ -31,6 +31,7 @@ const TablePeople = (props) => {
         setForm({ ...form, [field]: value });
     };
     const [isShowModalPatch, setIsShowModalPatch] = useState(false);
+    const navigate = useNavigate();
     const handleClickPatch = (data) => {
         setIdToPatch(data.id);
         setNewData(data);
@@ -167,7 +168,10 @@ const TablePeople = (props) => {
                                     <Button
                                         variant="info"
                                         onClick={() => {
-                                            setAndRedirect(item)
+                                            navigate('/display', {
+                                            state: { params: {item} },
+                                            replace: false, 
+                                           });
                                             console.log(item)
                                         }}
                                     >
