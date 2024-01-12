@@ -42,6 +42,16 @@ body{
         background-color: #dedede;
       }
     }
+    .input-2{
+      position: relative;
+      i {
+        cursor: pointer;
+        position: absolute;
+        top: 17px;
+        right: 10px;
+      }
+
+    }
    
     button{
       padding: 10px;
@@ -66,3 +76,91 @@ body{
     }
   }
 }
+.app-container{
+ 
+ .add-new{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+// Page1.scss
+// Page1.scss
+.func-card {
+  width: 200px;
+  height: 70px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  transition: background-color 0.3s, border 0.3s, color 0.3s;
+
+  &.func1 {
+    background-color: #888; // Màu xám cho .func1 khi không hover
+    &:hover {
+      background-color: #aaa; // Màu xám cho .func1 khi hover
+      border: 2px solid #666; // Màu viền cho .func1 khi hover
+    }
+  }
+
+  &.func2 {
+    background-color: #888; // Màu xám cho .func2 khi không hover
+    &:hover {
+      background-color: #aaa; // Màu xám cho .func2 khi hover
+      border: 2px solid #666; // Màu viền cho .func2 khi hover
+    }
+  }
+  &.func3 {
+    background-color: #888; // Màu xám cho .func2 khi không hover
+    &:hover {
+      background-color: #aaa; // Màu xám cho .func2 khi hover
+      border: 2px solid #666; // Màu viền cho .func2 khi hover
+    }
+  }
+  &.func4 {
+    background-color: #888; // Màu xám cho .func2 khi không hover
+    &:hover {
+      background-color: #aaa; // Màu xám cho .func2 khi hover
+      border: 2px solid #666; // Màu viền cho .func2 khi hover
+    }
+  }
+  &.func5{
+    background-color: #888; // Màu xám cho .func2 khi không hover
+    &:hover {
+      background-color: #aaa; // Màu xám cho .func2 khi hover
+      border: 2px solid #666; // Màu viền cho .func2 khi hover
+    }
+  }
+  &.func6 {
+    background-color: #888; // Màu xám cho .func2 khi không hover
+    &:hover {
+      background-color: #aaa; // Màu xám cho .func2 khi hover
+      border: 2px solid #666; // Màu viền cho .func2 khi hover
+    }
+  }
+}
+/* Trong file styles/home.scss hoặc tương tự */
+.footer {
+  background-color: #bbcdde;
+  padding: 30px 0;
+  color: #333;
+}
+
+.footer h5 {
+  color: #237128;
+}
+
+.footer p {
+  margin-bottom: 0.5rem;
+}
+
+/* Tùy chỉnh thêm theo ý muốn của bạn */
+
+}
+
+
+
+

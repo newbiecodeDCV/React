@@ -1,45 +1,46 @@
 import './App.scss';
-import Header from './componted/Header';
+import Header from './components/Header';
 import Container from 'react-bootstrap/Container';
-import TableUser from './componted/TableUser';
-import Home  from './componted/Home';
-import { Routes, Route } from "react-router-dom";
-import Login from './componted/login';
-import { ToastContainer} from "react-toastify";
+import { ToastContainer } from 'react-toastify';
+import { UserContext } from './Context/UseContext';
+import { useContext, useEffect } from 'react';
+import AppRouter from './Routers/AppRouter';
+
 function App() {
-  return (
-    <>
-   <div className = 'app-container'>
-   <Header />
-   <Container>
-    <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/users" element={<TableUser />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-   </Container>
-   
-   </div>
-   <ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
-/>
-{/* Same as */}
-<ToastContainer />
-
-
-   </>
-
- 
-  );
+    const { user, loginContext } = useContext(UserContext);
+    console.log(user);
+    useEffect(() => {
+        if (localStorage.getItem('accessToken')) {
+            loginContext(
+                localStorage.getItem('email'),
+                localStorage.getItem('accessToken'),
+                localStorage.getItem('role')
+            );
+        }
+    }, []);
+    return (
+        <>
+            <div className="app-container">
+                <Header />
+                <Container>
+                    <AppRouter />
+                </Container>
+            </div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            {/* Same as */}
+        </>
+    );
 }
 
 export default App;
