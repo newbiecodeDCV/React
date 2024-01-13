@@ -23,6 +23,7 @@ const TablePeeBillAprt = () => {
     const getfeebill = async () => {
         try {
             let res = await getFeeBill(apartmentId, month, year);
+            console.log(res)
             setListRecord(res.data.record);
             setTotal(res.data.total);
         } catch (error) {
@@ -85,6 +86,7 @@ const TablePeeBillAprt = () => {
                         <th>Trạng thái</th>
                         <th>Ngày nộp</th>
                         <th>Người nộp</th>
+                        <th>Người thu</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,6 +104,7 @@ const TablePeeBillAprt = () => {
                                 <td>{item.status}</td>
                                 <td>{item.payDay}</td>
                                 <td>{item.payerName}</td>
+                                <td>{item.billCollector}</td>
                             </tr>
                         ))}
                 </tbody>

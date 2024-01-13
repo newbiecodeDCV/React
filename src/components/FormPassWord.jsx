@@ -8,30 +8,32 @@ const ChangePasswordForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Thêm xử lý đổi mật khẩu ở đây
-    console.log('Old Password:', oldPassword);
-    console.log('New Password:', newPassword);
-    console.log('Confirm Password:', confirmPassword);
-    if (newPassword === confirmPassword){
-    let res = await patchPassWord(oldPassword,newPassword)
-    console.log(res)
-    if(res && res.status ==='Success'){
-        setOldPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
-    toast.success("Đổi mật khẩu thành công")
-    }else{
-        if (Array.isArray(res.data.message)) {
-            toast.error(res.data.message[0]);
-          } else {
-            toast.error(res.data.message);
-          }
-    }
-    }else{
-        toast.error("Xác nhận lại mật khẩu")
-
+    try {
+      e.preventDefault();
+  
+      // Thêm xử lý đổi mật khẩu ở đây
+  
+      if (newPassword === confirmPassword){
+      let res = await patchPassWord(oldPassword,newPassword)
+      console.log(res)
+      if(res && res.status ==='Success'){
+          setOldPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      toast.success("Đổi mật khẩu thành công")
+      }else{
+          if (Array.isArray(res.data.message)) {
+              toast.error(res.data.message[0]);
+            } else {
+              toast.error(res.data.message);
+            }
+      }
+      }else{
+          toast.error("Xác nhận lại mật khẩu")
+  
+      }
+    } catch (error) {
+    console.log("🚀 ~ handleSubmit ~ error:", error)
     }
     
     

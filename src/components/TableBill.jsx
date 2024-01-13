@@ -95,6 +95,7 @@ const TableBill = () => {
                         <th>Trạng Thái</th>
                         <th>Ngày nộp</th>
                         <th>Tên người nộp</th>
+                        <th>Tên người thu</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -114,6 +115,7 @@ const TableBill = () => {
                                 <td>{item.bill_status}</td>
                                 <td>{item.bill_payDay}</td>
                                 <td>{item.bill_payerName}</td>
+                                <td>{item.bill_billCollector}</td>
                             </tr>
                         ))}
                 </tbody>
