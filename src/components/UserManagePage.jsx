@@ -35,7 +35,7 @@ const UserManagementPage = () => {
     const role = localStorage.getItem('role');
     return (
         <Container className="text-center mt-5">
-        <h1>Quản lý cư trú</h1>
+        <h1>Quản lý ban quản trị</h1>
         <div>
             <div className="home-container">
             <Row>
