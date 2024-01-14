@@ -11,9 +11,12 @@ import {
 } from '../service/PeopleService';
 import { toast } from 'react-toastify';
 import VerifyModal from './VerifyModal';
-import { getHousehold } from '../service/PeopleService';
+import { getHousehold,getVehiceHousehold } from '../service/PeopleService';
 import ModalPatchRelation from './ModalPatchRelation';
 import ModalChangeHouseholder from './ModalChangeHouseholder';
+import ModalPostVehicle from './ModalPostVehicle';
+
+
 const HouseHold = (props) => {
     const [listPeople, setListPeople] = useState([]);
     const [isShowDeleteButton, setIsShowDeleteButton] = useState(false);
@@ -21,11 +24,14 @@ const HouseHold = (props) => {
     const [isShowModalDetail, setIsShowModalDetail] = useState(false);
     const [isShowModalPatch, setIsShowModalPatch] = useState(false);
     const [isShowModalVerify, setIsShowModalVerify] = useState(false);
+    const [isShowModalPostVehicle,setIsShowModalPostVehicle]= useState(false);
     const [data, setData] = useState([]);
+    const [ownerId,setOwnerId]=useState('');
     const [idToPatch, setIdToPatch] = useState(undefined);
     const [idToDelete, setIdToDelete] = useState('');
     const [isReload, setIsReload] = useState(false);
     const [apartmentId, setApartmentId] = useState(undefined);
+    const [listVehicle,setListVehice] = useState([])
     const [apartmentIdToDelete, setApartmentIdDelete] = useState(undefined);
     const [isShowModalChangeHouseholder, setIsShowModalChangeHouseholder] =
         useState(false);
@@ -36,15 +42,20 @@ const HouseHold = (props) => {
     const handle2Close = () => {
         setIsShowModalDetail(false);
     };
+    const handle3Close = () =>{
+        setIsShowModalPostVehicle(false);
+    }
 
     useEffect(() => {
         //call API
         handleGetHousehold(apartmentId);
+        handleGetVHousehold(apartmentId)
     }, [isReload]);
 
     const handleGetHousehold = async (apartmentId) => {
         try {
             let res = await getHousehold(apartmentId);
+            console.log(res)
             if (res && res.data) {
                 setListPeople(res.data);
                 if (res.data.length === 0)
@@ -56,6 +67,23 @@ const HouseHold = (props) => {
             console.log('🚀 ~ handleGetHousehold ~ error:', error);
         }
     };
+    const handleGetVHousehold = async (apartmentId) => {
+        try {
+            let res = await getVehiceHousehold(apartmentId);
+            console.log(res)
+            if (res && res.data) {
+                setListVehice(res.data);
+                if (res.data.length === 0)
+                    toast.error(
+                        'Hộ dân chưa đăng ký xe'
+                    );
+            } else setListPeople([]);
+        } catch (error) {
+            console.log('🚀 ~ handleGetHousehold ~ error:', error);
+        }
+    };
+
+    
 
     const handleCT = (data) => {
         setIsShowModalDetail(true);
@@ -199,8 +227,40 @@ const HouseHold = (props) => {
                                         }
                                     >
                                         Thay đổi quan hệ với chủ hộ
+                                    </Button>{' '}
+                                    <Button
+                                        variant="success"
+                                       onClick={
+                                        ()=>{setIsShowModalPostVehicle(true)
+                                             setOwnerId(item.id)
+                                        }
+                                       }
+                                    >
+                                        Đăng ký biển gửi xe
                                     </Button>
                                 </td>
+                            </tr>
+                        ))}
+                </tbody>
+            </Table>
+            <div><b>Danh sách xe của hộ</b></div>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>Biển số</th>
+                        <th>Loại xe</th>
+                        <th>Chủ sở hữu</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                {listVehicle &&
+                        listVehicle.length > 0 &&
+                        listVehicle.map((item, index) => (
+                            <tr key={`user1-${index}`}>
+                                <td>{item.vehicle_numberPlate}</td>
+                                <td>{item.vehicle_type}</td>
+                                <td>{item.owner_name}</td>      
                             </tr>
                         ))}
                 </tbody>
@@ -232,7 +292,13 @@ const HouseHold = (props) => {
             >
                 <div>Toàn bộ nhân khẩu trong hộ {apartmentIdToDelete}</div>
             </VerifyModal>
+            <ModalPostVehicle
+            show={isShowModalPostVehicle}
+            handleClose={handle3Close}
+            ownerId ={ownerId}
+        />
         </>
+       
     );
 };
 export default HouseHold;

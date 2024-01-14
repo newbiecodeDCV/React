@@ -8,12 +8,9 @@ const ChangePasswordForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = async (e) => {
+   try{
     e.preventDefault();
-
-    // Thêm xử lý đổi mật khẩu ở đây
-    console.log('Old Password:', oldPassword);
-    console.log('New Password:', newPassword);
-    console.log('Confirm Password:', confirmPassword);
+   
     if (newPassword === confirmPassword){
     let res = await patchPassWord(oldPassword,newPassword)
     console.log(res)
@@ -33,9 +30,13 @@ const ChangePasswordForm = () => {
         toast.error("Xác nhận lại mật khẩu")
 
     }
-    
-    
+  
+  }catch(e){
+    console.log(e)
+   }
   };
+    
+  
 
   return (
   

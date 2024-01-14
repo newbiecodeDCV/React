@@ -25,6 +25,7 @@ const TableFeeDV = (props) => {
     const getFeeDV = async () => {
         try {
             let res = await getFee();
+            console.log(res)
             if (res && res.data) {
                 setListFee(res.data);
             }
@@ -68,7 +69,8 @@ const TableFeeDV = (props) => {
                 <thead>
                     <tr>
                         <th>Tên Phí</th>
-                        <th>Giá(/m2)</th>
+                        <th>Giá</th>
+                        <th>Đơn vị</th>
                         <th>Tạo ngày</th>
                         <th>Cập nhập lúc</th>
                      {user.role ==='Quản lý' &&   <th>Tùy Chọn</th>}
@@ -80,12 +82,8 @@ const TableFeeDV = (props) => {
                         listFee.map((item, index) => (
                             <tr key={`user-${index}`}>
                                 <td>{item.name}</td>
-                                <td>
-                                    {item.unitPrice.toLocaleString('vi', {
-                                        style: 'currency',
-                                        currency: 'VND',
-                                    })}
-                                </td>
+                                <td>{item.price}</td>
+                                <td>{item.unit}</td>
                                 <td>{item.createdAt}</td>
                                 <td>{item.updatedAt}</td>
                                 {user.role ==='Quản lý' &&     <td>

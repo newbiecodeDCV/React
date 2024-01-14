@@ -7,15 +7,18 @@ const ModalAddFeeDV = (props) => {
     const { show, handleClose, getPeeDV } = props;
     const [name, setName] = useState('');
     const [unitPrice, setUnitPrice] = useState('');
+    const [unitPee,setUnitPee] = useState('')
     const handleFee = async () => {
         try {
-            let res = await postFeeDV(name, unitPrice);
+            let res = await postFeeDV(name, unitPrice,unitPee);
             console.log(' check res', res);
+            console.log(unitPee)
             if (res && res.status === 'Success') {
                 toast.success('Thêm thành công');
                 handleClose();
                 setName('');
                 setUnitPrice('');
+                setUnitPee('');
                 getPeeDV();
             }
         } catch (e) {
@@ -30,18 +33,30 @@ const ModalAddFeeDV = (props) => {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <div className="body-add-new">
-                        <div className="mb-3">
-                            <label className="form-label">Tên Phí</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={name}
-                                onChange={(event) =>
-                                    setName(event.target.value)
-                                }
-                            />
-                        </div>
+            
+                <div className="mb-3">
+                   <label className="form-label">Tên Phí</label>
+                   <select
+                          value={name}
+                          onChange={(event) => {
+                            setName(event.target.value)
+                            if (event.target.value === 'Phí dịch vụ' || event.target.value ==='Phí quản lý') {
+                                 setUnitPee('/m2');
+                            } else {
+               
+                            setUnitPee('/tháng');
+                           }}
+                    
+                          }
+                           className="form-select"
+                    >
+                     <option value="Phí dịch vụ">Phí dịch vụ</option>
+                     <option value="Phí quản lý">Phí quản lý</option>
+                     <option value="Phí gửi xe máy">Phí gửi xe máy</option>
+                     <option value="Phí gửi ô tô">Phí gửi xe ô tô</option>
+                   </select>
+</div>
+
                         <div className="mb-3">
                             <label className="form-label">Đơn vị giá</label>
                             <br></br>
@@ -55,7 +70,7 @@ const ModalAddFeeDV = (props) => {
                                 }
                             />
                         </div>
-                    </div>
+                    
                 </Modal.Body>
 
                 <Modal.Footer>

@@ -100,3 +100,50 @@ export const changeHouseholder = (apartmentId,form)=> {
 
     }
 }
+
+    export const postVehicle = (numberPlate,ownerId,type)=> {
+        try {
+            return axios.post(
+                '/vehicle',{
+                    'numberPlate':numberPlate,
+                    'ownerId':ownerId,
+                    'type':type
+                }
+            );
+        } catch (error) {
+            console.log('🚀 ~ error:', error);
+            throw error;
+    
+        }
+}
+export const getVehicle = async (page,numberPlate) => {
+    try {
+        if(numberPlate)
+        return axios.get(`vehicle/${numberPlate}`)
+        else
+        return await axios.get(
+            `vehicle/?page=${page}&recordPerPage=10`
+        );
+    } catch (error) {
+        console.log('🚀 ~ getVehicle ~ error:', error);
+        throw error;
+    }
+};
+
+export const deleteVehicle = async (numberPlate) => {
+    try {
+        return await axios.delete(`/vehicle/${numberPlate}`);
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+export const getVehiceHousehold = async (apartmentId) => {
+    try {
+        if (!apartmentId) return [];
+        return await axios.get(`/vehicle/findByHousehold/${apartmentId}`);
+    } catch (error) {
+        console.log('🚀 ~ getVHousehold ~ error:', error);
+        throw error;
+    }
+};
