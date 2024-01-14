@@ -35,9 +35,9 @@ const ChangePasswordForm = () => {
     } catch (error) {
     console.log("🚀 ~ handleSubmit ~ error:", error)
     }
-    
-    
   };
+    
+  
 
   return (
   
@@ -48,7 +48,7 @@ const ChangePasswordForm = () => {
             <Form.Label>Mật Khẩu Cũ</Form.Label>
             <Form.Control
               type="password"
-              placeholder="nhập mật khẩu cũ"
+              placeholder="Nhập mật khẩu cũ"
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
               className="mb-3"
@@ -58,7 +58,7 @@ const ChangePasswordForm = () => {
 
         <Col md={4}>
           <Form.Group controlId="formNewPassword">
-            <Form.Label>Mật khẩu mới</Form.Label>
+            <Form.Label>Mật khẩu mới (tối thiểu 8 kí tự)</Form.Label>
             <Form.Control
               type="password"
               placeholder="Nhập mật khẩu mới"

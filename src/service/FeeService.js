@@ -1,8 +1,9 @@
 import axios from './axios';
-export const postFeeDV = (name, unitPrice) => {
+export const postFeeDV = (name, price,unit) => {
     return axios.post('/fee', {
         name: name,
-        unitPrice: unitPrice,
+        price: price,
+        unit:unit
     });
 };
 export const getFee = () => {
