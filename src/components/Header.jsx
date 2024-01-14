@@ -7,7 +7,7 @@ import { useLocation, NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useContext } from 'react';
 import { UserContext } from '../Context/UseContext';
-import logo from '../asset/image/images.jpg';
+import logo from '../asset/image/bm.webp';
 
 const Header = (props) => {
   const { logout, user } = useContext(UserContext);
@@ -24,7 +24,7 @@ const Header = (props) => {
     <Navbar expand="lg" className="bg-body-tertiary" style={{ background: 'green' }}>
       <Container>
         <Navbar.Brand href="/">
-          <img src={logo} width="100" height="50" className="d-inline-block align-top" alt="React Bootstrap logo" />
+          <img src={logo} width="80" height="70" className="d-inline-block align-top" alt="React Bootstrap logo" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
