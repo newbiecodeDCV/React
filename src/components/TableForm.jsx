@@ -7,6 +7,7 @@ const TableForm = () => {
     const { apartmentId, citizenId } = useData5();
     const [listFee, setListFee] = useState('');
     const [total, setTotal] = useState(0);
+    const [totalMoney, setTotalMoney] = useState(0);
     useEffect(() => {
         //call API
         getGuest();
@@ -17,7 +18,12 @@ const TableForm = () => {
             let res = await getGuestBill(apartmentId, citizenId);
             console.log(res);
             setListFee(res.data.record);
+            let totalMoney = 0;
             setTotal(res.data.total);
+            for (const record of res.data.record) {
+                totalMoney += record.amount;
+            }
+            setTotalMoney(totalMoney);
         } catch (e) {
             console.log(e);
         }
@@ -43,7 +49,7 @@ const TableForm = () => {
                         <th>Trạng Thái</th>
                         <th>Người nộp</th>
                         <th>Nộp ngày</th>
-                        <th>Tổng tiền</th>
+                        <th>Thành tiền</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,16 +74,20 @@ const TableForm = () => {
                 </tbody>
             </Table>
             <div>
-                {total > 0 && (
-                    <p>
-                        Tổng phải đóng:{' '}
-                        {total.toLocaleString('vi', {
-                            style: 'currency',
-                            currency: 'VND',
-                        })}{' '}
-                        đồng
-                    </p>
-                )}
+            <p style={{ fontWeight: 'bold' }}>
+                    Tổng:{' '}
+                    {totalMoney.toLocaleString('vi', {
+                        style: 'currency',
+                        currency: 'VND',
+                    })}{' '}
+                </p>
+                <p style={{ fontWeight: 'bold' }}>
+                    Còn phải đóng:{' '}
+                    {total.toLocaleString('vi', {
+                        style: 'currency',
+                        currency: 'VND',
+                    })}{' '}
+                </p>
             </div>
         </>
     );

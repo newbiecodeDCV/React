@@ -29,6 +29,7 @@ import TableAdminForGuest from '../components/TableAdminForGuest';
 import Dashboard from '../components/Dashboard';
 import UserManagementPage from '../components/UserManagePage';
 import InfoDisplay from '../components/DetailPeople';
+import TableVehice from '../components/TableVehice';
 const AppRouter = () => {
   return (
     <>
@@ -89,6 +90,7 @@ const AppRouter = () => {
          <Route path='/people/listAbsent' element={<PrivateRoute><TableAbsent/></PrivateRoute>}></Route>
          <Route path='/admin' element={<PrivateRoute><UserManagementPage/></PrivateRoute>}></Route>
          <Route path='/display' element={<PrivateRoute><InfoDisplay/></PrivateRoute>}></Route>
+         <Route path='/vehicle' element={<PrivateRoute><TableVehice/></PrivateRoute>}></Route>
         </Routes>
      
     </>

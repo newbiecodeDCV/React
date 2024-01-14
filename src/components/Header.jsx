@@ -46,6 +46,9 @@ const Header = (props) => {
                 <NavLink to="/feePage" className="nav-link">
                   Quản lý phí thu
                 </NavLink>
+                <NavLink to="/vehicle" className="nav-link">
+                  Quản lí phương tiện
+                </NavLink>
               </Nav>
               <Nav>
                 {email && <div className="nav-link">

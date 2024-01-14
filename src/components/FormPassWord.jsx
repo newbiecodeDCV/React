@@ -8,34 +8,36 @@ const ChangePasswordForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Thêm xử lý đổi mật khẩu ở đây
-    console.log('Old Password:', oldPassword);
-    console.log('New Password:', newPassword);
-    console.log('Confirm Password:', confirmPassword);
-    if (newPassword === confirmPassword){
-    let res = await patchPassWord(oldPassword,newPassword)
-    console.log(res)
-    if(res && res.status ==='Success'){
-        setOldPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
-    toast.success("Đổi mật khẩu thành công")
-    }else{
-        if (Array.isArray(res.data.message)) {
-            toast.error(res.data.message[0]);
-          } else {
-            toast.error(res.data.message);
-          }
+    try {
+      e.preventDefault();
+  
+      // Thêm xử lý đổi mật khẩu ở đây
+  
+      if (newPassword === confirmPassword){
+      let res = await patchPassWord(oldPassword,newPassword)
+      console.log(res)
+      if(res && res.status ==='Success'){
+          setOldPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      toast.success("Đổi mật khẩu thành công")
+      }else{
+          if (Array.isArray(res.data.message)) {
+              toast.error(res.data.message[0]);
+            } else {
+              toast.error(res.data.message);
+            }
+      }
+      }else{
+          toast.error("Xác nhận lại mật khẩu")
+  
+      }
+    } catch (error) {
+    console.log("🚀 ~ handleSubmit ~ error:", error)
     }
-    }else{
-        toast.error("Xác nhận lại mật khẩu")
-
-    }
-    
-    
   };
+    
+  
 
   return (
   
@@ -46,7 +48,7 @@ const ChangePasswordForm = () => {
             <Form.Label>Mật Khẩu Cũ</Form.Label>
             <Form.Control
               type="password"
-              placeholder="nhập mật khẩu cũ"
+              placeholder="Nhập mật khẩu cũ"
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
               className="mb-3"
@@ -56,7 +58,7 @@ const ChangePasswordForm = () => {
 
         <Col md={4}>
           <Form.Group controlId="formNewPassword">
-            <Form.Label>Mật khẩu mới</Form.Label>
+            <Form.Label>Mật khẩu mới (tối thiểu 8 kí tự)</Form.Label>
             <Form.Control
               type="password"
               placeholder="Nhập mật khẩu mới"

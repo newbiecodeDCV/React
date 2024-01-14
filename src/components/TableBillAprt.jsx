@@ -1,21 +1,26 @@
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import { getFeeBill } from '../service/FeeService';
+import { getFeeBill, patchSingleBill } from '../service/FeeService';
 import { Button } from 'react-bootstrap';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import ModalPatchBill from './ModalPatchBill';
+import ModalPatchSingleBill from './ModalPatchSIngle';
+import { toast } from 'react-toastify';
 const TablePeeBillAprt = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [month,setMonth] = useState(searchParams.get('month'))
-    const [year,setYear]= useState(searchParams.get('year'));
-    const {apartmentId: firstApartmentId} = useParams();
-    const [apartmentId,setApartmentId]= useState(firstApartmentId)
-    const [inComingApartmentId,setInComingApartmentId]= useState(firstApartmentId)
-    const [isReload,setIsReload]=useState(false);
+    const [month, setMonth] = useState(searchParams.get('month'));
+    const [year, setYear] = useState(searchParams.get('year'));
+    const { apartmentId: firstApartmentId } = useParams();
+    const [apartmentId, setApartmentId] = useState(firstApartmentId);
+    const [inComingApartmentId, setInComingApartmentId] =
+        useState(firstApartmentId);
+    const [isReload, setIsReload] = useState(false);
     const [listRecord, setListRecord] = useState([]);
     const [isShowModalPatchBill, setIsShowModalPatchBill] = useState(false);
     const [total, setTotal] = useState(0);
+    const [id, setId] = useState(undefined);
     const navigate = useNavigate();
+    const [isShowModalPatchSingle, setIsShowModalPatchSingle] = useState(false);
     useEffect(() => {
         //call API console.log("check")
         getfeebill();
@@ -23,11 +28,27 @@ const TablePeeBillAprt = () => {
     const getfeebill = async () => {
         try {
             let res = await getFeeBill(apartmentId, month, year);
+            console.log(res);
             setListRecord(res.data.record);
             setTotal(res.data.total);
         } catch (error) {
             console.log('🚀 ~ getpeebill ~ error:', error);
         }
+    };
+    const handlePatchSingleBill = async (id, payMoney, payerName) => {
+        try {
+            await patchSingleBill(id, payMoney, payerName);
+            toast.success('Nộp thành công');
+            setIsReload((prev) => !prev);
+            setId(undefined);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    };
+    const handleClickPatchSingleBill = (id) => {
+        setId(id);
+        setIsShowModalPatchSingle(true);
     };
     const handleClose3 = () => {
         setIsShowModalPatchBill(false);
@@ -55,7 +76,9 @@ const TablePeeBillAprt = () => {
                 <input
                     type="text"
                     value={inComingApartmentId}
-                    onChange={(event) => setInComingApartmentId(event.target.value)}
+                    onChange={(event) =>
+                        setInComingApartmentId(event.target.value)
+                    }
                 />{' '}
                 Tháng{' '}
                 <input
@@ -64,14 +87,20 @@ const TablePeeBillAprt = () => {
                     onChange={(event) => setMonth(event.target.value)}
                 />{' '}
                 Năm{' '}
-                 <input
+                <input
                     type="text"
                     value={year}
                     onChange={(event) => setYear(event.target.value)}
                 />{' '}
                 <button
                     className="btn btn-success"
-                    onClick={() => {navigate(`/feePage/fee/billOfApartment/${inComingApartmentId}?month=${month}&year=${year}`);setApartmentId(inComingApartmentId);setIsReload(prev=>!prev)}}
+                    onClick={() => {
+                        navigate(
+                            `/feePage/fee/billOfApartment/${inComingApartmentId}?month=${month}&year=${year}`
+                        );
+                        setApartmentId(inComingApartmentId);
+                        setIsReload((prev) => !prev);
+                    }}
                 >
                     Lọc
                 </button>
@@ -85,6 +114,8 @@ const TablePeeBillAprt = () => {
                         <th>Trạng thái</th>
                         <th>Ngày nộp</th>
                         <th>Người nộp</th>
+                        <th>Người thu</th>
+                        <th>Tùy chọn</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,6 +133,21 @@ const TablePeeBillAprt = () => {
                                 <td>{item.status}</td>
                                 <td>{item.payDay}</td>
                                 <td>{item.payerName}</td>
+                                <td>{item.billCollector}</td>
+                                <td>
+                                    {item.status === 'Chưa nộp' && (
+                                        <Button
+                                            variant="info mx-3"
+                                            onClick={() => {
+                                                handleClickPatchSingleBill(
+                                                    item.id
+                                                );
+                                            }}
+                                        >
+                                            Đóng phí
+                                        </Button>
+                                    )}
+                                </td>
                             </tr>
                         ))}
                 </tbody>
@@ -114,14 +160,25 @@ const TablePeeBillAprt = () => {
 
             <div>
                 {total > 0 && (
-                    <p style={{fontWeight:'bold'}}>
-                        Tổng phải đóng:{' '}
+                    <p style={{ fontWeight: 'bold' }}>
+                        Còn phải đóng:{' '}
                         {total.toLocaleString('vi', {
                             style: 'currency',
                             currency: 'VND',
                         })}{' '}
                     </p>
                 )}
+            </div>
+            <div>
+                {listRecord &&
+                    listRecord.length > 0 &&
+                    listRecord.find(
+                        (record) => record.status === 'Chưa nộp'
+                    ) && (
+                        <Button variant="info" onClick={handleOpen3}>
+                            Đóng toàn bộ
+                        </Button>
+                    )}
             </div>
             <div className="my-3 add-new">
                 <span>
@@ -134,13 +191,12 @@ const TablePeeBillAprt = () => {
                     </Button>
                 </span>
             </div>
-            <div>
-                {listRecord && listRecord.length > 0 && (
-                    <Button variant="success" onClick={handleOpen3}>
-                        Đóng phí
-                    </Button>
-                )}
-            </div>
+            <ModalPatchSingleBill
+                show={isShowModalPatchSingle}
+                id={id}
+                handleClose={() => setIsShowModalPatchSingle(false)}
+                handleSubmit={handlePatchSingleBill}
+            ></ModalPatchSingleBill>
         </>
     );
 };
