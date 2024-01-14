@@ -25,6 +25,7 @@ const TableBill = () => {
     const getbill = async (page) => {
         try {
             let res = await getBill(page, month, year, status);
+            console.log(res)
             setTotalPage(res.data.totalPage);
             setPaymentList(res.data.paymentList);
             setTotalRecord(res.data.totalRecord);
@@ -91,7 +92,8 @@ const TableBill = () => {
                         <th>Phòng</th>
                         <th>Tháng</th>
                         <th>Năm</th>
-                        <th>Sô tiền </th>
+                        <th>Tên phí</th>
+                        <th>Số tiền </th>
                         <th>Trạng Thái</th>
                         <th>Ngày nộp</th>
                         <th>Tên người nộp</th>
@@ -106,8 +108,9 @@ const TableBill = () => {
                                 <td>{item.bill_apartmentId}</td>
                                 <td>{item.bill_month}</td>
                                 <td>{item.bill_year}</td>
+                                <td>{item.fee_name}</td>
                                 <td>
-                                    {Number(item.total).toLocaleString('vi', {
+                                    {Number(item.bill_amount).toLocaleString('vi', {
                                         style: 'currency',
                                         currency: 'VND',
                                     })}
@@ -144,17 +147,17 @@ const TableBill = () => {
                     {(!status ||
                         status === '--') && (
                             <div style={{ fontWeight: 'bold' }}>
-                                Đã nộp: {totalPaid}/{totalRecord} hộ
+                                Đã nộp: {totalPaid}/{totalRecord} hóa đơn
                             </div>
                         )}
                     {status === 'Đã nộp' && (
                         <div style={{ fontWeight: 'bold' }}>
-                            Số hộ đã nộp: {totalRecord}
+                            Số hóa đơn đã nộp: {totalRecord}
                         </div>
                     )}
                     {status === 'Chưa nộp' && (
                         <div style={{ fontWeight: 'bold' }}>
-                            Số hộ chưa nộp: {totalRecord}
+                            Số hóa đơn chưa nộp: {totalRecord}
                         </div>
                     )}
                     <br></br>

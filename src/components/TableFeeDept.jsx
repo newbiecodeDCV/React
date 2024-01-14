@@ -37,7 +37,7 @@ const TableFeeDept = (props) => {
             <div className="my-3 add-new">
                 <span>
                     {' '}
-                    <b>Danh sách hóa đơn nợ</b>
+                    <b>Thống kê nợ</b>
                 </span>
             </div>
 
@@ -48,6 +48,7 @@ const TableFeeDept = (props) => {
                         <th>Tháng</th>
                         <th>Năm</th>
                         <th>Tổng nợ</th>
+                        <th>Tùy chọn</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,6 +64,18 @@ const TableFeeDept = (props) => {
                                         style: 'currency',
                                         currency: 'VND',
                                     })}
+                                </td>
+                                <td>
+                                    <Button
+                                        variant="info"
+                                        onClick={() => {
+                                            navigate(
+                                                `/feePage/fee/billOfApartment/${item.bill_apartmentId}?month=${item.bill_month}&year=${item.bill_year}`
+                                            );
+                                        }}
+                                    >
+                                        Chi tiết hóa đơn tháng
+                                    </Button>
                                 </td>
                             </tr>
                         ))}
@@ -88,8 +101,10 @@ const TableFeeDept = (props) => {
             />
             <div className="my-3 add-new">
                 <span>
-                <div style={{ fontWeight: 'bold' }}>Tổng số hóa đơn nợ: {totalRecord}</div><br></br>
-                    {' '}
+                    <div style={{ fontWeight: 'bold' }}>
+                        Tổng số hóa đơn nợ: {totalRecord}
+                    </div>
+                    <br></br>{' '}
                     <Button
                         variant="success"
                         onClick={() => navigate('/feePage')}

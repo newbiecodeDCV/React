@@ -68,7 +68,7 @@ const TableFeeDV = (props) => {
                 <thead>
                     <tr>
                         <th>Tên Phí</th>
-                        <th>Giá(/m2)</th>
+                        <th>Giá</th>
                         <th>Tạo ngày</th>
                         <th>Cập nhập lúc</th>
                      {user.role ==='Quản lý' &&   <th>Tùy Chọn</th>}
@@ -81,10 +81,10 @@ const TableFeeDV = (props) => {
                             <tr key={`user-${index}`}>
                                 <td>{item.name}</td>
                                 <td>
-                                    {item.unitPrice.toLocaleString('vi', {
+                                    {item.price.toLocaleString('vi', {
                                         style: 'currency',
                                         currency: 'VND',
-                                    })}
+                                    })}{item.unit}
                                 </td>
                                 <td>{item.createdAt}</td>
                                 <td>{item.updatedAt}</td>

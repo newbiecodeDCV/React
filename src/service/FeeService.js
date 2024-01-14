@@ -13,7 +13,7 @@ export const deleteFee = (id) => {
 };
 export const patchFee = (id, unitPrice) => {
     return axios.patch(`/fee/${id}`, {
-        unitPrice: unitPrice,
+        price: unitPrice,
     });
 };
 export const getFeeDebt = (page) => {
@@ -44,6 +44,17 @@ export const patchBill = (apartmentId, month, year, payMoney, payername) => {
         });
     } catch (error) {
         console.log('🚀 ~ patchBill ~ error:', error);
+        throw error;
+    }
+};
+export const patchSingleBill = (id,payMoney, payerName) => {
+    try {
+        return axios.patch(`/fee/bills/addById/${id}`, {
+            payMoney: payMoney,
+            payerName: payerName,
+        });
+    } catch (error) {
+        console.log("🚀 ~ patchSingleBill ~ error:", error)
         throw error;
     }
 };
