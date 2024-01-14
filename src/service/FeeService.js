@@ -54,7 +54,7 @@ export const getBill = (page, month, year,status) => {
             `/fee/bills?month=${month}&year=${year}&status=${status}&page=${page}&recordPerPage=10`
         );
         return axios.get(
-            `/fee/bills?month=${month}&year=${year}&page=${page}&recordPerPage=5`
+            `/fee/bills?month=${month}&year=${year}&page=${page}&recordPerPage=10`
         );
     } catch (error) {
         console.log('🚀 ~ getBill ~ error:', error);

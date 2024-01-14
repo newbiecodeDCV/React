@@ -37,7 +37,7 @@ const TableFeeDept = (props) => {
             <div className="my-3 add-new">
                 <span>
                     {' '}
-                    <b>Danh sách Bill nợ</b>
+                    <b>Danh sách hóa đơn nợ</b>
                 </span>
             </div>
 

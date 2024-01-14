@@ -56,7 +56,7 @@ function RegisterResidenceForm() {
         if (!nation || nation === '') newErrors.nation = 'Chưa nhập quốc tịch';
         if (!apartmentId || apartmentId === '')
             newErrors.apartmentId = 'Chưa nhập số hiệu căn hộ';
-        if (!isCreateHousehold || isCreateHousehold === '')
+        if (isCreateHousehold === undefined || isCreateHousehold === '')
             newErrors.isCreateHousehold = 'Chưa chọn loại đăng ký';
         if (!status || status === '')
             newErrors.status = 'Chưa chọn loại cư trú';
@@ -82,6 +82,7 @@ function RegisterResidenceForm() {
     };
     const handleSubmit = async (event) => {
         try {
+            console.log(errors)
             event.preventDefault();
             const newErrors = findFormErrors();
             if (Object.keys(newErrors).length > 0) {
@@ -89,7 +90,7 @@ function RegisterResidenceForm() {
                 setErrors(newErrors);
             } else {
                 form.isCreateHousehold =
-                    form.isCreateHousehold === 'true' ? true : false;
+                    form.isCreateHousehold === 'true' || form.isCreateHousehold === true ? true : false;
                 // No errors! Put any logic here for the form submission!
                 const response = await registerResidence(form);
                 setSuccessModalShow(true);
