@@ -40,15 +40,19 @@ const ModalPostVehicle = (props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Loại xe</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={type}
-                                onChange={(event) =>
-                                    setType(event.target.value)
-                                }
-                            />
+                        <label className="form-label">Loại xe</label>
+                        <select
+                            value={type}
+                            onChange={(event) => {
+                                setType(event.target.value);
+                            }}
+                            className="form-select"
+                            defaultValue={false}
+                        >
+                            <option value="">--</option>
+                            <option value="Xe máy">Xe máy</option>
+                            <option value="Ô tô">Ô tô</option>
+                        </select>
                         </div>
                     </div>
                 </Modal.Body>
