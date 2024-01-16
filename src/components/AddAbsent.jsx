@@ -128,7 +128,7 @@ const AddAbsent = (props) => {
                                     >
                                         Chi tiết
                                     </Button>{' '}
-                                    {item.status !== 'Tạm vắng' && (
+                                    {item.status !== 'Tạm vắng' && item.status !== 'Tạm trú' && (
                                         <Button
                                             variant="primary"
                                             onClick={() =>

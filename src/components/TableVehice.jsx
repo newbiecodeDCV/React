@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import ModalDeleteVehicle from './ModalDeleteVehicle';
 const TableVehice = () => {
+    const [totalRecord,setTotalRecord] = useState(0);
     const [totalPage,setTotalPage] = useState(0)
     const [vehicleList,setVehicleList] = useState([])
     const [isshowModalDelete,setIsShowModalDelete] = useState(false)
@@ -32,11 +33,16 @@ const TableVehice = () => {
         try {
             let res = await getVehicle(page,filterPlate);
             console.log(res)
-            setTotalPage(res.data.totalPage)
+            if(res.data?.totalPage) {
+            setTotalPage(res.data.totalPage);
+            setTotalRecord(res.data.totalRecord);
+            }
             if(filterPlate){
+                if(res.data){setTotalRecord(1);
                 setVehicleList([res.data])
                 setTotalPage(1)
-                    
+                }
+                else {setVehicleList([]);setTotalPage(0);setTotalRecord(0)}
             }else{
             setVehicleList(res.data.vehicleList)
             }
@@ -82,9 +88,9 @@ const TableVehice = () => {
                         vehicleList.length > 0 &&
                         vehicleList.map((item, index) => (
                             <tr key={`manager-${index}`}>
-                                <td>{item.numberPlate}</td>
-                                <td>{item.type}</td>
-                                <td>{item.owner.name}</td>
+                                <td>{item?.numberPlate}</td>
+                                <td>{item?.type}</td>
+                                <td>{item?.owner.name}</td>
                                 <td>
                                <Button variant="danger"
                                onClick={()=>{
@@ -120,6 +126,7 @@ const TableVehice = () => {
                 containerClassName="pagination"
                 activeClassName="active"
             />
+             <div style={{fontWeight:'bold'}}>Tổng số xe: {totalRecord}</div>
             <ModalDeleteVehicle
              show = {isshowModalDelete}
              handleClose ={handleClose}
